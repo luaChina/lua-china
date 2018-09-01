@@ -12,6 +12,6 @@ install:
 - docker build -t lua-china-nuxt:0.1 .
 - docker save lua-china-nuxt:0.1 > ./lua-china-nuxt.tar
 - ssh -o "StrictHostKeyChecking no" root@115.28.82.133 rm /root/docker/images/lua-china-nuxt.tar
-- scp -o "StrictHostKeyChecking no" ./lua-china-nuxt.tar root@115.28.82.133:/docker/images
+- scp -o "StrictHostKeyChecking no" ./lua-china-nuxt.tar root@115.28.82.133:/root/docker/images
 after_success:
 - rm -rf ~/.ssh
