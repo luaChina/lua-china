@@ -1,14 +1,12 @@
 sudo: required
-
 language: node_js
-
 services:
-  - docker
-
+- docker
 node_js:
 - 8.9
 before_install:
-- openssl aes-256-cbc -K $encrypted_8cc84dc4d66a_key -iv $encrypted_8cc84dc4d66a_iv -in id_rsa.enc -out ~/.ssh/id_rsa -d
+- openssl aes-256-cbc -K $encrypted_213c7ad97f24_key -iv $encrypted_213c7ad97f24_iv
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
 install:
 - docker docker build -t lua-china-nuxt:0.1 .
@@ -16,4 +14,4 @@ install:
 - ssh -o "StrictHostKeyChecking no" root@115.28.82.133 rm /docker/images/lua-china-nuxt.tar
 - scp -o "StrictHostKeyChecking no" ./lua-china-nuxt.tar root@115.28.82.133:/docker/images
 after_success:
- - rm -rf ~/.ssh
+- rm -rf ~/.ssh
