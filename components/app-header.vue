@@ -34,21 +34,11 @@
                     <input class="form-control search-input mac-style fa fa-search" placeholder="搜索" name="q" type="text" value="">
                   </div>
                 </li>
-                <li class="login">
-                  <button type="button" class="el-button el-button--primary" @click="loginPage"><!----><i
-                    class="fa fa-user"></i><span> 登录</span></button>
-                  <button type="button" class="el-button el-button--primary"><!----><i
-                    class="fa fa-user-plus"></i><span> 注册</span></button>
+                <li class="auth">
+                  <button type="button" class="el-button el-button--primary" @click="loginPage">
+                    <i class="fa fa-user"></i><span> 登录</span></button>
                   <button type="button" class="el-button el-button--primary">
-                    <!---->
-                    <i class="fa fa-user"></i>
-                    <span> 登录</span>
-                  </button>
-                  <button type="button" class="el-button el-button--primary">
-                    <!---->
-                    <i class="fa fa-user-plus"></i>
-                    <span> 注册</span>
-                  </button>
+                    <i class="fa fa-user-plus"></i><span> 注册</span></button>
                 </li>
               </ul>
             </nav>

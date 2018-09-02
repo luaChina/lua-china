@@ -37,4 +37,7 @@ module.exports = {
     }
   },
   plugins: [{ src: '~plugins/app', ssr: false }],
+  css: [{
+    src: '~assets/scss/app.scss', lang: 'scss'
+  }],
 }
