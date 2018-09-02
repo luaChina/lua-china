@@ -4,8 +4,7 @@ COPY . /app
 
 WORKDIR /app
 
-RUN npm install --registry=https://registry.npm.taobao.org
-RUN npm run build
+RUN npm install --registry=https://registry.npm.taobao.org && npm run build
 
 EXPOSE 80
 

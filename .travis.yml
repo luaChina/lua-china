@@ -8,12 +8,13 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_213c7ad97f24_key -iv $encrypted_213c7ad97f24_iv
   -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
+- export DOCKER_ID_USER="$docker_user"
 install:
-- docker build -t lua-china-nuxt:0.1 .
-- docker save lua-china-nuxt:0.1 > ./lua-china-nuxt.tar
-- ssh -o "StrictHostKeyChecking no" root@115.28.82.133 "rm -rf /root/docker/images/lua-china-nuxt.tar"
-- scp -o "StrictHostKeyChecking no" ./lua-china-nuxt.tar root@115.28.82.133:/root/docker/images
-- ssh -o "StrictHostKeyChecking no" root@115.28.82.133 "docker stop lua-china-nuxt && docker rm lua-china-nuxt && docker rmi -f lua-china-nuxt:0.1 && docker load < /root/docker/images/lua-china-nuxt.tar"
-- ssh -o "StrictHostKeyChecking no" root@115.28.82.133 "docker run -p 10.31.231.178:8888:80 --name=lua-china-nuxt -d lua-china-nuxt:0.1"
+- docker build -t lua-china:0.1 .
+- docker login -u $docker_user -p $docker_password
+- docker tag lua-china $DOCKER_ID_USER/lua-china
+- docker push lua-china $DOCKER_ID_USER/lua-china
+- ssh -o "StrictHostKeyChecking no" root@115.28.82.133 "docker rm -f lua-china"
+- ssh -o "StrictHostKeyChecking no" root@115.28.82.133 "docker run -p 10.31.231.178:8888:80 --name=lua-china -d horan/lua-china:0.1"
 after_success:
 - rm -rf ~/.ssh
