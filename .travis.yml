@@ -12,9 +12,9 @@ before_install:
 install:
 - docker build -t lua-china:0.1 .
 - docker login -u $docker_user -p $docker_password
-- docker tag lua-china $DOCKER_ID_USER/lua-china
+- docker tag lua-china:0.1 $DOCKER_ID_USER/lua-china
 - docker push lua-china $DOCKER_ID_USER/lua-china
-- ssh -o "StrictHostKeyChecking no" root@115.28.82.133 "docker rm -f lua-china"
+- ssh -o "StrictHostKeyChecking no" root@115.28.82.133 "docker rm lua-china && docker rmi -f lua-china:0.1"
 - ssh -o "StrictHostKeyChecking no" root@115.28.82.133 "docker run -p 10.31.231.178:8888:80 --name=lua-china -d horan/lua-china:0.1"
 after_success:
 - rm -rf ~/.ssh
