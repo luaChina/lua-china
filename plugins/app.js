@@ -1,7 +1,6 @@
+import Vue from 'vue'
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
-
-import Vue from 'vue'
 
 window.$ = window.jQuery = require('jquery');
 require('bootstrap');

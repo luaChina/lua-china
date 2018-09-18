@@ -36,7 +36,9 @@ export default {
       post: {
         user: Object,
         editor: Object
-      }
+      },
+      here: '',
+      there: ''
     }
   },
   created() {},
@@ -56,7 +58,11 @@ export default {
       }
     })
   },
-  methods: {}
+  methods: {
+    nextInput() {
+      console.log('here', this.here)
+    }
+  }
 }
 </script>
 

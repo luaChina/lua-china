@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container-fluid">
+  <div id="app">
     <app-header></app-header>
       <router-view></router-view>
     <app-foot></app-foot>
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style lang="scss">
-body {
-  background: #f0f2f5;
-}
+// body {
+//   background: #f0f2f5;
+// }
 </style>

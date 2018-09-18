@@ -3,18 +3,14 @@
     <div>
       <app-logo/>
       <h1 class="title">
-        posts
+        Lua 中国开源社区
       </h1>
       <h2 class="subtitle">
-        Nuxt.js project
+        Lua 开发框架-文档-开源中国社区
       </h2>
       <div class="links">
         <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
+          href="https://github.com/luaChina/lua-china"
           target="_blank"
           class="button--grey">GitHub</a>
       </div>

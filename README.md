@@ -1,22 +1,29 @@
-# lua-china-ssr
+# Lua 中国开源社区
 
-> Nuxt.js project
+## 技术栈
 
-## Build Setup
+### 前端
 
-``` bash
-# install dependencies
-$ npm install # Or yarn install
+* 服务端渲染 Nuxt.js
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+* bootstrap4
 
-# build for production and launch server
-$ npm run build
-$ npm start
+* fontawesome
 
-# generate static project
-$ npm run generate
-```
+### 后端
 
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
+* Kong API 网关
+
+* openresty Nana 框架
+
+* mysql5.7
+
+* redis
+
+## 持续集成
+
+* travis-ci
+
+## 部署
+
+`docker run -p 80:80 --name=lua-china -d horan/lua-china:0.1`

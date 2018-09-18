@@ -3,14 +3,15 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'lua-china-ssr',
+    title: 'Lua 中国',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+      { hid: 'description', name: 'description', content: 'Lua 中文网' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      // { rel: "stylesheet", href: "https://use.fontawesome.com/releases/v5.3.1/css/all.css", integrity: "sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU", crossorigin: "anonymous"}
     ]
   },
   /*
@@ -34,10 +35,32 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    }
+    },
+    loaders: [
+      {
+        test: /\.svg$/,
+        include: /assets\/svg/,
+        loader: 'svg-sprite-loader?' + JSON.stringify({
+          name: '[name]',
+          prefixize: false
+        })
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'url-loader',
+        exclude: /assets\/svg/,
+        options: {
+          limit: 1000, // 1K limit
+          name: 'img/[name].[hash:8].[ext]'
+        }
+      }
+    ]
   },
-  plugins: [{ src: '~plugins/app', ssr: false }],
+  plugins: [
+    { src: '~plugins/app', ssr: false },
+    { src: '~plugins/svg-sprite-loader'}
+  ],
   css: [{
-    src: '~assets/scss/app.scss', lang: 'scss'
+    src: '~assets/scss/app.scss', lang: 'scss',
   }],
 }
