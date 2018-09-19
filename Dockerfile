@@ -4,7 +4,7 @@ COPY . /app
 
 WORKDIR /app
 
-RUN npm install --registry=https://registry.npm.taobao.org && npm run build
+RUN npm cache clean --force && rm -rf package-lock.json && npm install && npm run build --prod
 
 EXPOSE 80
 

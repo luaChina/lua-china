@@ -6,6 +6,14 @@
           <h2 class="title">
             {{post.title}}
           </h2>
+          <div>
+            <form action="">
+              <label for="here">here</label>
+              <input id="here" v-on:input="nextInput()" type="text" v-model="here"  autocapitalize="on">
+              <label for="there">there</label>
+              <input id="there" type="text" v-model="there">
+            </form>
+          </div>
           <div class="post-info">
             <span>
               <i class="fa fa-clock-o"></i> 1个月前</span>
@@ -61,6 +69,7 @@ export default {
   methods: {
     nextInput() {
       console.log('here', this.here)
+       document.getElementById('there').focus()
     }
   }
 }
