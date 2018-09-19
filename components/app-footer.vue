@@ -1,23 +1,23 @@
 <template>
-<div class="container-fluid bg-dark text-white">
-  <nav class="p-5 text-center d-flex justify-content-center">
+<div class="footer container-fluid text-white">
+  <nav class="p-4 text-center d-flex justify-content-center">
     <div class="mr-5 wechat-qrcode-wrapper">
-        <img class="social-logo" src="~assets/svg/weixin-brands.svg" alt="weixin">
+        <img src="~assets/svg/weixin-brands.svg" alt="weixin">
         <div class="d-flex justify-content-center">
             <img class="wechat-qrcode" src="~/assets/images/wechat-qrcode-100x100.jpeg" alt="wechat">
         </div>
     </div>
     <div class="mr-5 qq-qrcode-wrapper">
-        <img class="social-logo" src="~assets/svg/qq-brands.svg" alt="qq">
+        <img src="~assets/svg/qq-brands.svg" alt="qq">
         <div class="d-flex justify-content-center">
             <img class="qq-qrcode" src="~/assets/images/qq-group-qrcode-100x100.jpeg" alt="wechat">
         </div>
     </div>
     <div>
-        <a class="mr-5"><img class="social-logo" src="~assets/svg/facebook-f-brands.svg" alt="facebook"></a>
+        <a target="_blank" href="https://www.facebook.com/groups/2274306536124822/" class="mr-5"><img src="~assets/svg/facebook-f-brands.svg" alt="facebook"></a>
     </div>
     <div>
-        <a><img class="social-logo" src="~assets/svg/twitter-brands.svg" alt="twitter"></a>
+        <a target="_blank" href="https://twitter.com/horan18927220"><img src="~assets/svg/twitter-brands.svg" alt="twitter"></a>
     </div>
   </nav>
     <div class="row text-center">
@@ -55,15 +55,15 @@ export default {
 </script>
 
 <style lang="scss">
+.footer {
+    background-color: #000;
+}
+
 .footer-copyright {
     font-size: 12px;
     opacity: 0.6;
     line-height: 58px;
 }
-
- .social-logo {
-     color: #000000;
- }
 
 .wechat-qrcode {
     top: -100px;
