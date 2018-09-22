@@ -39,7 +39,7 @@
         </div>
   </div>
   <div>
-    <div class="row border-top border-secondary">
+    <div class="row border-top border-dark">
       <div class="col">
         <div class="footer-copyright text-center">Designed by <img src="~/assets/svg/heart-solid.svg"> <a class="text-white font-italic" href="https://github.com/horan-geeker"> Horan</a></div>
       </div>
