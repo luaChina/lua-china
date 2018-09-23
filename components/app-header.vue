@@ -17,7 +17,7 @@
                 <router-link class="nav-link" to="/posts?type=android">安卓逆向</router-link>
               </li>
               <li class="nav-item mr-2">
-                <router-link class="nav-link" to="/posts?type=android">Lua基础</router-link>
+                <router-link class="nav-link" to="/posts?type=lua_base">Lua基础</router-link>
               </li>
               <li class="nav-item mr-4">
                 <a class="nav-link" href="https://www.github.com/horan-geeker/nana" target="_black">Nana</a>

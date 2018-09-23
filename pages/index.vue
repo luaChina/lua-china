@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <div class="bg-light">
+    <div class="bg-light pt-4">
       <router-view class="container"></router-view>
     </div>
     <app-foot></app-foot>
@@ -22,7 +22,4 @@ export default {
 </script>
 
 <style lang="scss">
-// body {
-//   background: #f0f2f5;
-// }
 </style>

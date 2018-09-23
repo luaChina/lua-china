@@ -1,5 +1,5 @@
 <template>
-<div class="footer container-fluid text-white">
+<div class="footer container-fluid text-white mt-4">
   <nav class="p-4 text-center d-flex justify-content-center">
     <div class="mr-5 wechat-qrcode-wrapper">
         <img src="~assets/svg/weixin-brands.svg" alt="weixin">

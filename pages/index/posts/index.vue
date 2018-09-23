@@ -1,7 +1,6 @@
 <template>
   <section class="container">
     <div>
-      <app-logo/>
       <h1 class="title">
         Lua 中国开源社区
       </h1>
