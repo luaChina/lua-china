@@ -20,7 +20,15 @@
 <script>
 
 export default {
-  components: {
+  methods: {
+    getPosts() {
+      console.log('posts')
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      this.getPosts(this.$route.path)
+    }
   }
 }
 </script>

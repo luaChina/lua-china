@@ -1,5 +1,7 @@
 # Lua 中国开源社区
 
+[![Build Status](https://travis-ci.org/luaChina/lua-china-admin.svg?branch=master)](https://travis-ci.org/luaChina/lua-china-admin)
+
 ## 技术栈
 
 ### 前端

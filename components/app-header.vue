@@ -11,13 +11,13 @@
            <div class="collapse navbar-collapse " id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item mr-2">
-                <router-link class="nav-link" to="/posts?type=openresty">OpenResty</router-link>
+                <router-link class="nav-link" to="/posts?category=openresty">OpenResty</router-link>
               </li>
               <li class="nav-item mr-2">
-                <router-link class="nav-link" to="/posts?type=android">安卓逆向</router-link>
+                <router-link class="nav-link" to="/posts?category=android">安卓逆向</router-link>
               </li>
               <li class="nav-item mr-2">
-                <router-link class="nav-link" to="/posts?type=lua_base">Lua基础</router-link>
+                <router-link class="nav-link" to="/posts?category=lua_base">Lua基础</router-link>
               </li>
               <li class="nav-item mr-4">
                 <a class="nav-link" href="https://www.github.com/horan-geeker/nana" target="_black">Nana</a>
@@ -26,12 +26,16 @@
             <form class="form-inline mr-auto">
               <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             </form>
-            <button type="button" class="btn btn-outline-secondary mr-2" @click="loginPage">
-              <img src="~/assets/svg/user-solid.svg"><span> 登录</span>
-            </button>
-            <button type="button" class="btn btn-outline-success">
-              <img src="~/assets/svg/user-plus-solid.svg"><span> 注册</span>
-            </button>
+            <router-link to="/login">
+              <button type="button" class="btn btn-outline-secondary mr-2" @click="loginPage">
+                <img src="~/assets/svg/user-solid.svg"><span> 登录</span>
+              </button>
+            </router-link>
+            <router-link to="/register">
+              <button type="button" class="btn btn-outline-success">
+                <img src="~/assets/svg/user-plus-solid.svg"><span> 注册</span>
+              </button>
+            </router-link>
           </div>
       </nav>
     </header>
@@ -44,7 +48,6 @@ export default {
     return {}
   },
   created () {
-    console.log('app login')
   },
   methods: {
     loginPage () {

@@ -1,8 +1,25 @@
 <template>
-    <div>
+    <div class="p-0">
         <div class="row">
-            <div class="side-left col-9 border mr-4 mb-4">
-                posts list
+            <div class="col-9 mr-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item">
+                                <router-link class="nav-link text-muted active" :to="buildParams('/posts', {'type':'news'})" id="nav-news" aria-selected="true">最新</router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link class="nav-link text-muted" to="/posts?type=hot" id="nav-hot" aria-selected="false">精华</router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link class="nav-link text-muted" to="/posts?type=discuss" id="nav-discuss" aria-selected="false">回复最多</router-link>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content border border-top-0 side-left" id="nav-tabContent">
+                        <router-view></router-view>
+                    </div>
+                </div>
             </div>
             <div class="col p-0">
                 <div class="border bg-white mb-4">
@@ -31,9 +48,19 @@
     </div>
 </template>
 
+<script>
+export default {
+  name: 'PostIndex',
+  methods: {
+      buildParams(url, orignalParam) {
+        return url;
+      }
+  }
+}
+</script>
+
 <style>
 .side-left {
-  background: #fff;
   min-height: 600px;
 }
 .right-card-title {
