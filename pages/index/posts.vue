@@ -1,7 +1,7 @@
 <template>
     <div class="p-0">
         <div class="row">
-            <div class="col-9 mr-4 mb-4">
+            <div class="col-lg-9 col-sm-12 mb-4">
                 <div class="card">
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs">
