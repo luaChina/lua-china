@@ -3,9 +3,9 @@
     <div class="col-md-9">
       <div class="block-content">
         <div class="text-center">
-          <h2 class="title">
+          <h1 class="title">
             {{post.title}}
-          </h2>
+          </h1>
           <div class="post-info">
             <span><i class="fa fa-clock-o"></i> 1个月前</span>
             <span><i class="fa fa-eye"></i> {{post.read_count}}</span>
