@@ -1,7 +1,7 @@
 <template>
   <div class="bg-light" id="app">
     <app-header></app-header>
-    <div class="container px-0 pt-4">
+    <div class="container pt-4">
       <router-view></router-view>
     </div>
     <app-foot></app-foot>

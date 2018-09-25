@@ -1,13 +1,19 @@
 <template>
 <div class="footer container-fluid text-white mt-4">
   <nav class="p-4 text-center d-flex justify-content-center">
-    <div class="mr-5 wechat-qrcode-wrapper">
-        <img src="~assets/svg/weixin-brands.svg" alt="weixin">
+    <div class="mr-5 wechat-qrcode-wrapper" data-toggle="tooltip" data-placement="bottom" title="联系作者">
+        <img src="~assets/svg/comment-solid.svg" alt="weixin">
         <div class="d-flex justify-content-center">
             <img class="wechat-qrcode" src="~/assets/images/wechat-qrcode-100x100.jpeg" alt="wechat">
         </div>
     </div>
-    <div class="mr-5 qq-qrcode-wrapper">
+    <div class="mr-5 wechat-qrcode-wrapper" data-toggle="tooltip" data-placement="bottom" title="加入微信群">
+        <img src="~assets/svg/weixin-brands.svg" alt="weixin">
+        <div class="d-flex justify-content-center">
+            <img class="wechat-qrcode" src="~/assets/images/wechat-group-100x100.jpeg" alt="wechat">
+        </div>
+    </div>
+    <div class="mr-5 qq-qrcode-wrapper" data-toggle="tooltip" data-placement="bottom" title="加入 qq 群">
         <img src="~assets/svg/qq-brands.svg" alt="qq">
         <div class="d-flex justify-content-center">
             <img class="qq-qrcode" src="~/assets/images/qq-group-qrcode-100x100.jpeg" alt="wechat">

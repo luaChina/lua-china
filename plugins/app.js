@@ -1,9 +1,13 @@
 import Vue from 'vue'
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
-
 window.$ = window.jQuery = require('jquery');
 require('bootstrap');
+
+// init tooltip
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
 
 import axios from 'axios'
 

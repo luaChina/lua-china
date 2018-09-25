@@ -41,6 +41,9 @@
 </template>
 
 <script>
+import crypto from 'crypto'
+import Identicon from 'identicon.js'
+
 require('tui-editor/dist/tui-editor-contents.css'); // editor content
 require('highlight.js/styles/github.css'); // code block highlight
 import axios from 'axios'
@@ -61,12 +64,14 @@ export default {
   },
   methods: {
     getPost () {
-      this.$http.get('http://rapapi.org/mockjsdata/31154/posts/1')
+      return this.$http.get('http://rapapi.org/mockjsdata/31154/posts/1')
         .then(response => {
           return Mock.mock(response.data)
         }).then(response => {
           if (response.status === 0) {
             this.post = response.data.post
+            // @todo add if
+            this.post.user.avatar = this.buildAvatar(this.post.user.id)
             this.editor = new window.tuiEditor.factory({
               viewer: true,
               el: document.querySelector('#viewerSection'),
@@ -78,6 +83,18 @@ export default {
         }).catch(response => {
           console.log(response)
         })
+    },
+    buildAvatar(id) {
+      let hash = crypto.createHash('md5')
+      hash.update(String(id)) // id
+      let options = {
+        // foreground: [0, 0, 0, 255],               // rgba black
+        // background: [255, 255, 255, 255],         // rgba white
+        margin: 0,                              // 0.2 20% margin
+        size: 120,
+      }
+      let base64Img = new Identicon(hash.digest('hex'), options)
+      return 'data:image/png;base64,' + base64Img.toString()
     }
   },
 }
