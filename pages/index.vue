@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <div class="bg-light" id="app">
     <app-header></app-header>
-    <div class="bg-light pt-4">
-      <router-view class="container"></router-view>
+    <div class="container px-0 pt-4">
+      <router-view></router-view>
     </div>
     <app-foot></app-foot>
   </div>

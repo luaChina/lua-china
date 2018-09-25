@@ -1,7 +1,7 @@
 <template>
-    <div class="p-0">
+    <div>
         <div class="row">
-            <div class="col-lg-9 col-sm-12 mb-4">
+            <div class="col-lg-9 col-12 mb-4 px-lg-3 p-0">
                 <div class="card">
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs">
@@ -16,7 +16,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="tab-content border border-top-0 side-left" id="nav-tabContent">
+                    <div class="tab-content side-left" id="nav-tabContent">
                         <router-view></router-view>
                     </div>
                 </div>
