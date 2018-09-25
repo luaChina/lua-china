@@ -11,16 +11,19 @@
                           <li class="nav-item">
                               <a href="#" class="nav-link text-muted" data-toggle="tab" @click="getPosts('hot')" id="nav-hot" aria-selected="false">精华</a>
                           </li>
-                          <li class="nav-item">
-                              <a herf="#" class="nav-link text-muted" data-toggle="tab" @click="getPosts('discuss')" id="nav-discuss" aria-selected="false">回复最多</a>
+                           <li class="nav-item">
+                              <a href="#" class="nav-link text-muted" data-toggle="tab" @click="getPosts('discuss')" id="nav-discuss" aria-selected="false">回复最多</a>
                           </li>
                       </ul>
                   </div>
                   <div class="tab-content" id="nav-tabContent">
                       <ul class="list-group">
                         <li v-for="(post,index) in posts" :key="index" class="list-group-item list-group-item-action border-left-0 border-right-0">
-                          <router-link to="/posts/1" class="d-flex justify-content-between align-items-center text-body">
-                            <div><img class="rounded-circle mr-2" :src="post.user.avatar" :alt="post.user.name"><span>{{post.title}}</span></div><div>阅读数:{{post.read_count}} / 评论数:{{post.comments.length}}</div>
+                          <router-link to="/posts/1" class="d-flex justify-content-between align-items-center text-body list-content">
+                            <div>
+                              <img class="rounded-circle mr-2" :src="post.user.avatar" :alt="post.user.name"><span>{{post.title}}</span>
+                            </div>
+                            <div>阅读数:{{post.read_count}} / 评论数:{{post.comments.length}}</div>
                           </router-link>
                         </li>
                       </ul>
@@ -36,7 +39,7 @@
                   <div class="text-muted border-bottom text-center right-card-title">本周活跃用户</div>
                   <div class="p-2 text-muted">
                       <ul class="list-group">
-                          <li class="list-group-item border-0 d-flex align-items-center justify-content-between" v-for="(user, index) in topUsers" :key=index><div><img class="rounded-circle mr-2" :src="buildAvatar(user.id)" :alt="user.name"><span>{{user.name}}</span></div><span class="badge badge-pill badge-success">{{index+1}}</span></li>
+                          <li class="list-group-item border-0 d-flex align-items-center justify-content-between" v-for="(user, index) in topUsers" :key=index><div><img class="rounded-circle mr-2" :src="buildAvatar(user.id, 32)" :alt="user.name"><span>{{user.name}}</span></div><span class="badge badge-pill badge-success">{{index+1}}</span></li>
                       </ul>
                   </div>
               </div>
@@ -54,7 +57,6 @@
 import crypto from 'crypto'
 import Identicon from 'identicon.js'
 import _ from 'lodash'
-import axios from 'axios'
 import Mock from 'mockjs'
 
 export default {
@@ -104,7 +106,7 @@ export default {
         this.posts = response.data.data
         _.each(this.posts, (value, key) => {
           if (!value.user.avatar) {
-            this.posts[key].user.avatar = this.buildAvatar(value.user.id)
+            this.posts[key].user.avatar = this.buildAvatar(value.user.id, 48)
           }
         })
         console.log(this.posts)
@@ -112,14 +114,14 @@ export default {
         console.log(error)
       })
     },
-    buildAvatar(id) {
+    buildAvatar(id, size) {
       let hash = crypto.createHash('md5')
       hash.update(String(id)) // id
       let options = {
         // foreground: [0, 0, 0, 255],               // rgba black
         // background: [255, 255, 255, 255],         // rgba white
         margin: 0,                              // 0.2 20% margin
-        size: 48,
+        size: size,
       }
       let base64Img = new Identicon(hash.digest('hex'), options)
       return 'data:image/png;base64,' + base64Img.toString()
@@ -144,5 +146,8 @@ export default {
 .announcement-content {
     font-size: 14px;
     line-height: 30px;
+}
+.list-content {
+  text-decoration: none !important;
 }
 </style>
