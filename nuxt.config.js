@@ -38,14 +38,6 @@ module.exports = {
     },
     loaders: [
       {
-        test: /\.svg$/,
-        include: /assets\/svg/,
-        loader: 'svg-sprite-loader?' + JSON.stringify({
-          name: '[name]',
-          prefixize: false
-        })
-      },
-      {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'url-loader',
         exclude: /assets\/svg/,
@@ -58,7 +50,6 @@ module.exports = {
   },
   plugins: [
     { src: '~plugins/app', ssr: false },
-    { src: '~plugins/svg-sprite-loader'}
   ],
   css: [{
     src: '~assets/scss/app.scss', lang: 'scss',

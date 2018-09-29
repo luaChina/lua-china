@@ -36,6 +36,7 @@
     "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "css-loader": "^0.28.11",
     "eslint": "^4.15.0",
