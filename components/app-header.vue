@@ -11,10 +11,10 @@
           <div class="collapse navbar-collapse " id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item mr-2">
-                <router-link class="nav-link" to="/posts">文章</router-link>
+                <router-link class="nav-link" to="/" active-class="active" exact>文章</router-link>
               </li>
               <li class="nav-item mr-2">
-                <router-link class="nav-link" to="#">问答</router-link>
+                <router-link class="nav-link" to="/">问答</router-link>
               </li>
               <!-- <li class="nav-item mr-2">
                 <router-link class="nav-link" to="/posts?category=lua_base">Lua基础</router-link>
@@ -24,7 +24,7 @@
               </li>
             </ul>
             <form class="form-inline mr-auto mb-lg-0 mb-2">
-              <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+              <input class="form-control" type="search" placeholder="搜索" aria-label="Search">
             </form>
             <router-link to="/login">
               <button type="button" class="btn btn-outline-secondary mr-2" @click="loginPage">

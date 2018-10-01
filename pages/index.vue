@@ -18,6 +18,14 @@ export default {
     'app-header': header,
     'app-foot': footer
   },
+  asyncData (context) {
+    // if http 301 to https
+    if (context.req.headers.host === 'localhost:3000') return;
+    if (!context.req.connection.encrypted) {
+      var fullUrl = 'https://' + context.req.headers.host + context.req.originalUrl;
+      return context.redirect(301, fullUrl)
+    }
+  }
 }
 </script>
 
