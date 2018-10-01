@@ -90,7 +90,7 @@ export default {
     })
   },
   created() {
-    console.log(this.posts)
+    // console.log(this.posts)
   },
   asyncData({ params }, callback) {
     apiService
