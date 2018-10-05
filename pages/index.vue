@@ -1,8 +1,11 @@
 <template>
   <div class="bg-light d-flex flex-column main" id="app">
-    <app-header></app-header>
+    <app-header :auth="auth"></app-header>
+    <no-ssr>
+      <notifications group="tip" position="top right" style="top:60px"/>
+    </no-ssr>
     <div class="container pt-4 main-content">
-      <router-view></router-view>
+      <router-view :auth="auth"></router-view>
     </div>
     <app-foot></app-foot>
   </div>
@@ -11,18 +14,36 @@
 <script>
 import header from '~/components/app-header.vue'
 import footer from '~/components/app-footer.vue'
+import localStorage from '~/store/localStorage'
+import apiService from '~/services/apiService'
 
 export default {
   name: 'App',
+  data() {
+    return {
+      auth: null
+    }
+  },
   components: {
     'app-header': header,
     'app-foot': footer
   },
   beforeMount() {
-    // if http 301 to https
-    if (window.location.host === 'localhost:3000') return;
-    if (window.location.protocol === 'http:') {
-      window.location.href = 'https://' + window.location.host + window.location.pathname + window.location.search
+    // // if http 301 to https
+    // if (window.location.host === 'localhost:3000') return;
+    // if (window.location.protocol === 'http:') {
+    //   window.location.href = 'https://' + window.location.host + window.location.pathname + window.location.search
+    // }
+
+    // get user
+    this.auth = localStorage.get('user')
+    if (!this.auth) {
+      apiService.get('/userinfo').then(response => {
+        if (response.data.status === 0) {
+          this.auth = response.data.data
+          localStorage.set('user', this.auth)
+        }
+      })
     }
   }
 }

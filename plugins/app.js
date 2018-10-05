@@ -1,3 +1,8 @@
+import Vue from 'vue'
+import Notifications from 'vue-notification'
+
+Vue.use(Notifications)
+
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
 window.$ = window.jQuery = require('jquery');

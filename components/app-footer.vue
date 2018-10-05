@@ -1,5 +1,5 @@
 <template>
-<div class="footer container-fluid text-white mt-4">
+<div class="footer container-fluid text-white mt-5">
   <nav class="p-4 text-center d-flex justify-content-center">
     <div class="mr-5 wechat-qrcode-wrapper" data-toggle="tooltip" data-placement="bottom" title="联系作者">
         <svg width="22" height="18" aria-hidden="true" data-prefix="fas" data-icon="comment" class="svg-inline--fa fa-comment fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#fff" d="M256 32C114.6 32 0 125.1 0 240c0 49.6 21.4 95 57 130.7C44.5 421.1 2.7 466 2.2 466.5c-2.2 2.3-2.8 5.7-1.5 8.7S4.8 480 8 480c66.3 0 116-31.8 140.6-51.4 32.7 12.3 69 19.4 107.4 19.4 141.4 0 256-93.1 256-208S397.4 32 256 32z"></path></svg>
@@ -47,9 +47,9 @@
         <div class="col">
             <p>统计信息</p>
             <ul class="text-secondary p-0 list-unstyled">
-                <li>会员 2333</li>
-                <li>文章数: 666</li>
-                <li>话题数: 7669</li>
+                <li>会员 {{users_count}}</li>
+                <li>文章数: {{posts_count}}</li>
+                <li>话题数: ...</li>
             </ul>
         </div>
   </div>
@@ -64,8 +64,24 @@
 </template>
 
 <script>
+import apiService from '~/services/apiService'
+
 export default {
-    name: 'Footer'
+    name: 'Footer',
+    data() {
+        return {
+            posts_count: 0,
+            users_count: 0,
+        }
+    },
+    created() {
+        apiService.get('/posts/count').then(response => {
+            this.posts_count = response.data.data
+        })
+        apiService.get('/users/count').then(response => {
+            this.users_count = response.data.data
+        })
+    }
 }
 </script>
 
