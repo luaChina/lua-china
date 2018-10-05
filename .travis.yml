@@ -10,6 +10,7 @@ before_install:
 - chmod 600 ~/.ssh/id_rsa
 - export DOCKER_ID_USER="$docker_user"
 install:
+- cp env.example.json env.json
 - docker build -t lua-china:0.1 .
 - docker login -u $docker_user -p $docker_password
 - docker tag lua-china:0.1 $DOCKER_ID_USER/lua-china:0.1
