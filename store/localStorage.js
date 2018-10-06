@@ -4,5 +4,8 @@ export default {
     },
     get: function ($key) {
         return window.localStorage.getItem($key) ? JSON.parse(window.localStorage.getItem($key)) : null
+    },
+    delete(key) {
+        return window.localStorage.removeItem(key)
     }
 }

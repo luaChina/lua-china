@@ -39,9 +39,6 @@
                 </div>
                 <router-link class="text-muted" to="/forget-password">忘记密码？</router-link>
             </div>
-            <div v-if="errors.server" class="form-row invalid-feedback">
-                {{errors.server}}
-            </div>
             <div class="form-row">
                 <button class="col btn btn-primary" type="submit">登录</button>
             </div>
@@ -70,15 +67,12 @@ export default {
     props: ['auth'],
     data() {
         return {
-            form: {},
             user: {
                 phone: null,
                 password: null,
                 remember: null
             },
         }
-    },
-    created() {
     },
     methods: {
         submitForm() {

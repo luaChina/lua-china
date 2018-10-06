@@ -1,6 +1,6 @@
 <template>
   <div class="bg-light d-flex flex-column main" id="app">
-    <app-header :auth="auth"></app-header>
+    <app-header :auth="auth" @loginFresh="loginFresh"></app-header>
     <no-ssr>
       <notifications group="tip" position="top right" style="top:60px"/>
     </no-ssr>
@@ -31,10 +31,10 @@ export default {
   },
   beforeMount() {
     // if http 301 to https
-    if (window.location.host === 'localhost:3000') return;
-    if (window.location.protocol === 'http:') {
-      window.location.href = 'https://' + window.location.host + window.location.pathname + window.location.search
-    }
+    // if (window.location.host === 'localhost:3000') return;
+    // if (window.location.protocol === 'http:') {
+    //   window.location.href = 'https://' + window.location.host + window.location.pathname + window.location.search
+    // }
 
     // get user
     this.auth = localStorage.get('user')

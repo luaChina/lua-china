@@ -23,7 +23,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['axios'],
+    vendor: ['axios', 'vee-validate'],
     /*
     ** Run ESLint on save
     */
@@ -51,6 +51,7 @@ module.exports = {
   },
   plugins: [
     { src: '~plugins/app', ssr: false },
+    { src: '~plugins/vee-validate', ssr: false },
   ],
   css: [{
     src: '~assets/scss/app.scss', lang: 'scss',
