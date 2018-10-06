@@ -1,5 +1,13 @@
 import Vue from 'vue'
 import Notifications from 'vue-notification'
+import VeeValidate, { Validator } from 'vee-validate'
+import zh from 'vee-validate/dist/locale/zh_CN';//引入中文文件
+
+// 配置中文
+Validator.localize('zh', zh);
+Vue.use(VeeValidate, {
+    inject: true
+})
 
 Vue.use(Notifications)
 
@@ -8,25 +16,8 @@ window.Popper = require('popper.js').default;
 window.$ = window.jQuery = require('jquery');
 require('bootstrap');
 
+// @todo 这里可能有问题，单页应用只刷新时初始化
 // init tooltip
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
-
-// bootstrap4 validate Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-    'use strict';
-    window.addEventListener('load', function () {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        // Loop over them and prevent submission
-        const validation = Array.prototype.filter.call(document.getElementsByClassName('needs-validation'), function (form) {
-            form.addEventListener('submit', function (event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    }, false);
-})();

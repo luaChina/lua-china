@@ -1,13 +1,14 @@
 import axios from 'axios'
 import config from '~/config/api'
 
+const service = axios.create({ withCredentials: true })
 // axios.interceptors.response.use()
 
 export default {
     post (uri, data, domain = config.apiUrl) {
-        return axios.post(domain + uri, data, { withCredentials: true })
+        return service.post(domain + uri, data)
     },
     get (uri, domain = config.apiUrl) {
-        return axios.get(domain + uri, { withCredentials: true })
+        return service.get(domain + uri)
     }
 }

@@ -5,7 +5,7 @@
       <notifications group="tip" position="top right" style="top:60px"/>
     </no-ssr>
     <div class="container pt-4 main-content">
-      <router-view :auth="auth"></router-view>
+      <router-view :auth="auth" @loginFresh="loginFresh"></router-view>
     </div>
     <app-foot></app-foot>
   </div>
@@ -16,6 +16,7 @@ import header from '~/components/app-header.vue'
 import footer from '~/components/app-footer.vue'
 import localStorage from '~/store/localStorage'
 import apiService from '~/services/apiService'
+import axios from 'axios'
 
 export default {
   name: 'App',
@@ -38,12 +39,17 @@ export default {
     // get user
     this.auth = localStorage.get('user')
     if (!this.auth) {
-      apiService.get('/userinfo').then(response => {
+      axios.get('http://api.lua-china.local/userinfo', {withCredentials: true}).then(response => {
         if (response.data.status === 0) {
           this.auth = response.data.data
-          localStorage.set('user', this.auth)
+          // localStorage.set('user', this.auth)
         }
       })
+    }
+  },
+  methods: {
+    loginFresh(user) {
+      this.auth = user
     }
   }
 }

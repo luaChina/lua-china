@@ -47,7 +47,7 @@
                   </div>
                   <div class="p-2 text-muted">
                       <ul class="list-group">
-                          <li class="list-group-item border-0 d-flex align-items-center justify-content-between" v-for="(user, index) in topUsers" :key=index><div><img class="rounded-circle mr-2" :src="buildAvatar(user, 32)" :alt="user.name"><span>{{user.name}}</span></div><span class="badge badge-pill badge-success">{{index+1}}</span></li>
+                          <li class="list-group-item border-0 d-flex align-items-center justify-content-between" v-for="(user, index) in topUsers" :key=index><div><img width="32" height="32" class="rounded-circle mr-2" :src="buildAvatar(user, 32)" :alt="user.name"><span>{{user.name}}</span></div><span class="badge badge-pill badge-success">{{index+1}}</span></li>
                       </ul>
                   </div>
               </div>

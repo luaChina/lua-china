@@ -95,7 +95,7 @@ export default {
           .get('/posts/' + params.id)
           .then(postResponse => {
             if (postResponse.data.status !== 0) {
-              error({ statusCode: 404, message: 'Post not found' })
+              error({ statusCode: 404, message: '文章不存在或已删除' })
             }
             callback(null, {
               post: postResponse.data.data,

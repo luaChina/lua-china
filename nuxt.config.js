@@ -7,6 +7,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1.0, user-scalable=no' },
+      { name: 'keywords', content: 'Lua中国, Lua中文, lua中文网, lua openresty, lua nana, nana' },
       { hid: 'description', name: 'description', content: 'Lua 中文网' }
     ],
     link: [
