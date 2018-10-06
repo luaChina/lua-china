@@ -30,19 +30,19 @@ export default {
     'app-foot': footer
   },
   beforeMount() {
-    // // if http 301 to https
-    // if (window.location.host === 'localhost:3000') return;
-    // if (window.location.protocol === 'http:') {
-    //   window.location.href = 'https://' + window.location.host + window.location.pathname + window.location.search
-    // }
+    // if http 301 to https
+    if (window.location.host === 'localhost:3000') return;
+    if (window.location.protocol === 'http:') {
+      window.location.href = 'https://' + window.location.host + window.location.pathname + window.location.search
+    }
 
     // get user
     this.auth = localStorage.get('user')
     if (!this.auth) {
-      axios.get('http://api.lua-china.local/userinfo', {withCredentials: true}).then(response => {
+      apiService.get('/userinfo').then(response => {
         if (response.data.status === 0) {
           this.auth = response.data.data
-          // localStorage.set('user', this.auth)
+          localStorage.set('user', this.auth)
         }
       })
     }
