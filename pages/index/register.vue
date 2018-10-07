@@ -88,9 +88,14 @@
 <script>
 import apiService from '~/services/apiService'
 import localStorage from '~/store/localStorage'
+import { ErrorBag } from 'vee-validate'
 
 export default {
     name: 'Register',
+    inject: ['$validator'], // nuxt 与 vee-validate 不兼容，需要手动注入
+    $_veeValidate: {
+        validator: 'new'
+    },
     data() {
         return {
             phoneClass: null,
@@ -103,6 +108,11 @@ export default {
                 sms_code: null,
                 name: null
             },
+        }
+    },
+    computed: {
+        errors: function() {
+            return new ErrorBag()
         }
     },
     methods: {
