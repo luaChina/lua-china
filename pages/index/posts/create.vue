@@ -25,6 +25,7 @@ import apiService from '~/services/apiService'
 
 export default {
   name: 'PostCreate',
+  props: ['auth'],
   data() {
     return {
       post: {
@@ -38,10 +39,14 @@ export default {
     }
   },
   created() {
+     // if not login
+    if (!this.auth) {
+      return this.$router.push('/login')
+    }
     this.post.content = [
         '<span style="color:#e11d21">请参考以下格式，使用Markdown书写，以下内容均可删除</span>',
         '# 这是一级标题',
-        '## 这也是二级标题完全与一级标题相同，推荐使用##对SEO友好',
+        '## 这是二级标题，站内推荐使用##对SEO友好,样式和一级标题相同',
         '### 三级标题',
         '#### 四级标题',
         '在```之后跟上语言类型可以准确高亮',

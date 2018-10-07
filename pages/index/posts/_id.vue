@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-9 p-0 mr-lg-4 mr-0 mb-4">
+    <div class="col-md-9 p-0 mr-lg-4 mr-0 mb-5">
       <div class="bg-white border p-4">
         <div class="mb-4">
           <h1 class="my-4">{{post.title}}</h1>
@@ -20,6 +20,16 @@
         </div>
         <div id="markdownSection"></div>
       </div>
+      <no-ssr>
+        <div class="d-flex justify-content-center mb-5">
+            <vue-star animate="animated rotateInDownLeft" color="#F05654">
+              <a slot="icon" class="btn btn-outline-secondary d-flex align-items-center justify-content-between" @click="favorClick">
+                  <span class="mr-2">点赞</span>
+                  <svg width="20" height="20" aria-hidden="true" data-prefix="fas" data-icon="thumbs-up" class="svg-inline--fa fa-thumbs-up fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M104 224H24c-13.255 0-24 10.745-24 24v240c0 13.255 10.745 24 24 24h80c13.255 0 24-10.745 24-24V248c0-13.255-10.745-24-24-24zM64 472c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zM384 81.452c0 42.416-25.97 66.208-33.277 94.548h101.723c33.397 0 59.397 27.746 59.553 58.098.084 17.938-7.546 37.249-19.439 49.197l-.11.11c9.836 23.337 8.237 56.037-9.308 79.469 8.681 25.895-.069 57.704-16.382 74.757 4.298 17.598 2.244 32.575-6.148 44.632C440.202 511.587 389.616 512 346.839 512l-2.845-.001c-48.287-.017-87.806-17.598-119.56-31.725-15.957-7.099-36.821-15.887-52.651-16.178-6.54-.12-11.783-5.457-11.783-11.998v-213.77c0-3.2 1.282-6.271 3.558-8.521 39.614-39.144 56.648-80.587 89.117-113.111 14.804-14.832 20.188-37.236 25.393-58.902C282.515 39.293 291.817 0 312 0c24 0 72 8 72 81.452z"></path></svg>
+              </a>
+            </vue-star>
+        </div>
+        </no-ssr>
     </div>
     <div class="col">
       <div class="bg-white border p-4 mb-4">
@@ -48,11 +58,9 @@
 <script>
 import crypto from 'crypto'
 import Identicon from 'identicon.js'
-
-// require('tui-editor/dist/tui-editor-contents.css') // editor content
-require('highlight.js/styles/monokai.css'); // code block highlight
-
 import apiService from '~/services/apiService'
+
+require('highlight.js/styles/monokai.css'); // code block highlight
 
 export default {
   name: 'PostDetail',
@@ -82,10 +90,10 @@ export default {
   },
   asyncData({ params, error }, callback) {
     apiService
-      .get('/posts/')
+      .get('/posts/') // 获取推荐文章
       .then(postsResponse => {
         apiService
-          .get('/posts/' + params.id)
+          .get('/posts/' + params.id) // 获取当前文章
           .then(postResponse => {
             if (postResponse.data.status !== 0) {
               error({ statusCode: 404, message: '文章不存在或已删除' })
@@ -123,6 +131,18 @@ export default {
     timeFormat(time) {
       const date = new Date(time)
       return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay() + ' ' + date.getHours() + ':' + date.getMinutes()
+    },
+    favorClick() {
+      apiService.post('/posts/'+this.post.id+'/favor').then(response => {
+        if (response.data.status !== 0) {
+          this.$notify({
+              type: 'error',
+              group: 'tip',
+              duration: 2000,
+              title: response.data.msg,
+          })
+        }
+      })
     }
   }
 }
@@ -145,5 +165,8 @@ export default {
     height: 16px;
     margin-right: 4px;
   }
+}
+.VueStar {
+  color: #999;
 }
 </style>
