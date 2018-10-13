@@ -96,7 +96,7 @@ export default {
     this.editor = require('tui-editor').factory({
       initialEditType: 'markdown',
       el: document.querySelector('#markdownSection'),
-      height: '700px',
+      height: '800px',
       initialValue: this.post.content,
       previewStyle: 'vertical',
       exts: ['scrollSync', 'colorSyntax'],

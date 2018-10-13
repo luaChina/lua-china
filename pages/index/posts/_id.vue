@@ -20,7 +20,7 @@
         </div>
         <div id="markdownSection"></div>
       </div>
-      <no-ssr>
+      <no-ssr style="height:100px">
         <div class="d-flex justify-content-center mb-5">
             <vue-star animate="animated rotateInDownLeft" color="#F05654">
               <a slot="icon" class="btn btn-outline-secondary d-flex align-items-center justify-content-between" @click="favorClick">
@@ -29,7 +29,30 @@
               </a>
             </vue-star>
         </div>
-        </no-ssr>
+      </no-ssr>
+      <!-- 评论区 -->
+      <div>
+        <div class="d-flex mb-4" v-for="(comment, index) in post.comments" :key="index">
+          <div class="avatar mr-3">
+            <img width="50" height="50" :src="buildAvatar(comment.user.avatar, comment.user.id, 50)" :alt="comment.user.name">
+          </div>
+          <div class="bg-white border shadow w-100">
+            <div class="border-bottom p-2 font-weight-bold">{{comment.user.name}}</div>
+            <div class="p-3">{{comment.content}}</div>
+            <div class="p-3 text-muted">{{timeFormat(comment.created_at)}}</div>
+          </div>
+        </div>
+      </div>
+      <!-- 发表评论 -->
+      <div class="comment-area mt-4 p-3 bg-white border border-light">
+        <div class="alert alert-info" role="alert">
+            请勿发布不友善或者负能量的内容。与人为善，比聪明更重要！
+        </div>
+        <div class="form-group">
+          <textarea name="comment" class="w-100 form-control" cols="30" rows="10" v-model="commentContent"></textarea>
+        </div>
+        <button class="btn btn-primary" @click.prevent="publishComment">发表评论</button>
+      </div>
     </div>
     <div class="col">
       <div class="bg-white border p-4 mb-4">
@@ -37,7 +60,7 @@
           作者: {{post.user.name}}
         </div>
         <div class="d-flex justify-content-center my-3">
-          <img width="120" height="120" :src="buildAvatar(post.user, 120)" alt="头像" class="rounded-circle">
+          <img width="120" height="120" :src="buildAvatar(post.user.avatar, post.user.id, 120)" alt="头像" class="rounded-circle">
         </div>
         <div class="d-flex justify-content-center align-items-center text-muted" v-if="post.user.city">
           <svg width="16" height="16" aria-hidden="true" data-prefix="fas" data-icon="map-marker-alt" class="svg-inline--fa fa-map-marker-alt fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path></svg> <span>{{post.user.city}}</span>
@@ -64,6 +87,7 @@ require('highlight.js/styles/monokai.css'); // code block highlight
 
 export default {
   name: 'PostDetail',
+  props: ['user'],
   data() {
     return {
       post: {
@@ -74,7 +98,8 @@ export default {
         comments: Array
       },
       favor: false,
-      posts: Array
+      posts: Array,
+      commentContent: null
     }
   },
   mounted() {
@@ -87,6 +112,10 @@ export default {
     })
   },
   created() {
+    let index, item
+    for (index in this.post.comments) {
+      console.log(index, this.post.comments[index].user.avatar)
+    }
   },
   asyncData({ params, error }, callback) {
     apiService
@@ -112,10 +141,10 @@ export default {
       })
   },
   methods: {
-    buildAvatar(user, size) {
-      if (!user.avatar) {
+    buildAvatar(avatar, identity, size) {
+      if (!avatar) {
         let hash = crypto.createHash('md5')
-        hash.update(String(user.id)) // id
+        hash.update(String(identity)) // id
         let options = {
           // foreground: [0, 0, 0, 255],               // rgba black
           // background: [255, 255, 255, 255],         // rgba white
@@ -125,7 +154,7 @@ export default {
         let base64Img = new Identicon(hash.digest('hex'), options)
         return 'data:image/png;base64,' + base64Img.toString()
       } else {
-        return user.avatar
+        return avatar
       }
     },
     timeFormat(time) {
@@ -143,6 +172,40 @@ export default {
           })
         }
       })
+    },
+    publishComment() {
+      if (!this.commentContent) {
+        this.$notify({
+            type: 'error',
+            group: 'tip',
+            duration: 2000,
+            title: '评论内容不能为空',
+        })
+        return
+      }
+      apiService.post('/posts/' + this.post.id + '/comments', {content:this.commentContent}).then(response => {
+        if (response.data.status !== 0) {
+          this.$notify({
+              type: 'error',
+              group: 'tip',
+              duration: 2000,
+              title: response.data.msg,
+          })
+          return
+        }
+        this.$notify({
+            type: 'success',
+            group: 'tip',
+            duration: 2000,
+            title: '发布成功',
+        })
+        let comment = {
+          content: this.commentContent,
+          user: this.user
+        }
+        this.post.comments.push(comment)
+        console.log(this.post)
+      })
     }
   }
 }
@@ -150,8 +213,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-.tui-editor-contents {
-  font-size: 15px;
+.comment-area {
+  margin-left: 50px
 }
 .recommend-post {
   background-color: #eee;
