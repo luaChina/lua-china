@@ -65,7 +65,6 @@
 import apiService from '~/services/apiService'
 import crypto from 'crypto'
 import Identicon from 'identicon.js'
-import _ from 'lodash'
 
 export default {
   data() {

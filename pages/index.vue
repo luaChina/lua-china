@@ -16,7 +16,6 @@ import header from '~/components/app-header.vue'
 import footer from '~/components/app-footer.vue'
 import localStorage from '~/store/localStorage'
 import apiService from '~/services/apiService'
-import axios from 'axios'
 
 export default {
   name: 'App',
