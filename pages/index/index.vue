@@ -63,7 +63,7 @@
 
 <script>
 import apiService from '~/services/apiService'
-import crypto from 'crypto'
+import md5 from 'crypto-js/md5'
 import Identicon from 'identicon.js'
 
 export default {
@@ -79,9 +79,12 @@ export default {
     })
   },
   asyncData({ params }, callback) {
-    apiService.get('/posts').then(response => {
+    apiService
+      .get('/posts')
+      .then(response => {
         callback(null, { posts: response.data.data.data })
-      }).catch(error => {
+      })
+      .catch(error => {
         console.log(error)
       })
   },
@@ -91,35 +94,36 @@ export default {
     },
     buildAvatar(user, size) {
       if (!user.avatar) {
-        let hash = crypto.createHash('md5')
-        hash.update(String(user.id)) // id
         let options = {
           // foreground: [0, 0, 0, 255],               // rgba black
           // background: [255, 255, 255, 255],         // rgba white
-          margin: 0,                              // 0.2 20% margin
-          size: size,
+          margin: 0, // 0.2 20% margin
+          size: size
         }
-        let base64Img = new Identicon(hash.digest('hex'), options)
+        let base64Img = new Identicon(md5(String(user.id)).toString(), options)
         return 'data:image/png;base64,' + base64Img.toString()
       } else {
         return user.avatar
       }
     },
     getPosts() {
-      apiService.get('/posts').then(response => {
-        this.posts = response.data.data.data
-      }).catch(error => {
-        console.log(error)
-        // this.$notify({
-        //     type: 'error',
-        //     group: 'tip',
-        //     duration: 2000,
-        //     title: error,
-        // })
-        // return false
+      apiService
+        .get('/posts')
+        .then(response => {
+          this.posts = response.data.data.data
+        })
+        .catch(error => {
+          console.log(error)
+          this.$notify({
+            type: 'error',
+            group: 'tip',
+            duration: 2000,
+            title: error
+          })
+          return false
         })
     }
-  },
+  }
 }
 </script>
 
@@ -133,17 +137,17 @@ export default {
   border-bottom: 0;
 }
 .right-card-title {
-    background-color: #eee;
-    line-height: 30px;
-    svg {
-      height: 18px;
-      width: 18px;
-      margin-right: 4px;
-    }
+  background-color: #eee;
+  line-height: 30px;
+  svg {
+    height: 18px;
+    width: 18px;
+    margin-right: 4px;
+  }
 }
 .announcement-content {
-    font-size: 14px;
-    line-height: 30px;
+  font-size: 14px;
+  line-height: 30px;
 }
 .list-content {
   text-decoration: none !important;

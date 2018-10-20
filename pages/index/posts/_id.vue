@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import crypto from 'crypto'
+import md5 from 'crypto-js/md5'
 import Identicon from 'identicon.js'
 import apiService from '~/services/apiService'
 
@@ -143,15 +143,13 @@ export default {
   methods: {
     buildAvatar(avatar, identity, size) {
       if (!avatar) {
-        let hash = crypto.createHash('md5')
-        hash.update(String(identity)) // id
         let options = {
           // foreground: [0, 0, 0, 255],               // rgba black
           // background: [255, 255, 255, 255],         // rgba white
           margin: 0, // 0.2 20% margin
           size: size
         }
-        let base64Img = new Identicon(hash.digest('hex'), options)
+        let base64Img = new Identicon(md5(String(identity)).toString(), options)
         return 'data:image/png;base64,' + base64Img.toString()
       } else {
         return avatar
