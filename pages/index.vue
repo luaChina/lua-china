@@ -21,20 +21,20 @@ export default {
   name: 'App',
   data() {
     return {
-      auth: null
+      auth: {
+        id: 0
+      }
     }
   },
   components: {
     'app-header': header,
     'app-foot': footer
   },
+  // if http then 301 to https
+  // if (window.location.protocol === 'http:') {
+  //   window.location.href = 'https://' + window.location.host + window.location.pathname + window.location.search
+  // }
   beforeMount() {
-    // if http 301 to https
-    // if (window.location.host === 'localhost:3000') return;
-    // if (window.location.protocol === 'http:') {
-    //   window.location.href = 'https://' + window.location.host + window.location.pathname + window.location.search
-    // }
-
     // get user
     this.auth = localStorage.get('user')
     if (!this.auth) {

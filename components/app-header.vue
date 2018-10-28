@@ -53,7 +53,7 @@
                   </a>
                 <div class="dropdown">
                   <a href="#" class="dropdown-toggle text-muted" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <img :src="buildAvatar(auth, 32)" :alt="auth.name">
+                      <img width="32" height="32" :src="buildAvatar(auth, 32)" :alt="auth.name">
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                     <router-link :to="'/users/' + auth.id" class="dropdown-item">

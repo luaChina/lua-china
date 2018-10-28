@@ -16,25 +16,26 @@
             <div class="d-flex align-items-center artical-info">
               <span>评论数：{{post.comments.length || 0}}</span>
             </div>
+            <no-ssr><div v-if="this.post.user_id === this.auth.id" class="ml-auto"><a target="_blank" :href='"/posts/" + post.id + "/edit"'><button class="btn btn-primary pull-right">编辑</button></a></div></no-ssr>
           </div>
         </div>
         <div id="markdownSection"></div>
       </div>
       <no-ssr style="height:100px">
         <div class="d-flex justify-content-center mb-5">
-            <vue-star animate="animated rotateInDownLeft" color="#F05654">
-              <a slot="icon" class="btn btn-outline-secondary d-flex align-items-center justify-content-between" @click="favorClick">
-                  <span class="mr-2">点赞</span>
-                  <svg width="20" height="20" aria-hidden="true" data-prefix="fas" data-icon="thumbs-up" class="svg-inline--fa fa-thumbs-up fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M104 224H24c-13.255 0-24 10.745-24 24v240c0 13.255 10.745 24 24 24h80c13.255 0 24-10.745 24-24V248c0-13.255-10.745-24-24-24zM64 472c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zM384 81.452c0 42.416-25.97 66.208-33.277 94.548h101.723c33.397 0 59.397 27.746 59.553 58.098.084 17.938-7.546 37.249-19.439 49.197l-.11.11c9.836 23.337 8.237 56.037-9.308 79.469 8.681 25.895-.069 57.704-16.382 74.757 4.298 17.598 2.244 32.575-6.148 44.632C440.202 511.587 389.616 512 346.839 512l-2.845-.001c-48.287-.017-87.806-17.598-119.56-31.725-15.957-7.099-36.821-15.887-52.651-16.178-6.54-.12-11.783-5.457-11.783-11.998v-213.77c0-3.2 1.282-6.271 3.558-8.521 39.614-39.144 56.648-80.587 89.117-113.111 14.804-14.832 20.188-37.236 25.393-58.902C282.515 39.293 291.817 0 312 0c24 0 72 8 72 81.452z"></path></svg>
-              </a>
-            </vue-star>
+          <vue-star animate="animated rotateInDownLeft" color="#F05654">
+            <a slot="icon" class="btn btn-outline-secondary d-flex align-items-center justify-content-between" @click="favorClick">
+                <span class="mr-2">点赞</span>
+                <svg width="20" height="20" aria-hidden="true" data-prefix="fas" data-icon="thumbs-up" class="svg-inline--fa fa-thumbs-up fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M104 224H24c-13.255 0-24 10.745-24 24v240c0 13.255 10.745 24 24 24h80c13.255 0 24-10.745 24-24V248c0-13.255-10.745-24-24-24zM64 472c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zM384 81.452c0 42.416-25.97 66.208-33.277 94.548h101.723c33.397 0 59.397 27.746 59.553 58.098.084 17.938-7.546 37.249-19.439 49.197l-.11.11c9.836 23.337 8.237 56.037-9.308 79.469 8.681 25.895-.069 57.704-16.382 74.757 4.298 17.598 2.244 32.575-6.148 44.632C440.202 511.587 389.616 512 346.839 512l-2.845-.001c-48.287-.017-87.806-17.598-119.56-31.725-15.957-7.099-36.821-15.887-52.651-16.178-6.54-.12-11.783-5.457-11.783-11.998v-213.77c0-3.2 1.282-6.271 3.558-8.521 39.614-39.144 56.648-80.587 89.117-113.111 14.804-14.832 20.188-37.236 25.393-58.902C282.515 39.293 291.817 0 312 0c24 0 72 8 72 81.452z"></path></svg>
+            </a>
+          </vue-star>
         </div>
       </no-ssr>
       <!-- 评论区 -->
       <div>
         <div class="d-flex mb-4" v-for="(comment, index) in post.comments" :key="index">
           <div class="avatar mr-3">
-            <img width="50" height="50" :src="buildAvatar(comment.user.avatar, comment.user.id, 50)" :alt="comment.user.name">
+            <img class="border shadow" width="50" height="50" :src="buildAvatar(comment.user.avatar, comment.user.id, 50)" :alt="comment.user.name">
           </div>
           <div class="bg-white border shadow w-100">
             <div class="border-bottom p-2 font-weight-bold">{{comment.user.name}}</div>
@@ -44,7 +45,7 @@
         </div>
       </div>
       <!-- 发表评论 -->
-      <div class="comment-area mt-4 p-3 bg-white border border-light">
+      <div class="mt-4 p-3 bg-white border border-light">
         <div class="alert alert-info" role="alert">
             请勿发布不友善或者负能量的内容。与人为善，比聪明更重要！
         </div>
@@ -87,7 +88,11 @@ require('highlight.js/styles/monokai.css'); // code block highlight
 
 export default {
   name: 'PostDetail',
-  props: ['user'],
+  props: {
+    auth: {
+      id: 0
+    }
+  },
   data() {
     return {
       post: {
@@ -95,11 +100,12 @@ export default {
         title: null,
         content: null,
         editor: Object,
-        comments: Array
+        comments: Array,
       },
       favor: false,
       posts: Array,
-      commentContent: null
+      commentContent: null,
+      owner: false
     }
   },
   mounted() {
@@ -110,12 +116,6 @@ export default {
       initialValue: this.post.content,
       usageStatistics: false,
     })
-  },
-  created() {
-    let index, item
-    for (index in this.post.comments) {
-      console.log(index, this.post.comments[index].user.avatar)
-    }
   },
   asyncData({ params, error }, callback) {
     apiService
@@ -211,9 +211,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-.comment-area {
-  margin-left: 50px
-}
 .recommend-post {
   background-color: #eee;
   line-height: 30px;
