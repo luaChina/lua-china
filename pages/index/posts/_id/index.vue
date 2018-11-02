@@ -3,7 +3,7 @@
     <div class="col-md-9 p-0 mr-lg-4 mr-0 mb-5">
       <div class="bg-white border p-4">
         <div class="mb-4">
-          <h1 class="my-4">{{post.title}}</h1>
+          <h1 class="my-4 artical-title">{{post.title}}</h1>
           <div class="text-muted border-bottom mb-5 pb-2 d-flex">
             <div class="d-flex align-items-center artical-info">
               <span v-text="timeFormat(post.updated_at)"></span></div>
@@ -214,6 +214,9 @@ export default {
 .recommend-post {
   background-color: #eee;
   line-height: 30px;
+}
+.artical-title {
+  font-size: 26px;
 }
 .artical-info {
   font-size: 12px;

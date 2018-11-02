@@ -8,7 +8,7 @@ module.exports = {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1.0, user-scalable=no' },
       { name: 'keywords', content: 'Lua中国,Lua中文,lua中文网,lua openresty,lua nana,nana,Lua China 社区' },
-      { hid: 'description', name: 'description', content: 'Lua 中文网' }
+      { hid: 'description', name: 'description', content: 'Lua 中国，这里是 Lua 中文网，为开发者提供学习交流的平台，Lua 中国需要你的力量！' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
