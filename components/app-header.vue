@@ -30,7 +30,7 @@
             </form>
             <no-ssr>
             <div>
-              <div v-if="!auth">
+              <div v-if="auth.id==0">
                 <router-link to="/login">
                   <button type="button" class="btn btn-outline-secondary mr-2">
                     <svg width="15" height="15" aria-hidden="true" data-prefix="fas" data-icon="user" class="svg-inline--fa fa-user fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path></svg>
@@ -53,7 +53,7 @@
                   </a>
                 <div class="dropdown">
                   <a href="#" class="dropdown-toggle text-muted" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <img width="32" height="32" :src="buildAvatar(auth, 32)" :alt="auth.name">
+                    <hash-avatar :url="auth.avatar" :user_id="auth.id" :size=32 :alt="auth.name" class="rounded-circle"></hash-avatar>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                     <router-link :to="'/users/' + auth.id" class="dropdown-item">
@@ -97,28 +97,16 @@
 <script>
 import apiService from '~/services/apiService'
 import localStorage from '~/store/localStorage'
-import md5 from 'crypto-js/md5'
-import Identicon from 'identicon.js'
 import _ from 'lodash'
+import HashAvatar from '~/components/hash-avatar'
 
 export default {
   name: 'App',
   props: ['auth'],
+  components: {
+    'hash-avatar': HashAvatar
+  },
   methods: {
-    buildAvatar(user, size) {
-      if (!user.avatar) {
-        const options = {
-          // foreground: [0, 0, 0, 255],               // rgba black
-          // background: [255, 255, 255, 255],         // rgba white
-          margin: 0,                              // 0.2 20% margin
-          size: size,
-        }
-        const base64Img = new Identicon(md5(String(user.id)).toString(), options)
-        return 'data:image/png;base64,' + base64Img.toString()
-      } else {
-        return user.avatar
-      }
-    },
     logout() {
       apiService.post('/logout').then(response => {
         if (response.data.status == 0) {

@@ -16,7 +16,7 @@
             <div class="d-flex align-items-center artical-info">
               <span>评论数：{{post.comments.length || 0}}</span>
             </div>
-            <no-ssr><div v-if="this.post.user_id === this.auth.id" class="ml-auto"><a target="_blank" :href='"/posts/" + post.id + "/edit"'><button class="btn btn-primary pull-right">编辑</button></a></div></no-ssr>
+            <no-ssr><div v-if="this.post.user_id === this.auth.id" class="ml-auto"><a target="_blank" :href='"/posts/" + post.id + "/edit"'><button class="btn btn-sm btn-primary pull-right mr-2">编辑</button></a><button class="btn btn-sm btn-danger pull-right">删除</button></div></no-ssr>
           </div>
         </div>
         <div id="markdownSection"></div>
@@ -35,7 +35,7 @@
       <div>
         <div class="d-flex mb-4" v-for="(comment, index) in post.comments" :key="index">
           <div class="avatar mr-3">
-            <img class="border shadow" width="50" height="50" :src="buildAvatar(comment.user.avatar, comment.user.id, 50)" :alt="comment.user.name">
+            <hash-avatar :url="comment.user.avatar" :user_id="comment.user.id" :size=50 :alt="comment.user.name" class="border shadow"></hash-avatar>
           </div>
           <div class="bg-white border shadow w-100">
             <div class="border-bottom p-2 font-weight-bold">{{comment.user.name}}</div>
@@ -61,7 +61,7 @@
           作者: {{post.user.name}}
         </div>
         <div class="d-flex justify-content-center my-3">
-          <img width="120" height="120" :src="buildAvatar(post.user.avatar, post.user.id, 120)" alt="头像" class="rounded-circle">
+          <hash-avatar :url="post.user.avatar" :user_id="post.user.id" :size=120 :alt="post.user.name" class="rounded-circle"></hash-avatar>
         </div>
         <div class="d-flex justify-content-center align-items-center text-muted" v-if="post.user.city">
           <svg width="16" height="16" aria-hidden="true" data-prefix="fas" data-icon="map-marker-alt" class="svg-inline--fa fa-map-marker-alt fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path></svg> <span>{{post.user.city}}</span>
@@ -80,18 +80,18 @@
 </template>
 
 <script>
-import md5 from 'crypto-js/md5'
-import Identicon from 'identicon.js'
 import apiService from '~/services/apiService'
+import HashAvatar from '~/components/hash-avatar'
+import axios from 'axios'
+import config from '~/config/api.js'
 
 require('highlight.js/styles/monokai.css'); // code block highlight
 
 export default {
   name: 'PostDetail',
-  props: {
-    auth: {
-      id: 0
-    }
+  props: ['auth'],
+  components: {
+    'hash-avatar': HashAvatar
   },
   data() {
     return {
@@ -118,11 +118,11 @@ export default {
     })
   },
   asyncData({ params, error }, callback) {
-    apiService
-      .get('/posts/') // 获取推荐文章
+    axios
+      .get(config.apiUrl + '/posts/') // 获取推荐文章
       .then(postsResponse => {
-        apiService
-          .get('/posts/' + params.id) // 获取当前文章
+        axios
+          .get(config.apiUrl + '/posts/' + params.id) // 获取当前文章
           .then(postResponse => {
             if (postResponse.data.status !== 0) {
               error({ statusCode: 404, message: '文章不存在或已删除' })
@@ -133,28 +133,14 @@ export default {
             })
           })
           .catch(error => {
-            console.log(error)
+            console.log("get post ", params.id, "error")
           })
       })
       .catch(error => {
-        console.log(error)
+        console.log("async error")
       })
   },
   methods: {
-    buildAvatar(avatar, identity, size) {
-      if (!avatar) {
-        let options = {
-          // foreground: [0, 0, 0, 255],               // rgba black
-          // background: [255, 255, 255, 255],         // rgba white
-          margin: 0, // 0.2 20% margin
-          size: size
-        }
-        let base64Img = new Identicon(md5(String(identity)).toString(), options)
-        return 'data:image/png;base64,' + base64Img.toString()
-      } else {
-        return avatar
-      }
-    },
     timeFormat(time) {
       const date = new Date(time)
       return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay() + ' ' + date.getHours() + ':' + date.getMinutes()
@@ -202,7 +188,6 @@ export default {
           user: this.user
         }
         this.post.comments.push(comment)
-        console.log(this.post)
       })
     }
   }

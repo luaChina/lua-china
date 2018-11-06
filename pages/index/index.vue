@@ -21,7 +21,8 @@
                         <li v-for="(post,index) in posts" :key="index" class="list-group-item list-group-item-action border-left-0 border-right-0">
                           <router-link :to="'/posts/' + post.id" class="d-flex justify-content-between align-items-center text-body list-content">
                             <div>
-                              <img width="48" height="48" class="rounded-circle mr-2" :src="buildAvatar(post.user, 48)" :alt="post.user.name"><span>{{post.title}}</span>
+                              <hash-avatar :url="post.user.avatar" :user_id="post.user.id" :size=48 :alt="post.user.name" class="rounded-circle mr-2"></hash-avatar>
+                              <span>{{post.title}}</span>
                             </div>
                             <div>阅读数:{{post.read_count}} 
                               <!-- / 评论数:{{post.comments.length}} -->
@@ -49,7 +50,8 @@
                       <ul class="list-group">
                           <li class="list-group-item border-0 d-flex align-items-center justify-content-between" v-for="(user, index) in topUsers" :key=index>
                             <div>
-                              <img width="32" height="32" class="rounded-circle mr-2" :src="buildAvatar(user, 32)" :alt="user.name"><span>{{user.name}}</span>
+                              <hash-avatar :url="user.avatar" :user_id="user.id" :size=32 :alt="user.name" class="rounded-circle mr-2"></hash-avatar>
+                              <span>{{user.name}}</span>
                             </div>
                             <span class="badge badge-pill badge-success">{{index+1}}</span>
                           </li>
@@ -68,10 +70,14 @@
 
 <script>
 import apiService from '~/services/apiService'
-import md5 from 'crypto-js/md5'
-import Identicon from 'identicon.js'
+import HashAvatar from '~/components/hash-avatar'
+import axios from 'axios'
+import config from '~/config/api.js'
 
 export default {
+  components: {
+    'hash-avatar': HashAvatar
+  },
   data() {
     return {
       topUsers: [],
@@ -84,32 +90,18 @@ export default {
     })
   },
   asyncData({ params }, callback) {
-    apiService
-      .get('/posts')
+    axios
+      .get(config.apiUrl + '/posts')
       .then(response => {
         callback(null, { posts: response.data.data.data })
       })
       .catch(error => {
-        console.log(error)
+        console.log("async error")
       })
   },
   methods: {
     buildParams(url, orignalParam) {
       return url
-    },
-    buildAvatar(user, size) {
-      if (!user.avatar) {
-        let options = {
-          // foreground: [0, 0, 0, 255],               // rgba black
-          // background: [255, 255, 255, 255],         // rgba white
-          margin: 0, // 0.2 20% margin
-          size: size
-        }
-        let base64Img = new Identicon(md5(String(user.id)).toString(), options)
-        return 'data:image/png;base64,' + base64Img.toString()
-      } else {
-        return user.avatar
-      }
     },
     getPosts() {
       apiService
@@ -118,7 +110,6 @@ export default {
           this.posts = response.data.data.data
         })
         .catch(error => {
-          console.log(error)
           this.$notify({
             type: 'error',
             group: 'tip',

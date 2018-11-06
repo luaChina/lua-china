@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="d-flex bg-white border">
-                <img class="rounded-circle" height="100" width="100" :src="buildAvatar(user.avatar, user.id, 100)" :alt="user.name">
+                <hash-avatar :url="user.avatar" :user_id="user.id" :size=100 :alt="user.name" class="rounded-circle"></hash-avatar>
                 <span>{{user.name}}</span>
             </div>
         </div>
@@ -34,10 +34,14 @@
 
 <script>
 import apiService from '~/services/apiService'
-import md5 from 'crypto-js/md5'
-import Identicon from 'identicon.js'
+import HashAvatar from '~/components/hash-avatar'
+import axios from 'axios'
+import config from '~/config/api.js'
 
 export default {
+    components: {
+        'hash-avatar': HashAvatar
+    },
     data () {
         return {
             user: {},
@@ -46,13 +50,13 @@ export default {
         }
     },
     asyncData({ params }, callback) {
-        apiService
-            .get('/users/' + params.id)
+        axios // 由于服务端渲染对api错误处理与浏览器不同，所以使用原生axios，浏览器使用 apiService
+            .get(config.apiUrl + '/users/' + params.id)
             .then(response => {
                 callback(null, { user: response.data.data })
             })
             .catch(error => {
-                console.log(error)
+                console.log("error")
             })
     },
     created() {
@@ -67,22 +71,5 @@ export default {
             }
         })
     },
-    methods: {
-        buildAvatar(avatar, identity, size) {
-            if (!avatar) {
-                let options = {
-                // foreground: [0, 0, 0, 255],               // rgba black
-                // background: [255, 255, 255, 255],         // rgba white
-                margin: 0, // 0.2 20% margin
-                size: size
-                }
-                let base64Img = new Identicon(md5(String(identity)).toString(), options)
-                return 'data:image/png;base64,' + base64Img.toString()
-            } else {
-                return avatar
-            }
-        },
-    }
-
 }
 </script>

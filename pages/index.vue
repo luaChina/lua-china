@@ -15,7 +15,8 @@
 import header from '~/components/app-header.vue'
 import footer from '~/components/app-footer.vue'
 import localStorage from '~/store/localStorage'
-import apiService from '~/services/apiService'
+import axios from 'axios'
+import config from '~/config/api.js'
 
 export default {
   name: 'App',
@@ -36,9 +37,11 @@ export default {
   // }
   beforeMount() {
     // get user
-    this.auth = localStorage.get('user')
-    if (!this.auth) {
-      apiService.get('/userinfo').then(response => {
+    const user = localStorage.get('user')
+    if (user) {
+      this.auth = user
+    } else {
+      axios.get(config.apiUrl + '/userinfo').then(response => {
         if (response.data.status === 0) {
           this.auth = response.data.data
           localStorage.set('user', this.auth)
