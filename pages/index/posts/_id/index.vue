@@ -201,7 +201,7 @@ export default {
   line-height: 30px;
 }
 .artical-title {
-  font-size: 26px;
+  font-size: 1.6rem;
 }
 .artical-info {
   font-size: 12px;
