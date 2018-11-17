@@ -52,13 +52,15 @@ export default {
             comments: [],
         }
     },
-    asyncData({ params }, callback) {
+    asyncData({ params, error }, callback) {
         axios // 由于服务端渲染对api错误处理与浏览器不同，所以使用原生axios，浏览器使用 apiService
             .get(config.apiUrl + '/users/' + params.id)
             .then(response => {
                 callback(null, { user: response.data.data })
             })
-            .catch(error => {
+            .catch(err => {
+                callback()
+                error({ statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com' })
                 console.log("error")
             })
     },

@@ -89,13 +89,15 @@ export default {
       this.topUsers = response.data.data
     })
   },
-  asyncData({ params }, callback) {
+  asyncData({ params,error }, callback) {
     axios
       .get(config.apiUrl + '/posts')
       .then(response => {
         callback(null, { posts: response.data.data.data })
       })
-      .catch(error => {
+      .catch(err => {
+        callback()
+        error({ statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com' })
         console.log("async error")
       })
   },
