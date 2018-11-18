@@ -6,7 +6,7 @@
           <h1 class="my-4 artical-title">{{post.title}}</h1>
           <div class="text-muted border-bottom mb-5 pb-2 d-flex">
             <div class="d-flex align-items-center artical-info">
-              <span v-text="timeFormat(post.updated_at)"></span></div>
+              <span v-text="post.updated_at"></span></div>
             <div class="d-flex align-items-center artical-info">
               <span>收藏数：{{post.favor_count}}</span>
             </div>
@@ -16,7 +16,9 @@
             <div class="d-flex align-items-center artical-info">
               <span>评论数：{{post.comments.length || 0}}</span>
             </div>
-            <no-ssr><div v-if="this.post.user_id === this.auth.id" class="ml-auto"><a target="_blank" :href='"/posts/" + post.id + "/edit"'><button class="btn btn-sm btn-primary pull-right mr-2">编辑</button></a><button class="btn btn-sm btn-danger pull-right">删除</button></div></no-ssr>
+            <no-ssr>
+              <div v-if="this.post.user_id === this.auth.id" class="ml-auto"><a target="_blank" :href='"/posts/" + post.id + "/edit"'><button class="btn btn-sm btn-primary pull-right mr-2">编辑</button></a><button class="btn btn-sm btn-danger pull-right">删除</button></div>
+            </no-ssr>
           </div>
         </div>
         <div id="markdownSection"></div>
@@ -40,7 +42,7 @@
           <div class="bg-white border shadow w-100">
             <div class="border-bottom p-2 font-weight-bold">{{comment.user.name}}</div>
             <div class="p-3">{{comment.content}}</div>
-            <div class="p-3 text-muted">{{timeFormat(comment.created_at)}}</div>
+            <div class="p-3 text-muted">{{comment.created_at}}</div>
           </div>
         </div>
       </div>
@@ -132,19 +134,19 @@ export default {
               posts: postsResponse.data.data.data
             })
           })
-          .catch(error => {
+          .catch(err => {
+            callback()
+            error({ statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com' })
             console.log("get post ", params.id, "error")
           })
       })
-      .catch(error => {
+      .catch(err => {
+        callback()
+        error({ statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com' })
         console.log("async error")
       })
   },
   methods: {
-    timeFormat(time) {
-      const date = new Date(time)
-      return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay() + ' ' + date.getHours() + ':' + date.getMinutes()
-    },
     favorClick() {
       apiService.post('/posts/'+this.post.id+'/favor').then(response => {
         if (response.data.status !== 0) {
