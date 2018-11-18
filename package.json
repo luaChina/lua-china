@@ -48,7 +48,7 @@
     "eslint-loader": "^1.7.1",
     "eslint-plugin-vue": "^4.0.0",
     "mockjs": "^1.0.1-beta3",
-    "node-sass": "^4.8.3",
+    "node-sass": "^4.11.0",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
     "vue-loader": "^14.2.2",
