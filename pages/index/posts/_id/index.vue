@@ -16,7 +16,9 @@
             <div class="d-flex align-items-center artical-info">
               <span>评论数：{{post.comments.length || 0}}</span>
             </div>
-            <no-ssr><div v-if="this.post.user_id === this.auth.id" class="ml-auto"><a target="_blank" :href='"/posts/" + post.id + "/edit"'><button class="btn btn-sm btn-primary pull-right mr-2">编辑</button></a><button class="btn btn-sm btn-danger pull-right">删除</button></div></no-ssr>
+            <no-ssr>
+              <div v-if="this.post.user_id === this.auth.id" class="ml-auto"><a target="_blank" :href='"/posts/" + post.id + "/edit"'><button class="btn btn-sm btn-primary pull-right mr-2">编辑</button></a><button class="btn btn-sm btn-danger pull-right">删除</button></div>
+            </no-ssr>
           </div>
         </div>
         <div id="markdownSection"></div>
