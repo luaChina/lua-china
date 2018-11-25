@@ -12,7 +12,10 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-    ]
+    ],
+    script: [
+      { src: 'https://browser.sentry-cdn.com/4.3.4/bundle.min.js', crossorigin:'anonymous' }
+    ],
   },
   /*
   ** Customize the progress bar color
