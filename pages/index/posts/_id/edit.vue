@@ -58,7 +58,7 @@ export default {
     require('highlight.js/styles/monokai.css'); // code block highlight
     //js
     require('tui-editor/dist/tui-editor-extScrollSync.js'); // scrollSync
-    apiService.get('/posts/' + this.$route.params.id).then(response => {
+    apiService.get('/posts/' + this.$route.params.id + '/edit').then(response => {
       if (response.data.status === 0) {
         this.post = response.data.data
         if (this.auth.id !== this.post.user_id) {

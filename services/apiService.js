@@ -30,5 +30,8 @@ export default {
     },
     get (uri) {
         return service.get(uri)
+    },
+    delete (uri) {
+        return service.delete(uri)
     }
 }

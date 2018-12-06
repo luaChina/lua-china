@@ -17,7 +17,9 @@
               <span>评论数：{{post.comments.length || 0}}</span>
             </div>
             <no-ssr>
-              <div v-if="this.post.user_id === this.auth.id" class="ml-auto"><a target="_blank" :href='"/posts/" + post.id + "/edit"'><button class="btn btn-sm btn-primary pull-right mr-2">编辑</button></a><button class="btn btn-sm btn-danger pull-right">删除</button></div>
+              <div v-if="this.post.user_id === this.auth.id" class="ml-auto">
+                <a target="_blank" class="btn btn-sm btn-primary pull-right mr-2" :href='"/posts/" + post.id + "/edit"'>编辑</a>
+                <button class="btn btn-sm btn-danger pull-right" @click="moveToDraft(post.id)">移入草稿箱</button></div>
             </no-ssr>
           </div>
         </div>
@@ -190,6 +192,26 @@ export default {
           user: this.user
         }
         this.post.comments.push(comment)
+      })
+    },
+    moveToDraft(post_id) {
+      apiService.delete('/posts/'+this.post.id).then(response => {
+        if (response.data.status !== 0) {
+          this.$notify({
+              type: 'error',
+              group: 'tip',
+              duration: 2000,
+              title: response.data.msg,
+          })
+        } else {
+          this.$notify({
+            type: 'success',
+            group: 'tip',
+            duration: 2000,
+            title: '已移入草稿箱，可到个人中心查看',
+          })
+          this.$router.push('/users/'+this.auth.id)
+        }
       })
     }
   }

@@ -51,7 +51,7 @@
                           <li class="list-group-item border-0 d-flex align-items-center justify-content-between" v-for="(user, index) in topUsers" :key=index>
                             <div>
                               <hash-avatar :url="user.avatar" :user_id="user.id" :size=32 :alt="user.name" class="rounded-circle mr-2"></hash-avatar>
-                              <span>{{user.name}}</span>
+                              <router-link class="font-red" :to="'/users/' + user.id">{{user.name}}</router-link>
                             </div>
                             <span class="badge badge-pill badge-success">{{index+1}}</span>
                           </li>
