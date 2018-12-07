@@ -33,10 +33,10 @@
                 </div>
             </div>
             <div class="form-row form-group justify-content-between">
-                <div class="form-check">
+                <!-- <div class="form-check">
                     <input class="form-check-input" type="checkbox" v-model="user.remember" id="invalidCheck" required>
                     <label class="form-check-label text-muted" for="invalidCheck">记住我</label>
-                </div>
+                </div> -->
                 <router-link class="text-muted" to="/forget-password">忘记密码？</router-link>
             </div>
             <div class="form-row">

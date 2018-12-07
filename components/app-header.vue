@@ -26,7 +26,7 @@
               </li>
             </ul>
             <form class="form-inline mr-auto mb-lg-0 mb-2">
-              <input class="form-control" type="search" placeholder="搜索" aria-label="Search">
+              <!-- <input class="form-control" type="search" placeholder="搜索" aria-label="Search"> -->
             </form>
             <no-ssr>
             <div>
@@ -108,10 +108,10 @@ export default {
   },
   methods: {
     logout() {
+      localStorage.delete('user')
       apiService.post('/logout').then(response => {
         if (response.data.status == 0) {
-          localStorage.delete('user')
-          this.$emit('loginFresh', null)
+          this.$emit('loginFresh', {'id':0})
           this.$router.push('/login')
         }
       })
