@@ -63,7 +63,7 @@
                   <div><img class="img-fluid" src="~/assets/images/lua-logo.jpg" alt="adv"></div>
                   <div class="announcement-content p-4 text-muted">祝贺 LuaChina 社区成功上线，扫描下方二维码加微信群</div>
               </div>
-              <div class="mt-2 text-center"><img class="img-fluid" src="~/assets/images/wechat-group-100x100.jpeg" alt="adv"></div>
+              <div class="mt-2 text-center"><img class="img-fluid" src="https://lua-china.oss-cn-beijing.aliyuncs.com/wechat-group-100x100.jpeg" alt="adv"></div>
           </div>
         </div>
     </div>
