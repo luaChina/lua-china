@@ -15,14 +15,14 @@
               <li class="nav-item mr-2">
                 <router-link class="nav-link" to="/" active-class="active" exact>文章</router-link>
               </li>
-              <li class="nav-item mr-2">
-                <router-link class="nav-link" to="/">问答</router-link>
-              </li>
               <!-- <li class="nav-item mr-2">
                 <router-link class="nav-link" to="/posts?category=lua_base">Lua基础</router-link>
               </li> -->
-              <li class="nav-item mr-4">
+              <li class="nav-item mr-2">
                 <a class="nav-link" href="https://www.github.com/horan-geeker/nana" target="_black">Nana</a>
+              </li>
+              <li class="nav-item mr-2">
+                <a class="nav-link" href="https://konghq.com/" target="_black">Kong</a>
               </li>
             </ul>
             <form class="form-inline mr-auto mb-lg-0 mb-2">

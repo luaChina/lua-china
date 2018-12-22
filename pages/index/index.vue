@@ -8,12 +8,12 @@
                           <li class="nav-item">
                               <a href="#" class="nav-link text-muted active" data-toggle="tab" @click="getPosts('news')" id="nav-news" aria-selected="true">最新</a>
                           </li>
-                          <li class="nav-item">
+                          <!-- <li class="nav-item">
                               <a href="#" class="nav-link text-muted" data-toggle="tab" @click="getPosts('hot')" id="nav-hot" aria-selected="false">精华</a>
                           </li>
                            <li class="nav-item">
                               <a href="#" class="nav-link text-muted" data-toggle="tab" @click="getPosts('discuss')" id="nav-discuss" aria-selected="false">回复最多</a>
-                          </li>
+                          </li> -->
                       </ul>
                   </div>
                   <div class="tab-content" id="nav-tabContent">

@@ -38,7 +38,7 @@
                             </span>
                     </div>
                     <input type="text" class="form-control mr-2"  v-validate="'required|numeric|min:4'" :class="{'is-invalid': errors.has('sms_code')}" data-vv-as="短信验证码" name="sms_code" placeholder="输入验证码" v-model="user.sms_code" required>
-                    <button class="btn btn-success" :class="getSmsBtn" type="button" ref="get_sms" @click="getSmsCode()">获取验证码</button>
+                    <button class="btn btn-success" :disabled="smsBtnDisabled" type="button" ref="get_sms" @click="getSmsCode()">获取验证码</button>
                     <div class="invalid-feedback">
                         <span>{{ errors.first('sms_code') }}</span>
                     </div>
@@ -99,7 +99,7 @@ export default {
     data() {
         return {
             phoneClass: null,
-            getSmsBtn: null,
+            smsBtnDisabled: false,
             user: {
                 phone: null,
                 password: null,
@@ -117,14 +117,14 @@ export default {
     },
     methods: {
         getSmsCode() {
+            const that = this
             this.$validator.validate('phone').then(isValid => {
                 if (isValid) {
                     apiService
-                        .post('/send/sms', this.user)
+                        .post('/send/sms', that.user)
                         .then(response => {
                             if(response.data.status !== 0) {
-                                this.getSmsBtn = null
-                                this.$notify({
+                                that.$notify({
                                     type: 'error',
                                     group: 'tip',
                                     duration: 2000,
@@ -132,12 +132,13 @@ export default {
                                 })
                             } else {
                                 let time = 60
+                                that.smsBtnDisabled = true
                                 let interval = setInterval(() => {
-                                    this.$refs.get_sms.innerHTML = time-- + "秒后重试"
+                                    that.$refs.get_sms.innerHTML = time-- + "秒后重试"
                                     if (time <= 0) {
                                         clearInterval(interval)
-                                        this.getSmsBtn = null
-                                        this.$refs.get_sms.innerHTML = "获取验证码"
+                                        that.smsBtnDisabled = false
+                                        that.$refs.get_sms.innerHTML = "获取验证码"
                                         return false
                                     }
                                 }, 1000)
