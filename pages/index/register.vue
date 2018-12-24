@@ -70,22 +70,18 @@
                     </div>
                 </div>
             </div>
-            <div class="form-row form-group justify-content-between">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" v-model="user.remember" id="invalidCheck" required>
-                    <label class="form-check-label text-muted" for="invalidCheck">记住我</label>
-                </div>
-                <router-link class="text-muted" to="/forget-password">忘记密码？</router-link>
-            </div>
             <div class="form-row">
                 <button class="col btn btn-primary" type="submit">注册</button>
             </div>
         </form>
+        <oauth-login/>
     </div>
 </div>
 </template>
 
 <script>
+import OAuthLogin from '~/components/oauth-login'
+
 import apiService from '~/services/apiService'
 import localStorage from '~/store/localStorage'
 import { ErrorBag } from 'vee-validate'
@@ -95,6 +91,9 @@ export default {
     inject: ['$validator'], // nuxt 与 vee-validate 不兼容，需要手动注入
     $_veeValidate: {
         validator: 'new'
+    },
+    components: {
+        'oauth-login': OAuthLogin
     },
     beforeDestroy() {
         console.log('clear interval')
