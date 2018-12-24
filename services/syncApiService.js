@@ -6,19 +6,7 @@ const service = axios.create({
     baseURL: config.apiUrl
 })
 
-service.interceptors.response.use(
-    response => {
-        if (response.data.status == 4) {
-            window.location.href='/login'
-            return
-        }
-        return response
-    },
-    err => {
-        console.log(err)
-        return Promise.reject(err)
-    }
-)
+service.interceptors.response.use()
 
 export default {
     post (uri, data) {

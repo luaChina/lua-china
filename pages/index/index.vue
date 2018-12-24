@@ -58,16 +58,45 @@
                       </ul>
                   </div>
               </div>
-              <div class="bg-white border advertising">
-                  <div class="text-muted border-bottom text-center right-card-title">Lua社区</div>
-                  <div><img class="img-fluid" src="~/assets/images/lua-logo.jpg" alt="adv"></div>
-                  <div class="announcement-content p-4 text-muted">祝贺 LuaChina 社区成功上线，扫描下方二维码加微信群</div>
+              <div class="bg-white border">
+                  <div class="text-muted border-bottom text-center right-card-title">本站 github</div>
+                  <div class="p-4 text-center"><a href="https://github.com/luaChina/lua-china" target="_blank"><img class="img-fluid" src="~/assets/images/github.png" alt="adv"></a></div>
+                  <div class="announcement-content pb-4 px-4 text-muted">希望大家参与开发，共建 Lua 社区，扫描下方二维码加微信群</div>
+                  <div class="mb-4 text-center">
+                    <img class="img-fluid" src="https://lua-china.oss-cn-beijing.aliyuncs.com/wechat-group-100x100.jpeg" alt="adv">
+                  </div>
               </div>
-              <div class="mt-2 text-center"><img class="img-fluid" src="https://lua-china.oss-cn-beijing.aliyuncs.com/wechat-group-100x100.jpeg" alt="adv"></div>
           </div>
         </div>
     </div>
 </template>
+
+<style lang="scss">
+.list-group-item:first-child {
+  border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.list-group-item:last-child {
+  border-bottom: 0;
+}
+.right-card-title {
+  background-color: #eee;
+  line-height: 30px;
+  svg {
+    height: 18px;
+    width: 18px;
+    margin-right: 4px;
+  }
+}
+.announcement-content {
+  font-size: 14px;
+  line-height: 30px;
+}
+.list-content {
+  text-decoration: none !important;
+}
+</style>
 
 <script>
 import apiService from '~/services/apiService'
@@ -125,30 +154,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.list-group-item:first-child {
-  border-top: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-.list-group-item:last-child {
-  border-bottom: 0;
-}
-.right-card-title {
-  background-color: #eee;
-  line-height: 30px;
-  svg {
-    height: 18px;
-    width: 18px;
-    margin-right: 4px;
-  }
-}
-.announcement-content {
-  font-size: 14px;
-  line-height: 30px;
-}
-.list-content {
-  text-decoration: none !important;
-}
-</style>

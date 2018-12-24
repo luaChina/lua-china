@@ -96,8 +96,13 @@ export default {
     $_veeValidate: {
         validator: 'new'
     },
+    beforeDestroy() {
+        console.log('clear interval')
+        clearInterval(this.interval)
+    },
     data() {
         return {
+            interval: null,
             phoneClass: null,
             smsBtnDisabled: false,
             user: {
@@ -133,12 +138,16 @@ export default {
                             } else {
                                 let time = 60
                                 that.smsBtnDisabled = true
-                                let interval = setInterval(() => {
-                                    that.$refs.get_sms.innerHTML = time-- + "秒后重试"
+                                that.interval = setInterval(() => {
+                                    if(that.$refs.get_sms){
+                                        that.$refs.get_sms.innerHTML = time-- + "秒后重试"
+                                    }
                                     if (time <= 0) {
-                                        clearInterval(interval)
+                                        clearInterval(that.interval)
                                         that.smsBtnDisabled = false
-                                        that.$refs.get_sms.innerHTML = "获取验证码"
+                                        if(that.$refs.get_sms){
+                                            that.$refs.get_sms.innerHTML = "获取验证码"
+                                        }
                                         return false
                                     }
                                 }, 1000)
