@@ -54,7 +54,7 @@
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                     <router-link :to="'/users/' + auth.id" class="dropdown-item">
-                      <font-awesome-icon :icon="['fas', 'user']"/>
+                      <font-awesome-icon :icon="['fas', 'user-astronaut']"/>
                       <span>个人中心</span>
                     </router-link>
                     <!-- <router-link to="/users/profile" class="dropdown-item d-flex align-items-center">
