@@ -13,11 +13,11 @@
                 </div>
                 <div class="border-top py-3 d-flex justify-content-between text-center">
                     <div>
-                        <div class="user-info">{{posts.length}}</div>
+                        <div class="user-info">{{posts.length || 0}}</div>
                         <div class="text-muted">文章</div>
                     </div>
                     <div>
-                        <div class="user-info">{{comments.length}}</div>
+                        <div class="user-info">{{comments.length || 0}}</div>
                         <div class="text-muted">评论</div>
                     </div>
                     <div>
@@ -106,24 +106,19 @@ export default {
             drafts: [],
         }
     },
-    asyncData({ params, error }, callback) {
-        axios // 由于服务端渲染对api错误处理与浏览器不同，所以使用原生axios，浏览器使用 apiService
-            .get(config.apiUrl + '/users/' + params.id)
-            .then(response => {
-                console.log(response.data.status)
-                if (response.data.status === 0x010009) {
-                    callback()
-                    error({ statusCode: 404, message: '你找到这个人在地球上没有' })
+    asyncData({params, error}) {
+        return axios.get(config.apiUrl + '/users/' + params.id)
+            .then((res) => {
+                if (res.data.status === 0x010009) {
+                    error({statusCode: 404, message: '你找到这个人在地球上没有'})
                 } else {
-                    callback(null, { user: response.data.data })
+                    return {user: res.data.data};
                 }
-            })
-            .catch(err => {
-                callback()
-                error({ statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com' })
-                console.log("error")
+            }).catch(err => {
+                error({statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com'})
             })
     },
+
     created() {
         apiService.get('/users/' + this.$route.params.id + '/posts').then(response => {
             if (response.data.status === 0 ) {

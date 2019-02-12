@@ -1,4 +1,9 @@
+const pkg = require('./package');
+
+
 module.exports = {
+    mode: 'spa',
+
     /*
     ** Headers of the page
     */
@@ -17,47 +22,44 @@ module.exports = {
             {src: 'https://browser.sentry-cdn.com/4.3.4/bundle.min.js', crossorigin: 'anonymous'}
         ],
     },
+
     /*
-    ** Customize the progress bar color
+    ** Customize the progress-bar color
     */
-    loading: {color: '#3B8070'},
+    loading: {color: '#fff'},
+
     /*
-    ** Build configuration
+    ** Global CSS
     */
-    build: {
-        vendor: ['axios', 'vee-validate', 'vue-star'],
-        /*
-        ** Run ESLint on save
-        */
-        extend(config, {isDev, isClient}) {
-            if (isDev && isClient) {
-                config.module.rules.push({
-                    enforce: 'pre',
-                    test: /\.(js|vue)$/,
-                    loader: 'eslint-loader',
-                    exclude: /(node_modules)/
-                })
-            }
-        },
-        loaders: [
-            {
-                test: /\.(png|jpg|gif|svg)$/,
-                loader: 'url-loader',
-                exclude: /assets\/svg/,
-                options: {
-                    limit: 1000, // 1K limit
-                    name: 'img/[name].[hash:8].[ext]'
-                }
-            }
-        ]
-    },
+    css: ['@/assets/sass/app.scss'],
+
+    /*
+    ** Plugins to load before mounting the App
+    */
     plugins: [
         {src: '~plugins/app', ssr: false},
         {src: '~plugins/vee-validate', ssr: false},
         {src: '~plugins/vue-star', ssr: false},
         {src: '~plugins/fontawesome', ssr: true}
     ],
-    css: [{
-        src: '~assets/scss/app.scss', lang: 'scss',
-    }],
+
+    /*
+    ** Nuxt.js modules
+    */
+    modules: [
+        // Doc: https://bootstrap-vue.js.org/docs/
+        'bootstrap-vue/nuxt'
+    ],
+
+    /*
+    ** Build configuration
+    */
+    build: {
+        /*
+        ** You can extend webpack config here
+        */
+        extend(config, ctx) {
+
+        }
+    }
 };

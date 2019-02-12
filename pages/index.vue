@@ -12,61 +12,61 @@
 </template>
 
 <script>
-import header from '~/components/app-header.vue'
-import footer from '~/components/app-footer.vue'
-import localStorage from '~/store/localStorage'
-import syncApiService from '~/services/syncApiService'
-import config from '~/config/api.js'
+  import header from '~/components/app-header.vue'
+  import footer from '~/components/app-footer.vue'
+  import localStorage from '~/utils/localStorage'
+  import syncApiService from '~/services/syncApiService'
+  import config from '~/config/api.js'
 
-export default {
-  name: 'App',
-  data() {
-    return {
-      auth: {
-        id: 0
+  export default {
+    name: 'App',
+    data() {
+      return {
+        auth: {
+          id: 0
+        }
+      }
+    },
+    components: {
+      'app-header': header,
+      'app-foot': footer
+    },
+    // if http then 301 to https
+    // if (window.location.protocol === 'http:') {
+    //   window.location.href = 'https://' + window.location.host + window.location.pathname + window.location.search
+    // }
+    beforeMount() {
+      // get user
+      const user = localStorage.get('user')
+      if (user) {
+        this.auth = user
+      } else {
+        syncApiService.get(config.apiUrl + '/userinfo').then(response => {
+          if (response.data.status === 0) {
+            this.auth = response.data.data
+            localStorage.set('user', this.auth)
+          }
+        }).catch(error => {
+          console.log(error)
+        })
+      }
+    },
+    mounted() {
+      Sentry.init({ dsn: 'https://b11425e91d854dc8a9a62b2ac1cc1590@sentry.io/1329324' });
+    },
+    methods: {
+      loginFresh(user) {
+        this.auth = user
       }
     }
-  },
-  components: {
-    'app-header': header,
-    'app-foot': footer
-  },
-  // if http then 301 to https
-  // if (window.location.protocol === 'http:') {
-  //   window.location.href = 'https://' + window.location.host + window.location.pathname + window.location.search
-  // }
-  beforeMount() {
-    // get user
-    const user = localStorage.get('user')
-    if (user) {
-      this.auth = user
-    } else {
-      syncApiService.get(config.apiUrl + '/userinfo').then(response => {
-        if (response.data.status === 0) {
-          this.auth = response.data.data
-          localStorage.set('user', this.auth)
-        }
-      }).catch(error => {
-        console.log(error)
-      })
-    }
-  },
-  mounted() {
-    Sentry.init({ dsn: 'https://b11425e91d854dc8a9a62b2ac1cc1590@sentry.io/1329324' });
-  },
-  methods: {
-    loginFresh(user) {
-      this.auth = user
-    }
   }
-}
 </script>
 
 <style lang="scss">
-.main {
-  min-height: 100vh; // vh 是当前视窗的百分比单位 100vh 就是当前视窗的 100%
-}
-.main-content {
-  flex: 1; // 处理页面高度较小的情况下底部留白问题
-}
+  .main {
+    min-height: 100vh; // vh 是当前视窗的百分比单位 100vh 就是当前视窗的 100%
+  }
+  .main-content {
+    flex: 1; // 处理页面高度较小的情况下底部留白问题
+  }
 </style>

@@ -116,52 +116,52 @@ import axios from 'axios'
 import config from '~/config/api.js'
 
 export default {
-  components: {
-    'hash-avatar': HashAvatar
-  },
-  data() {
-    return {
-      topUsers: [],
-      posts: []
-    }
-  },
-  created() {
-    apiService.get('/users/top').then(response => {
-      this.topUsers = response.data.data
-    })
-  },
-  asyncData({ params,error }, callback) {
-    axios
-      .get(config.apiUrl + '/posts')
-      .then(response => {
-        callback(null, { posts: response.data.data.data })
-      })
-      .catch(err => {
-        callback()
-        error({ statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com' })
-        console.log("async error")
-      })
-  },
-  methods: {
-    buildParams(url, orignalParam) {
-      return url
+    components: {
+        'hash-avatar': HashAvatar
     },
-    getPosts() {
-      apiService
-        .get('/posts')
-        .then(response => {
-          this.posts = response.data.data.data
+    data() {
+        return {
+            topUsers: [],
+            posts: []
+        }
+    },
+    created() {
+        apiService.get('/users/top').then(response => {
+            this.topUsers = response.data.data
         })
-        .catch(error => {
-          this.$notify({
-            type: 'error',
-            group: 'tip',
-            duration: 2000,
-            title: error
-          })
-          return false
-        })
+    },
+
+    //2.x版本 asyncData不推荐使用callback方式
+    asyncData({params, error}) {
+        return axios.get(config.apiUrl + '/posts')
+            .then((res) => {
+                return {posts: res.data.data.data}
+            }).catch(err => {
+                error({statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com'})
+            })
+    },
+
+
+    methods: {
+        buildParams(url, orignalParam) {
+            return url
+        },
+        getPosts() {
+            apiService
+                .get('/posts')
+                .then(response => {
+                    this.posts = response.data.data.data
+                })
+                .catch(error => {
+                    this.$notify({
+                        type: 'error',
+                        group: 'tip',
+                        duration: 2000,
+                        title: error
+                    })
+                    return false
+                })
+        }
     }
-  }
 }
 </script>

@@ -121,42 +121,46 @@ export default {
       usageStatistics: false,
     })
   },
-  asyncData({ params, error }, callback) {
-    axios
-      .get(config.apiUrl + '/posts/') // 获取推荐文章
-      .then(postsResponse => {
-        axios
-          .get(config.apiUrl + '/posts/' + params.id) // 获取当前文章
-          .then(postResponse => {
-            if (postResponse.data.status !== 0) {
-              error({ statusCode: 404, message: '文章不存在或已删除' })
-            }
-            callback(null, {
-              post: postResponse.data.data,
-              posts: postsResponse.data.data.data
-            })
-          })
-          .catch(err => {
-            callback()
-            error({ statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com' })
-            console.log("get post ", params.id, "error")
-          })
-      })
-      .catch(err => {
-        callback()
-        error({ statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com' })
-        console.log("async error")
-      })
+  async asyncData({params, error}) {
+    //推荐文章
+    let posts = await axios.get(config.apiUrl + '/posts/')
+            .then(posts => {
+              return posts.data.data.data;
+            }).catch(err => {
+              error({statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com'})
+            });
+    //当前文章
+    let post = await axios.get(config.apiUrl + '/posts/' + params.id).then(res => {
+      if (res.data.status !== 0) {
+        error({statusCode: 404, message: '文章不存在或已删除'});
+      }
+      else {
+        return res.data.data;
+      }
+    }).catch(err => {
+      error({statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com'})
+    });
+
+    if (typeof post === 'object' && typeof posts === 'object') {
+      return {
+        post: post,
+        posts: posts
+      };
+    }
+    return {
+      post: [],
+      posts: []
+    };
   },
   methods: {
     favorClick() {
-      apiService.post('/posts/'+this.post.id+'/favor').then(response => {
+      apiService.post('/posts/' + this.post.id + '/favor').then(response => {
         if (response.data.status !== 0) {
           this.$notify({
-              type: 'error',
-              group: 'tip',
-              duration: 2000,
-              title: response.data.msg,
+            type: 'error',
+            group: 'tip',
+            duration: 2000,
+            title: response.data.msg,
           })
         }
       })
@@ -164,28 +168,28 @@ export default {
     publishComment() {
       if (!this.commentContent) {
         this.$notify({
-            type: 'error',
-            group: 'tip',
-            duration: 2000,
-            title: '评论内容不能为空',
+          type: 'error',
+          group: 'tip',
+          duration: 2000,
+          title: '评论内容不能为空',
         })
         return
       }
-      apiService.post('/posts/' + this.post.id + '/comments', {content:this.commentContent}).then(response => {
+      apiService.post('/posts/' + this.post.id + '/comments', {content: this.commentContent}).then(response => {
         if (response.data.status !== 0) {
           this.$notify({
-              type: 'error',
-              group: 'tip',
-              duration: 2000,
-              title: response.data.msg,
+            type: 'error',
+            group: 'tip',
+            duration: 2000,
+            title: response.data.msg,
           })
           return
         }
         this.$notify({
-            type: 'success',
-            group: 'tip',
-            duration: 2000,
-            title: '发布成功',
+          type: 'success',
+          group: 'tip',
+          duration: 2000,
+          title: '发布成功',
         })
         let comment = {
           content: this.commentContent,
@@ -195,13 +199,13 @@ export default {
       })
     },
     moveToDraft(post_id) {
-      apiService.delete('/posts/'+this.post.id).then(response => {
+      apiService.delete('/posts/' + this.post.id).then(response => {
         if (response.data.status !== 0) {
           this.$notify({
-              type: 'error',
-              group: 'tip',
-              duration: 2000,
-              title: response.data.msg,
+            type: 'error',
+            group: 'tip',
+            duration: 2000,
+            title: response.data.msg,
           })
         } else {
           this.$notify({
@@ -210,7 +214,7 @@ export default {
             duration: 2000,
             title: '已移入草稿箱，可到个人中心查看',
           })
-          this.$router.push('/users/'+this.auth.id)
+          this.$router.push('/users/' + this.auth.id)
         }
       })
     }

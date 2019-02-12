@@ -49,7 +49,7 @@
 import OAuthLogin from '~/components/oauth-login'
 
 import apiService from '~/services/apiService'
-import localStorage from '~/store/localStorage'
+import localStorage from '~/utils/localStorage'
 import { ErrorBag } from 'vee-validate'
 
 export default {
