@@ -25,8 +25,7 @@
         </div>
         <div id="markdownSection"></div>
       </div>
-      <no-ssr style="height:100px">
-        <div class="d-flex justify-content-center mb-5">
+        <div class="d-flex justify-content-center mb-5" style="height:100px">
           <vue-star animate="animated rotateInDownLeft" color="#F05654">
             <a slot="icon" class="btn btn-outline-secondary d-flex align-items-center justify-content-between" @click="favorClick">
                 <span class="mr-2">点赞</span>
@@ -34,7 +33,6 @@
             </a>
           </vue-star>
         </div>
-      </no-ssr>
       <!-- 评论区 -->
       <div>
         <div class="d-flex mb-4" v-for="(comment, index) in post.comments" :key="index">
