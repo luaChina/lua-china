@@ -86,6 +86,7 @@ import apiService from '~/services/apiService'
 import HashAvatar from '~/components/hash-avatar'
 import axios from 'axios'
 import config from '~/config/api.js'
+import localStorage from '~/utils/localStorage'
 
 require('highlight.js/styles/monokai.css'); // code block highlight
 
@@ -101,11 +102,11 @@ export default {
         user: {},
         title: null,
         content: null,
-        editor: Object,
-        comments: Array,
+        editor: {},
+        comments: [],
       },
       favor: false,
-      posts: Array,
+      posts: [],
       commentContent: null,
       owner: false
     }
@@ -170,7 +171,7 @@ export default {
           group: 'tip',
           duration: 2000,
           title: '评论内容不能为空',
-        })
+        });
         return
       }
       apiService.post('/posts/' + this.post.id + '/comments', {content: this.commentContent}).then(response => {
@@ -180,7 +181,7 @@ export default {
             group: 'tip',
             duration: 2000,
             title: response.data.msg,
-          })
+          });
           return
         }
         this.$notify({
@@ -188,12 +189,12 @@ export default {
           group: 'tip',
           duration: 2000,
           title: '发布成功',
-        })
+        });
         let comment = {
           content: this.commentContent,
-          user: this.user
-        }
-        this.post.comments.push(comment)
+          user: localStorage.get('user')
+        };
+        this.post.comments.push(comment);
       })
     },
     moveToDraft(post_id) {
