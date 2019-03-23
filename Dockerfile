@@ -4,7 +4,7 @@ COPY . /app
 
 WORKDIR /app
 
-RUN npm cache clean --force && rm -rf package-lock.json && npm install && npm run build --prod
+RUN npm install && npm run build --prod
 
 EXPOSE 80
 
