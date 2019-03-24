@@ -22,7 +22,10 @@ async function start () {
     const builder = new Builder(nuxt)
     await builder.build()
   }
-
+  
+  // use kong proxy
+  app.proxy = true
+  
   app.use(ctx => {
     // redirect http to https
     if (!config.dev && ctx.request.protocol == 'http') {
