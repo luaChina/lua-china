@@ -1,10 +1,10 @@
-FROM node:8.9
+FROM node:11.12
 
 COPY . /app
 
 WORKDIR /app
 
-RUN npm cache clean --force && rm -rf package-lock.json && npm install && npm run build --prod
+RUN npm install && npm run build --prod
 
 EXPOSE 80
 

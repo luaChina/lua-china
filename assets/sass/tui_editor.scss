@@ -51,9 +51,15 @@
     color: #333;
 }
 
-.tui-editor-contents h3,
-.tui-editor-contents h4 {
+.tui-editor-contents h3 {
     font-size: 1.2rem;
+    line-height: 18px;
+    margin: 20px 0 2px;
+    color: #333;
+}
+
+.tui-editor-contents h4 {
+    font-size: 1.0rem;
     line-height: 18px;
     margin: 20px 0 2px;
     color: #333;

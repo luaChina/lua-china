@@ -71,10 +71,10 @@
                     </div>
                     <div class="p-4 text-center"><a href="https://github.com/luaChina/lua-china" target="_blank"><img
                             class="img-fluid" src="~/assets/images/github.png" alt="adv"></a></div>
-                    <div class="announcement-content pb-4 px-4 text-muted">希望大家参与开发，共建 Lua 社区，扫描下方二维码加微信群</div>
+                    <div class="announcement-content pb-4 px-4 text-muted">希望大家参与开发，共建 Lua 社区，扫描下方二维码站长拉你加微信群，备注: lua</div>
                     <div class="mb-4 text-center">
                         <img class="img-fluid"
-                             src="https://lua-china.oss-cn-beijing.aliyuncs.com/wechat-group-100x100.jpeg" alt="adv">
+                             src="~/assets/images/wechat-qrcode-100x100.jpeg" alt="adv">
                     </div>
                 </div>
             </div>
