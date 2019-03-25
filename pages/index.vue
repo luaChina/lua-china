@@ -52,6 +52,11 @@
       }
     },
     mounted() {
+      this.$nextTick(() => {
+        this.$nuxt.$loading.start();
+
+        setTimeout(() => this.$nuxt.$loading.finish(), 500)
+      });
       Sentry.init({ dsn: 'https://b11425e91d854dc8a9a62b2ac1cc1590@sentry.io/1329324' });
     },
     methods: {
