@@ -2,8 +2,6 @@ const pkg = require('./package');
 
 
 module.exports = {
-    mode: 'spa',
-
     /*
     ** Headers of the page
     */
@@ -12,7 +10,7 @@ module.exports = {
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1.0, user-scalable=no'},
-            {name: 'keywords', content: 'Lua中国,Lua中文,lua中文网,lua openresty,lua nana,nana,Lua China 社区'},
+            {name: 'keywords', content: 'Lua中国,Lua中文,lua中文网,lua openresty,lua nana api 框架,nana,Lua China 社区'},
             {hid: 'description', name: 'description', content: 'Lua 中国，这里是 Lua 中文网，为开发者提供学习交流的平台，Lua 中国需要你的力量！'}
         ],
         link: [

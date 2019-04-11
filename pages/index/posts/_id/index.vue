@@ -110,6 +110,11 @@ export default {
       owner: false
     }
   },
+  head() {
+    return {
+      title: this.post.title + ' | Lua China - Lua 中国开发者社区'
+    }
+  },
   mounted() {
     require('tui-editor').factory({
       viewer: true,

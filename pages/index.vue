@@ -31,10 +31,6 @@
       'app-header': header,
       'app-foot': footer
     },
-    // if http then 301 to https
-    // if (window.location.protocol === 'http:') {
-    //   window.location.href = 'https://' + window.location.host + window.location.pathname + window.location.search
-    // }
     beforeMount() {
       // get user
       const user = localStorage.get('user')
