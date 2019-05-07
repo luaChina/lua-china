@@ -33,19 +33,14 @@
     },
     beforeMount() {
       // get user
-      const user = localStorage.get('user')
-      if (user) {
-        this.auth = user
-      } else {
-        syncApiService.get(config.apiUrl + '/userinfo').then(response => {
-          if (response.data.status === 0) {
-            this.auth = response.data.data
-            localStorage.set('user', this.auth)
-          }
-        }).catch(error => {
-          console.log(error)
-        })
-      }
+      syncApiService.get(config.apiUrl + '/userinfo').then(response => {
+        if (response.data.status === 0) {
+          this.auth = response.data.data;
+          localStorage.set('user', this.auth)
+        }
+      }).catch(error => {
+        console.log(error)
+      })
     },
     mounted() {
       this.$nextTick(() => {
