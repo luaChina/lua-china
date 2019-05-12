@@ -105,7 +105,7 @@ export default {
       post: {
         user: {},
         title: null,
-        content: null,
+        content: '',
         editor: {},
         comments: [],
       },
@@ -120,9 +120,6 @@ export default {
       title: this.post.title + ' | Lua China - Lua 中国开发者社区'
     }
   },
-  mounted() {
-    window.hljs.initHighlighting()
-  },
   computed: {
     compiledMarkdown: function () {
         return marked(this.post.content, {
@@ -131,8 +128,9 @@ export default {
                 breaks: false,
                 pedantic: false,
                 sanitize: true,
-                smartLists: true,
-                langPrefix: 'language-',
+                highlight: (code) => {
+                  return require('highlight.js').highlightAuto(code).value;
+                }
               })
     }
   },
