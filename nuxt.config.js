@@ -14,10 +14,12 @@ module.exports = {
             {hid: 'description', name: 'description', content: 'Lua 中国，这里是 Lua 中文网，为开发者提供学习交流的平台，Lua 中国需要你的力量！'}
         ],
         link: [
-            {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
         ],
         script: [
-            {src: 'https://browser.sentry-cdn.com/4.3.4/bundle.min.js', crossorigin: 'anonymous'}
+            { src: 'https://browser.sentry-cdn.com/4.3.4/bundle.min.js', crossorigin: 'anonymous'},
+            { src: '//cdn.bootcss.com/highlight.js/9.15.6/highlight.min.js', crossorigin: 'anonymous'},
+            { src: '//cdn.bootcss.com/highlight.js/9.15.6/languages/lua.min.js', crossorigin: 'anonymous'},
         ],
     },
 
@@ -41,6 +43,7 @@ module.exports = {
         {src: '~plugins/app', ssr: false},
         {src: '~plugins/vee-validate', ssr: false},
         {src: '~plugins/vue-star', ssr: false},
+        {src: '~plugins/markdown-editor', ssr: false},
         {src: '~plugins/fontawesome', ssr: true}
     ],
 

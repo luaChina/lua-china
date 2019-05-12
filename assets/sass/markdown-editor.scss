@@ -1,0 +1,56 @@
+@import '../css/monokai.css'; // highlight.js 里的样式
+
+.markdown-preview, .editor-preview-side {
+    pre code {
+        display: block;
+        overflow-x: auto;
+        padding: 0.5em;
+        background: #272822;
+        color: #ddd;
+        letter-spacing: -0.3px;
+        font-family: Consolas, Monaco, 'Andale Mono', monospace;
+        border: 0;
+        border-radius: 0;
+        line-height: 1.5;
+    }
+    h1 {
+        font-size: 1.4rem;
+        line-height: 28px;
+        border-bottom: 1px solid #eee;
+        margin: 52px 0 15px 0;
+        padding-bottom: 7px;
+        color: #333;
+    }
+    h2 {
+        font-size: 1.4rem;
+        line-height: 28px;
+        border-bottom: 1px solid #eee;
+        margin: 52px 0 15px 0;
+        padding-bottom: 7px;
+        color: #333;
+    }
+    h3 {
+        font-size: 1.2rem;
+        line-height: 18px;
+        margin: 20px 0 2px;
+        color: #333;
+    }
+    h4 {
+        font-size: 1.0rem;
+        line-height: 18px;
+        margin: 20px 0 2px;
+        color: #333;
+    }
+    h5,h6 {
+        font-size: 1rem;
+        line-height: 17px;
+        margin: 10px 0 -4px;
+        color: #333;
+    }
+    blockquote {
+        margin: 15px 0;
+        border-left: 4px solid #dddddd;
+        padding: 0 15px;
+        color: #777777;
+    }
+}

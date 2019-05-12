@@ -46,7 +46,7 @@
             </div>
             <div class="d-flex align-items-center" v-if="auth.id!=0">
               <a href="/posts/create" target="_blank" role="button">
-                <button class="btn btn-outline-danger btn-sm mr-2">发布文章</button>
+                <router-link :to="'/posts/create'" class="btn btn-outline-danger btn-sm mr-2">发布文章</router-link>
               </a>
               <div class="dropdown">
                 <a href="#" class="dropdown-toggle text-muted" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

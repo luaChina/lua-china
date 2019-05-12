@@ -6,7 +6,7 @@
       <div class="col-3 border-bottom mb-2"></div>
     </div>
     <div class="d-flex justify-content-around">
-      <div class="text-center">
+      <!-- <div class="text-center">
         <svg
                 width="36"
                 height="36"
@@ -24,7 +24,7 @@
           ></path>
         </svg>
         <div class="text-muted">微信登录</div>
-      </div>
+      </div> -->
       <div class="text-center">
         <a
                 :href="'https://github.com/login/oauth/authorize/?client_id=6162c14c3b7a50abf8ce&redirect_uri=' + github_redirect_url"

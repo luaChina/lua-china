@@ -1,5 +1,6 @@
 <template>
-  <div>
+<div>
+  <no-ssr>
       <div class="form-row form-group">
         <label for="title">文章标题</label>
         <input type="text" class="form-control" required v-model.trim="post.title">
@@ -12,12 +13,13 @@
       </div>
       <div>
         <label for="markdownSection">文章内容</label>
-        <div id="markdownSection"></div>
+        <markdown-editor ref="editor" :post="post" :edit="true"></markdown-editor>
       </div>
       <div class="form-row form-group justify-content-center">
         <button class="btn btn-lg btn-success mt-4 mb-4" type="submit" @click="submitForm()">提交</button>
       </div>
-  </div>
+  </no-ssr>
+</div>
 </template>
 
 
@@ -47,17 +49,6 @@ export default {
     apiService.get('/tags').then(response => {
       this.tags = response.data.data
     })
-  },
-  mounted() {
-    //editor css
-    require('codemirror/lib/codemirror.css'); // codemirror
-    require('tui-editor/dist/tui-editor.css'); // editor ui
-    require('codemirror/theme/monokai.css'); // codemirror
-    require('tui-editor/dist/tui-editor-extColorSyntax.js')
-    // viewer style
-    require('highlight.js/styles/monokai.css'); // code block highlight
-    //js
-    require('tui-editor/dist/tui-editor-extScrollSync.js'); // scrollSync
     apiService.get('/posts/' + this.$route.params.id + '/edit').then(response => {
       if (response.data.status === 0) {
         this.post = response.data.data
@@ -70,33 +61,23 @@ export default {
           })
           return
         }
-        var that = this
-        this.editor = require('tui-editor').factory({
-          initialEditType: 'markdown',
-          el: document.querySelector('#markdownSection'),
-          height: '800px',
-          initialValue: this.post.content,
-          previewStyle: 'vertical',
-          exts: ['scrollSync', 'colorSyntax'],
-          hooks: {
-            addImageBlobHook(blob, callback) {
-              return callback('image url', 'image alt')
-            }
-          },
-          events: {
-            load() {
-              
-            },
-            change(codeBlockElement) {
-              that.post.content = that.editor.getValue()
-            }
-          },
-          language: 'zh_CN',
-          usageStatistics: false
-        })
-        let codeMirror = this.editor.getCodeMirror()
-        codeMirror.setOption('theme', 'monokai')
-        codeMirror.setOption('lineNumbers', true)
+        this.$refs.editor.setContent(this.post.content)
+      }
+    })
+  },
+  mounted() {
+    apiService.get('/posts/' + this.$route.params.id + '/edit').then(response => {
+      if (response.data.status === 0) {
+        this.post = response.data.data
+        if (this.auth.id !== this.post.user_id) {
+          this.$notify({
+              type: 'error',
+              group: 'tip',
+              duration: 2000,
+              title: '这不是你的文章，不可编辑',
+          })
+          return
+        }
       }
     })
   },
@@ -111,6 +92,7 @@ export default {
         })
         return
       }
+      this.post.content = this.$refs.editor.getContent()
       if (!this.post.content) {
         this.$notify({
             type: 'error',

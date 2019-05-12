@@ -18,12 +18,12 @@
             </div>
             <no-ssr>
               <div v-if="this.post.user_id === this.auth.id" class="ml-auto">
-                <a target="_blank" class="btn btn-sm btn-primary pull-right mr-2" :href='"/posts/" + post.id + "/edit"'>编辑</a>
+                <router-link class="btn btn-sm btn-primary pull-right mr-2" :to='"/posts/" + post.id + "/edit"'>编辑</router-link>
                 <button class="btn btn-sm btn-danger pull-right" @click="moveToDraft(post.id)">移入草稿箱</button></div>
             </no-ssr>
           </div>
         </div>
-        <div id="markdownSection"></div>
+        <div class="markdown-preview" v-html="compiledMarkdown"></div>
       </div>
         <div class="d-flex justify-content-center mb-5" style="height:100px">
           <no-ssr>
@@ -92,8 +92,7 @@ import syncApiService from '~/services/syncApiService'
 import HashAvatar from '~/components/hash-avatar'
 import config from '~/config/api.js'
 import localStorage from '~/utils/localStorage'
-
-require('highlight.js/styles/monokai.css'); // code block highlight
+const marked = require('marked')
 
 export default {
   name: 'PostDetail',
@@ -122,13 +121,20 @@ export default {
     }
   },
   mounted() {
-    require('tui-editor').factory({
-      viewer: true,
-      el: document.querySelector('#markdownSection'),
-      height: '300px',
-      initialValue: this.post.content,
-      usageStatistics: false,
-    })
+    window.hljs.initHighlighting()
+  },
+  computed: {
+    compiledMarkdown: function () {
+        return marked(this.post.content, {
+                gfm: true,
+                tables: true,
+                breaks: false,
+                pedantic: false,
+                sanitize: true,
+                smartLists: true,
+                langPrefix: 'language-',
+              })
+    }
   },
   async asyncData({params, error}) {
     //推荐文章
