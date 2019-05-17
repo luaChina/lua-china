@@ -122,16 +122,16 @@ export default {
   },
   computed: {
     compiledMarkdown: function () {
-        return marked(this.post.content, {
-                gfm: true,
-                tables: true,
-                breaks: false,
-                pedantic: false,
-                sanitize: true,
-                highlight: (code) => {
-                  return require('highlight.js').highlightAuto(code).value;
-                }
-              })
+      return marked(this.post.content, {
+        gfm: true,
+        tables: true,
+        breaks: false,
+        pedantic: false,
+        sanitize: true,
+        highlight: (code) => {
+          return require('highlight.js').highlightAuto(code, ['lua', 'html', 'xml', 'yml', 'bash', 'cpp', 'json', 'nginx', 'shell']).value;
+        }
+      })
     }
   },
   async asyncData({params, error}) {
