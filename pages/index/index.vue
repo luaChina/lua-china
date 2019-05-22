@@ -152,15 +152,6 @@ export default {
                 .then(response => {
                     this.posts = response.data.data.data
                 })
-                .catch(error => {
-                    this.$notify({
-                        type: 'error',
-                        group: 'tip',
-                        duration: 2000,
-                        title: error
-                    })
-                    return false
-                })
         }
     }
 }

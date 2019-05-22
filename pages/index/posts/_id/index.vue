@@ -159,16 +159,7 @@ export default {
   },
   methods: {
     favorClick() {
-      apiService.post('/posts/' + this.post.id + '/favor').then(response => {
-        if (response.data.status !== 0) {
-          this.$notify({
-            type: 'error',
-            group: 'tip',
-            duration: 2000,
-            title: response.data.msg,
-          })
-        }
-      })
+      apiService.post('/posts/' + this.post.id + '/favor').then(response => {})
     },
     publishComment() {
       if (!this.commentContent) {
@@ -181,15 +172,6 @@ export default {
         return
       }
       apiService.post('/posts/' + this.post.id + '/comments', {content: this.commentContent}).then(response => {
-        if (response.data.status !== 0) {
-          this.$notify({
-            type: 'error',
-            group: 'tip',
-            duration: 2000,
-            title: response.data.msg,
-          });
-          return
-        }
         this.$notify({
           type: 'success',
           group: 'tip',
@@ -205,22 +187,13 @@ export default {
     },
     moveToDraft(post_id) {
       apiService.delete('/posts/' + this.post.id).then(response => {
-        if (response.data.status !== 0) {
-          this.$notify({
-            type: 'error',
-            group: 'tip',
-            duration: 2000,
-            title: response.data.msg,
-          })
-        } else {
-          this.$notify({
-            type: 'success',
-            group: 'tip',
-            duration: 2000,
-            title: '已移入草稿箱，可到个人中心查看',
-          })
-          this.$router.push('/users/' + this.auth.id)
-        }
+        this.$notify({
+          type: 'success',
+          group: 'tip',
+          duration: 2000,
+          title: '已移入草稿箱，可到个人中心查看',
+        });
+        this.$router.push('/users/' + this.auth.id)
       })
     }
   }

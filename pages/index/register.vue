@@ -127,64 +127,45 @@ export default {
                     apiService
                         .post('/send/sms', that.user)
                         .then(response => {
-                            if(response.data.status !== 0) {
-                                that.$notify({
-                                    type: 'error',
-                                    group: 'tip',
-                                    duration: 2000,
-                                    title: response.data.msg,
-                                })
-                            } else {
-                                let time = 60
-                                that.smsBtnDisabled = true
-                                that.interval = setInterval(() => {
-                                    if(that.$refs.get_sms){
-                                        that.$refs.get_sms.innerHTML = time-- + "秒后重试"
+                            let time = 60;
+                            that.smsBtnDisabled = true;
+                            that.interval = setInterval(() => {
+                                if (that.$refs.get_sms) {
+                                    that.$refs.get_sms.innerHTML = time-- + "秒后重试"
+                                }
+                                if (time <= 0) {
+                                    clearInterval(that.interval)
+                                    that.smsBtnDisabled = false
+                                    if (that.$refs.get_sms) {
+                                        that.$refs.get_sms.innerHTML = "获取验证码"
                                     }
-                                    if (time <= 0) {
-                                        clearInterval(that.interval)
-                                        that.smsBtnDisabled = false
-                                        if(that.$refs.get_sms){
-                                            that.$refs.get_sms.innerHTML = "获取验证码"
-                                        }
-                                        return false
-                                    }
-                                }, 1000)
-                            }
+                                    return false
+                                }
+                            }, 1000)
                         })
-                        .catch(error => {})
                 }
             })
         },
         submitForm() {
-             this.$validator.validateAll().then(isValid => {
-                 if(isValid) {
-                     apiService
+            this.$validator.validateAll().then(isValid => {
+                if (isValid) {
+                    apiService
                         .post('/register', this.user)
                         .then(response => {
-                            if(response.data.status !== 0) {
-                                this.$notify({
-                                    type: 'error',
-                                    group: 'tip',
-                                    duration: 2000,
-                                    title: response.data.msg,
-                                })
-                            } else {
-                                let newAuth = response.data.data
-                                newAuth.login_at = Date.now()
-                                localStorage.set('user', newAuth)
-                                this.$notify({
-                                    type: 'success',
-                                    group: 'tip',
-                                    duration: 2000,
-                                    title: '注册成功',
-                                })
-                                this.$emit('loginFresh', newAuth)
-                                this.$router.push({path: '/'})
-                            }
+                            let newAuth = response.data.data;
+                            newAuth.login_at = Date.now();
+                            localStorage.set('user', newAuth);
+                            this.$notify({
+                                type: 'success',
+                                group: 'tip',
+                                duration: 2000,
+                                title: '注册成功',
+                            });
+                            this.$emit('loginFresh', newAuth);
+                            this.$router.push({path: '/'})
                         })
-                 }
-             })
+                }
+            })
         },
     }
 }

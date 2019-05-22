@@ -1,24 +1,41 @@
 import axios from 'axios'
 import config from '~/config/api'
+import Vue from 'vue'
 
 const service = axios.create({
     withCredentials: true,
     baseURL: config.apiUrl
-})
+});
 
 service.interceptors.response.use(
     response => {
-        if (response.data.status == 4) {
-            window.location.href='/login'
-            return
-        }
-        return response
+        return new Promise(resolve => {
+            if (response.data.status === 4) {
+                window.location.href = '/login';
+                return
+            }
+            if (response.data.status !== 0) {
+                Vue.notify({
+                    type: 'error',
+                    group: 'tip',
+                    duration: 2000,
+                    title: response.data.msg,
+                });
+                return
+            }
+            resolve(response)
+        });
     },
     err => {
-        console.log(err)
+        Vue.notify({
+            type: 'error',
+            group: 'tip',
+            duration: 2000,
+            title: err
+        });
         return Promise.reject(err)
     }
-)
+);
 
 export default {
     post (uri, data) {

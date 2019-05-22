@@ -107,10 +107,8 @@
       logout() {
         localStorage.delete('user')
         apiService.post('/logout').then(response => {
-          if (response.data.status == 0) {
-            this.$emit('loginFresh', {'id':0})
-            this.$router.push('/login')
-          }
+          this.$emit('loginFresh', {'id': 0});
+          this.$router.push('/login')
         })
       }
     }

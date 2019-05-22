@@ -27,72 +27,63 @@ import apiService from '~/services/apiService'
 import localStorage from '~/utils/localStorage'
 
 export default {
-  name: 'PostCreate',
-  props: ['auth'],
-  data() {
-    return {
-      post: {
-        title: null,
-        content: null,
-        tag_id: 1,
-        user: {},
-      },
-      tags: {},
-      editor: Object
-    }
-  },
-  created() {
-     // if not login
-    if (!this.auth) {
-      return this.$router.push('/login')
-    }
-    apiService.get('/tags').then(response => {
-      this.tags = response.data.data
-    })
-  },
-  methods: {
-    submitForm() {
-      if (!this.post.title) {
-        this.$notify({
-            type: 'error',
-            group: 'tip',
-            duration: 2000,
-            title: '请填写文章标题',
-        })
-        return
-      }
-      this.post.content = this.$refs.editor.getContent()
-      if (!this.post.content) {
-        this.$notify({
-            type: 'error',
-            group: 'tip',
-            duration: 2000,
-            title: '请填写文章内容',
-        })
-        return
-      }
-      apiService.post('/posts', this.post).then(response => {
-        if (response.data.status === 0) {
-          this.$notify({
-              type: 'success',
-              group: 'tip',
-              duration: 2000,
-              title: '发布成功',
-          })
-          // 触发子组件 destroy 消除定时器
-          this.$router.push('/')
-          // 定时器消除后删除 localstorage
-          localStorage.delete('smde_article')
-        } else {
-          this.$notify({
-              type: 'error',
-              group: 'tip',
-              duration: 2000,
-              title: response.data.msg,
-          })
+    name: 'PostCreate',
+    props: ['auth'],
+    data() {
+        return {
+            post: {
+                title: null,
+                content: null,
+                tag_id: 1,
+                user: {},
+            },
+            tags: {},
+            editor: Object
         }
-      })
     },
-  }
+    created() {
+        // if not login
+        if (!this.auth) {
+            return this.$router.push('/login')
+        }
+        apiService.get('/tags').then(response => {
+            this.tags = response.data.data
+        })
+    },
+    methods: {
+        submitForm() {
+            if (!this.post.title) {
+                this.$notify({
+                    type: 'error',
+                    group: 'tip',
+                    duration: 2000,
+                    title: '请填写文章标题',
+                })
+                return
+            }
+            this.post.content = this.$refs.editor.getContent()
+            if (!this.post.content) {
+                this.$notify({
+                    type: 'error',
+                    group: 'tip',
+                    duration: 2000,
+                    title: '请填写文章内容',
+                })
+                return
+            }
+            apiService.post('/posts', this.post).then(response => {
+                this.$notify({
+                    type: 'success',
+                    group: 'tip',
+                    duration: 2000,
+                    title: '发布成功',
+                });
+                // 触发子组件 destroy 消除定时器
+                this.$router.push('/');
+                // 定时器消除后删除 localstorage
+                localStorage.delete('smde_article')
+            })
+        },
+    }
 }
 </script>

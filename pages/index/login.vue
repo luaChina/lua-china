@@ -76,30 +76,21 @@ export default {
     methods: {
         submitForm() {
             this.$validator.validateAll().then(isValide => {
-                if(isValide) {
+                if (isValide) {
                     apiService
                         .post('/login', this.user)
                         .then(response => {
-                            if (response.data.status != 0) {
-                                this.$notify({
-                                    type: 'error',
-                                    group: 'tip',
-                                    duration: 2000,
-                                    title: response.data.msg,
-                                })
-                            } else {
-                                let newAuth = response.data.data
-                                newAuth.login_at = Date.now()
-                                localStorage.set('user', newAuth)
-                                this.$notify({
-                                    type: 'success',
-                                    group: 'tip',
-                                    duration: 2000,
-                                    title: '登录成功',
-                                })
-                                this.$emit('loginFresh', newAuth)
-                                this.$router.push({path: '/'})
-                            }
+                            let newAuth = response.data.data
+                            newAuth.login_at = Date.now()
+                            localStorage.set('user', newAuth)
+                            this.$notify({
+                                type: 'success',
+                                group: 'tip',
+                                duration: 2000,
+                                title: '登录成功',
+                            })
+                            this.$emit('loginFresh', newAuth)
+                            this.$router.push({path: '/'})
                         })
                 }
             })

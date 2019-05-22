@@ -123,14 +123,10 @@ export default {
         //刷新页面后父组件props [auth]被初始化，需重新赋值
         this.getAuth();
         apiService.get('/users/' + this.$route.params.id + '/posts').then(response => {
-            if (response.data.status === 0) {
-                this.posts = response.data.data
-            }
+            this.posts = response.data.data
         });
         apiService.get('/users/' + this.$route.params.id + '/comments').then(response => {
-            if (response.data.status === 0) {
-                this.comments = response.data.data
-            }
+            this.comments = response.data.data
         });
     },
     methods: {
@@ -140,22 +136,16 @@ export default {
         getDraft() {
             if (this.globalAuth.id === Number(this.$route.params.id)) {
                 apiService.get('/posts/drafts').then(response => {
-                    if (response.data.status === 0) {
-                        this.drafts = response.data.data
-                    }
+                    this.drafts = response.data.data
                 })
             }
         },
         getAuth() {
             if (!this.globalAuth.name) {
                 apiService.get('/userinfo').then(response => {
-                    if (response.data.status === 0) {
-                        this.globalAuth = response.data.data;
-                        this.getDraft();
-                    }
-                }).catch(error => {
-                    console.log(error)
-                });
+                    this.globalAuth = response.data.data;
+                    this.getDraft();
+                })
             } else {
                 this.getDraft();
             }
