@@ -47,17 +47,13 @@
                 </ul>
             </div>
         </div>
-        <div>
-            <div class="row border-top border-dark">
-                <div class="col">
-                    <div class="footer-copyright text-center">Designed by
-                        <svg width="18" height="18" aria-hidden="true" data-prefix="fas" data-icon="heart"
-                             class="svg-inline--fa fa-heart fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
-                             viewBox="0 0 512 512">
-                            <path fill="red"
-                                  d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path>
-                        </svg>
-                        <a class="text-white font-italic" href="https://github.com/horan-geeker"> Horan</a></div>
+        <div class="row border-top border-dark">
+            <div class="col">
+                <div class="footer-copyright text-center">Designed by
+                    <font-awesome-icon :icon="['fab', 'sketch']" style="width: 18px;height: auto;"/>
+                    <a class="text-white font-italic" href="https://github.com/horan-geeker" target="_blank"> Horan</a>
+                    and
+                    <a class="text-white font-italic" href="https://github.com/AmazingMoon" target="_blank"> Amazing</a>
                 </div>
             </div>
         </div>
