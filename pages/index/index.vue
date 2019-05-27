@@ -27,7 +27,7 @@
                                         <hash-avatar :url="post.user.avatar" :user_id="post.user.id" :size=31
                                                      :alt="post.user.name" class="rounded-circle mr-2"></hash-avatar>
                                         <span>{{post.title}}</span>
-                                        <font-awesome-icon :icon="['fas', 'crown']" :style="{ width: '18px',height:'18px',color: '#ffec3d', 'margin-bottom': '4.5px'}" v-if="index===1||index===3|| index===5||index===7||index===9"/>
+                                        <font-awesome-icon :icon="['fas', 'crown']" :style="{ width: '18px',height:'18px',color: '#ffec3d', 'margin-bottom': '4.5px'}" v-if="post.excellent===1"/>
                                     </div>
                                     <div style="font-size: 14px;color: #8c8c8c;">阅读数:{{post.read_count}}</div>
                                 </router-link>
