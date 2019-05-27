@@ -138,20 +138,23 @@ export default {
     //推荐文章
     let posts = await syncApiService.get(config.apiUrl + '/posts/')
             .then(posts => {
-                return posts.data.data.data;
+              return posts.data.data.data;
             }).catch(err => {
-                return error({statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com'})
+              return error({statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com'})
             });
     //当前文章
     let post = await syncApiService.get(config.apiUrl + '/posts/' + params.id)
             .then(res => {
-                if (res.data.status !== 0) {
-                  return error({statusCode: 404, message: '文章不存在或已删除'});
-                }
-                return res.data.data;
+              if (res.data.status !== 0) {
+                return error({statusCode: 404, message: '文章不存在或已删除'});
+              }
+              return res.data.data;
             }).catch(err => {
-                return error({statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com'})
+              return error({statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com'})
             });
+    if (!Array.isArray(post.comments)) {
+      post.comments = [];
+    }
     return {
       post: post,
       posts: posts
