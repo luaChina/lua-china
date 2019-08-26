@@ -1,7 +1,7 @@
 <template>
-<div class="markdown-editor">
-    <textarea name="content" id="markdownSection" cols="30" rows="10"></textarea>
-</div>
+    <div class="markdown-editor">
+        <textarea name="content" id="markdownSection" cols="30" rows="10"></textarea>
+    </div>
 </template>
 
 <script>
@@ -22,17 +22,10 @@ export default {
     },
     methods: {
         initMarkdownEditor() {
-            // 编辑时关闭 autosave 功能
             let autoSave = {
-                enabled: true,
                 delay: 2000,
                 unique_id: 'article'
-            }
-            if (this.edit) {
-                autoSave = {
-                    enabled: false,
-                }
-            }
+            };
             this.simplemde = new SimpleMDE({
                 element: document.getElementById('markdownSection'),
                 autoDownloadFontAwesome: false,
