@@ -22,14 +22,14 @@
                             <li v-for="(post,index) in posts" :key="index"
                                 class="list-group-item list-group-item-action border-left-0 border-right-0">
                                 <router-link :to="'/posts/' + post.id"
-                                             class="d-flex justify-content-between align-items-center text-body list-content">
+                                             class="text-body list-content">
                                     <div>
                                         <hash-avatar :url="post.user.avatar" :user_id="post.user.id" :size=31
                                                      :alt="post.user.name" class="rounded-circle mr-2"></hash-avatar>
                                         <span>{{post.title}}</span>
                                         <font-awesome-icon :icon="['fas', 'crown']" :style="{ width: '18px',height:'18px',color: '#ffec3d', 'margin-bottom': '4.5px'}" v-if="post.excellent===1"/>
                                     </div>
-                                    <div style="font-size: 14px;color: #8c8c8c;">阅读数:{{post.read_count}}</div>
+                                    <!-- <div style="font-size: 14px;color: #8c8c8c;">阅读数:{{post.read_count}}</div> -->
                                 </router-link>
                             </li>
                         </ul>
@@ -42,7 +42,7 @@
                         <font-awesome-icon :icon="['fas', 'bullhorn']"/>
                         <span>社区公告</span>
                     </div>
-                    <div class="announcement-content p-4 text-muted">祝贺 LuaChina 社区成功上线，欢迎加入 qq 群：284519473</div>
+                    <div class="announcement-content p-4 text-muted">欢迎各位 Openresty， 游戏逆向爱好者</div>
                 </div>
                 <div class="border bg-white active-user mb-4">
                     <div class="text-muted border-bottom right-card-title d-flex align-items-center justify-content-center">

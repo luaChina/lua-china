@@ -2,11 +2,12 @@
   <div class="row">
     <div class="col-md-9 p-0 mr-lg-4 mr-0 mb-5">
       <div class="bg-white border p-4">
-        <div class="mb-4">
+        <div class="mb-2">
           <h1 class="my-4 artical-title">{{post.title}}</h1>
-          <div class="text-muted border-bottom mb-5 pb-2 d-flex">
+          <div class="text-muted border-bottom mb-2 pb-2 d-flex">
             <div class="d-flex align-items-center artical-info">
-              <span v-text="post.updated_at"></span></div>
+              <span v-text="post.updated_at"></span>
+            </div>
             <div class="d-flex align-items-center artical-info">
               <span>收藏数：{{post.favor_count}}</span>
             </div>
@@ -16,12 +17,12 @@
             <div class="d-flex align-items-center artical-info">
               <span>评论数：{{post.comments.length || 0}}</span>
             </div>
-            <no-ssr>
+          </div>
+          <no-ssr>
               <div v-if="this.post.user_id === this.auth.id" class="ml-auto">
-                <router-link class="btn btn-sm btn-primary pull-right mr-2" :to='"/posts/" + post.id + "/edit"'>编辑</router-link>
+                <router-link class="btn btn-sm btn-primary mr-2" :to='"/posts/" + post.id + "/edit"'>编辑</router-link>
                 <button class="btn btn-sm btn-danger pull-right" @click="moveToDraft(post.id)">移入草稿箱</button></div>
             </no-ssr>
-          </div>
         </div>
         <div class="markdown-preview" v-html="compiledMarkdown"></div>
       </div>

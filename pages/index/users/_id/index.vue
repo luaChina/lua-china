@@ -35,15 +35,15 @@
                 <div class="border-bottom text-center p-2 font-red"><svg width="18" height="18" aria-hidden="true" data-prefix="fas" data-icon="book-open" class="svg-inline--fa fa-book-open fa-w-18 mr-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M542.22 32.05c-54.8 3.11-163.72 14.43-230.96 55.59-4.64 2.84-7.27 7.89-7.27 13.17v363.87c0 11.55 12.63 18.85 23.28 13.49 69.18-34.82 169.23-44.32 218.7-46.92 16.89-.89 30.02-14.43 30.02-30.66V62.75c.01-17.71-15.35-31.74-33.77-30.7zM264.73 87.64C197.5 46.48 88.58 35.17 33.78 32.05 15.36 31.01 0 45.04 0 62.75V400.6c0 16.24 13.13 29.78 30.02 30.66 49.49 2.6 149.59 12.11 218.77 46.95 10.62 5.35 23.21-1.94 23.21-13.46V100.63c0-5.29-2.62-10.14-7.27-12.99z"></path></svg>撰写的文章</div>
                 <div class="px-2 py-2 border-bottom border-light d-flex justify-content-between" v-for="(post,index) in posts" :key=index>
                     <div class="col-md-11"><a class="text-muted" target="_blank" :href="'/posts/' + post.id"><div>{{post.title}}</div></a></div>
-                    <div class="col-md-1 text-muted text-desc p-0 items-align-bottom align-self-center">{{post.read_count}} 阅读</div>
+                    <div class="col-md-1 text-muted text-desc p-0 items-align-bottom align-self-center text-right">{{post.read_count}} 阅读</div>
                 </div>
             </div>
             <div class="border bg-white mb-4">
                 <div class="border-bottom text-center p-2 font-red"><svg height="18" width="18" aria-hidden="true" data-prefix="fas" data-icon="comment-dots" class="mr-2 svg-inline--fa fa-comment-dots fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 32C114.6 32 0 125.1 0 240c0 49.6 21.4 95 57 130.7C44.5 421.1 2.7 466 2.2 466.5c-2.2 2.3-2.8 5.7-1.5 8.7S4.8 480 8 480c66.3 0 116-31.8 140.6-51.4 32.7 12.3 69 19.4 107.4 19.4 141.4 0 256-93.1 256-208S397.4 32 256 32zM128 272c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm128 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm128 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z"></path></svg>最近发表的评论</div>
                 <div class="px-4 py-2 border-bottom border-light" v-for="(comment,index) in comments" :key=index>
                     <div class="row">
-                        <div class="col-md-10"><a class="text-secondary comment-post-title" :href="'/posts/' + comment.post.id">{{comment.post.title}}</a></div>
-                        <div class="col-md-2 text-muted comment-time">发布于 {{comment.updated_at}}</div>
+                        <div class="col-md-8"><a class="text-secondary comment-post-title" :href="'/posts/' + comment.post.id">{{comment.post.title}}</a></div>
+                        <div class="col-md-4 text-muted comment-time align-self-center text-right">发布于 {{comment.updated_at}}</div>
                     </div>
                     <div class="d-flex justify-content-between">{{comment.content}}</div><div class="ml-2 text-muted text-desc"></div>
                 </div>
