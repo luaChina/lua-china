@@ -19,7 +19,25 @@
                     </div>
                 </div>
             </div>
-            <div class="form-row form-group">
+            <div class="form-row form-group" v-show="isSmsLogin">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <font-awesome-icon :icon="['fab', 'telegram-plane']" style="width: 13px;height: auto;"/>
+                            </span>
+                    </div>
+                    <input type="text" class="form-control mr-2" v-validate="'required|numeric|min:4'"
+                           :class="{'is-invalid': errors.has('sms_code')}" data-vv-as="短信验证码" name="sms_code"
+                           placeholder="输入验证码" v-model="user.sms_code" required>
+                    <button class="btn btn-success" :disabled="smsBtnDisabled" type="button" ref="get_sms"
+                            @click="getSmsCode()">获取验证码
+                    </button>
+                    <div class="invalid-feedback">
+                        <span>{{ errors.first('sms_code') }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row form-group" v-show="!isSmsLogin">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><font-awesome-icon :icon="['fas', 'lock']" :style="{width:'13px',height:'15px'}"/></span>
@@ -59,10 +77,12 @@ export default {
     },
     data() {
         return {
+            smsBtnDisabled: false,
+            isSmsLogin: false,
             user: {
                 phone: null,
                 password: null,
-                remember: null
+                sms_code: null,
             },
         }
     },
@@ -72,24 +92,57 @@ export default {
         }
     },
     methods: {
-        submitForm() {
-            this.$validator.validateAll().then(isValide => {
-                if (isValide) {
+        changeLoginWay() {
+            this.$validator.reset();
+            this.user.password = null;
+            this.isSmsLogin = true;
+        },
+        getSmsCode() {
+            const that = this;
+            this.$validator.validate('phone').then(isValid => {
+                if (isValid) {
                     apiService
-                        .post('/login', this.user)
+                        .post('/send/sms', {phone:that.user.phone})
                         .then(response => {
-                            let newAuth = response.data.data
-                            newAuth.login_at = Date.now()
-                            localStorage.set('user', newAuth)
-                            this.$notify({
-                                type: 'success',
-                                group: 'tip',
-                                duration: 2000,
-                                title: '登录成功',
-                            })
-                            this.$emit('loginFresh', newAuth)
-                            this.$router.push({path: '/'})
+                            let time = 60;
+                            that.smsBtnDisabled = true;
+                            that.interval = setInterval(() => {
+                                if (that.$refs.get_sms) {
+                                    that.$refs.get_sms.innerHTML = time-- + "秒后重试"
+                                }
+                                if (time <= 0) {
+                                    clearInterval(that.interval);
+                                    that.smsBtnDisabled = false;
+                                    if (that.$refs.get_sms) {
+                                        that.$refs.get_sms.innerHTML = "获取验证码"
+                                    }
+                                    return false
+                                }
+                            }, 1000)
                         })
+                }
+            })
+        },
+        submitForm() {
+            for (let k in this.user) {
+                if (this.user[k] == null) delete this.user[k];
+            }
+            let validateArr = this.isSmsLogin ? ['phone', 'sms_code'] : ['phone', 'password'];
+            this.$validator.validateAll(validateArr).then(isValidated => {
+                if (isValidated) {
+                    apiService.post('/login', this.user).then(response => {
+                        let newAuth = response.data.data;
+                        newAuth.login_at = Date.now();
+                        localStorage.set('user', newAuth);
+                        this.$notify({
+                            type: 'success',
+                            group: 'tip',
+                            duration: 2000,
+                            title: '登录成功',
+                        });
+                        this.$emit('loginFresh', newAuth);
+                        this.$router.push({path: '/'})
+                    })
                 }
             })
         }
