@@ -7,7 +7,7 @@
                         <ul class="nav nav-tabs card-header-tabs">
                             <li class="nav-item">
                                 <a href="#" class="nav-link text-muted active" data-toggle="tab"
-                                   @click="getPosts('news')" id="nav-news" aria-selected="true">最新</a>
+                                   @click="getPosts(1)" id="nav-news" aria-selected="true">最新</a>
                             </li>
                             <!-- <li class="nav-item">
                                 <a href="#" class="nav-link text-muted" data-toggle="tab" @click="getPosts('hot')" id="nav-hot" aria-selected="false">精华</a>
@@ -35,6 +35,19 @@
                         </ul>
                     </div>
                 </div>
+                <ul class="pagination justify-content-center">
+                    <li :class="prevAble ? 'page-item' : 'page-item disabled' ">
+                        <a class="page-link" aria-label="Previous" @click="getPosts(pageActive-1)">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li :class="pageActive === item ? 'page-item active' : 'page-item' " v-for="item in pageNum"><a class="page-link" @click="getPosts(item)">{{item}}</a></li>
+                    <li :class="nextAble ? 'page-item' : 'page-item disabled' ">
+                        <a class="page-link" aria-label="Next" @click="getPosts(pageActive+1)">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
             <div class="col p-0">
                 <div class="border bg-white mb-4">
@@ -81,31 +94,40 @@
     </div>
 </template>
 
-<style lang="scss">
-.list-group-item:first-child {
-  border-top: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-.list-group-item:last-child {
-  border-bottom: 0;
-}
-.right-card-title {
-  background-color: #eee;
-  line-height: 30px;
-  svg {
-    height: 18px;
-    width: 18px;
-    margin-right: 4px;
-  }
-}
-.announcement-content {
-  font-size: 14px;
-  line-height: 30px;
-}
-.list-content {
-  text-decoration: none !important;
-}
+<style lang="scss" scoped>
+    .list-group-item:first-child {
+        border-top: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .list-group-item:last-child {
+        border-bottom: 0;
+    }
+
+    .right-card-title {
+        background-color: #eee;
+        line-height: 30px;
+
+        svg {
+            height: 18px;
+            width: 18px;
+            margin-right: 4px;
+        }
+    }
+
+    .announcement-content {
+        font-size: 14px;
+        line-height: 30px;
+    }
+
+    .list-content {
+        text-decoration: none !important;
+    }
+
+    .pagination {
+        margin-top: 15px;
+    }
 </style>
 
 <script>
@@ -121,7 +143,11 @@ export default {
     data() {
         return {
             topUsers: [],
-            posts: []
+            posts: [],
+            pageNum: [1],
+            pageActive: 1,
+            prevAble: false,
+            nextAble: false
         }
     },
     created() {
@@ -134,7 +160,12 @@ export default {
     asyncData({params, error}) {
         return axios.get(config.apiUrl + '/posts')
             .then((res) => {
-                return {posts: res.data.data.data}
+                let num = Math.ceil(res.data.data.total / 20);
+                let numArr = [1];
+                for (let i = 1; i < num; i++) {
+                    numArr.push(i + 1);
+                }
+                return {posts: res.data.data.data, pageNum: numArr, nextAble: num > 1}
             }).catch(err => {
                 error({statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com'})
             })
@@ -145,12 +176,14 @@ export default {
         buildParams(url, orignalParam) {
             return url
         },
-        getPosts() {
-            apiService
-                .get('/posts')
-                .then(response => {
-                    this.posts = response.data.data.data
-                })
+        getPosts(page = 1) {
+            scrollTo(0,0);
+            this.pageActive = page;
+            this.nextAble = page < this.pageNum.length;
+            this.prevAble = page > 1;
+            apiService.get('/posts?page=' + page).then(response => {
+                this.posts = response.data.data.data;
+            })
         }
     }
 }
