@@ -74,14 +74,11 @@
                 <button class="col btn btn-primary" type="submit">注册</button>
             </div>
         </form>
-        <oauth-login/>
     </div>
 </div>
 </template>
 
 <script>
-import OAuthLogin from '~/components/oauth-login'
-
 import apiService from '~/services/apiService'
 import localStorage from '~/utils/localStorage'
 import { ErrorBag } from 'vee-validate'
@@ -92,11 +89,8 @@ export default {
     $_veeValidate: {
         validator: 'new'
     },
-    components: {
-        'oauth-login': OAuthLogin
-    },
+    components: {},
     beforeDestroy() {
-        console.log('clear interval')
         clearInterval(this.interval)
     },
     data() {
