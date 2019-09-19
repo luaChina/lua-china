@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import Notifications from 'vue-notification'
-import DropZone from 'vue2-dropzone'
-import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
-Vue.component('DropZone', DropZone);
 Vue.use(Notifications);
 
 window._ = require('lodash');
