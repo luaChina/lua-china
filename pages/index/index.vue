@@ -37,13 +37,13 @@
                 </div>
                 <ul class="pagination justify-content-center">
                     <li :class="prevAble ? 'page-item' : 'page-item disabled' ">
-                        <a class="page-link" aria-label="Previous" @click="getPosts(pageActive-1)">
+                        <a class="page-link" aria-label="Previous" @click="getPosts(pageActive-1)" href="#">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <li :class="pageActive === item ? 'page-item active' : 'page-item' " v-for="item in pageNum"><a class="page-link" @click="getPosts(item)">{{item}}</a></li>
+                    <li :class="pageActive === item ? 'page-item active' : 'page-item' " v-for="item in pageNum"><a class="page-link" @click="getPosts(item)" href="#">{{item}}</a></li>
                     <li :class="nextAble ? 'page-item' : 'page-item disabled' ">
-                        <a class="page-link" aria-label="Next" @click="getPosts(pageActive+1)">
+                        <a class="page-link" aria-label="Next" @click="getPosts(pageActive+1)" href="#">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -127,6 +127,10 @@
 
     .pagination {
         margin-top: 15px;
+    }
+
+    .page-link:focus {
+        box-shadow: none;
     }
 </style>
 
