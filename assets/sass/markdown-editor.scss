@@ -55,6 +55,8 @@
         color: #777777;
     }
     img {
-        width: 100%;
+        display: block;
+        max-width: 100%;
+        margin: auto;
     }
 }
