@@ -60,7 +60,7 @@
         <button class="btn btn-primary" @click.prevent="publishComment">发表评论</button>
       </div>
     </div>
-    <div class="col">
+    <div class="col pl-lg-0 pr-lg-0">
       <div class="bg-white border p-4 mb-4">
         <div class="text-center text-muted border-bottom p-2">
           作者: {{post.user.name}}
