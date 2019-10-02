@@ -49,8 +49,8 @@
                 </div>
             </div>
             <div class="form-row form-group justify-content-between">
-                <router-link class="text-muted" to="/forget-password">忘记密码？</router-link>
-                <router-link class="text-danger" to="/register">注册账号</router-link>
+                <router-link class="text-muted" to="/forget-password" rel="nofollow">忘记密码？</router-link>
+                <router-link class="text-danger" to="/register" rel="nofollow">注册账号</router-link>
             </div>
             <div class="form-row">
                 <button class="col btn btn-primary" type="submit">登录</button>

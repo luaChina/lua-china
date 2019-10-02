@@ -79,9 +79,9 @@
                 <div class="bg-white border">
                     <div class="text-muted border-bottom text-center right-card-title">
                         <font-awesome-icon :icon="['fab', 'github']"/>
-                        <span>本站github</span>
+                        <span>本站 github</span>
                     </div>
-                    <div class="p-4 text-center"><a href="https://github.com/luaChina/lua-china" target="_blank"><img
+                    <div class="p-4 text-center"><a href="https://github.com/luaChina/lua-china" target="_blank" rel="nofollow"><img
                             class="img-fluid" src="~/assets/images/github.png" alt="adv"></a></div>
                     <div class="announcement-content pb-4 px-4 text-muted">希望大家参与开发，共建 Lua 社区，扫描下方二维码站长拉你加微信群，备注: lua</div>
                     <div class="mb-4 text-center">

@@ -7,9 +7,7 @@
     </div>
     <div class="d-flex justify-content-around">
       <div class="text-center">
-        <a
-                :href="'https://github.com/login/oauth/authorize/?client_id=6162c14c3b7a50abf8ce&redirect_uri=' + github_redirect_url + '&scope=user:email'"
-        >
+        <a :href="'https://github.com/login/oauth/authorize/?client_id=6162c14c3b7a50abf8ce&redirect_uri=' + github_redirect_url + '&scope=user:email'" rel="nofollow">
           <font-awesome-icon :icon="['fab', 'github']" style="width: 34px;height: 34px;color:black"/>
         </a>
         <div class="text-muted">GitHub 登录</div>

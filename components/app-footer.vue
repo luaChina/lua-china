@@ -2,7 +2,7 @@
     <div class="footer container-fluid text-white mt-5">
         <nav class="p-4 text-center d-flex justify-content-center">
             <div class="mr-5">
-                <a target="_blank" href="https://github.com/luaChina" class="link">
+                <a target="_blank" href="https://github.com/luaChina" class="link" rel="nofollow">
                     <font-awesome-icon :icon="['fab', 'github']" style="width: 21px;height: auto"/>
                 </a>
             </div>
@@ -19,12 +19,12 @@
                 </div>
             </div>
             <div>
-                <a target="_blank" href="https://www.facebook.com/groups/2274306536124822/" class="mr-5 link">
+                <a target="_blank" href="https://www.facebook.com/groups/2274306536124822/" class="mr-5 link" rel="nofollow">
                     <font-awesome-icon :icon="['fab', 'facebook']" style="width: 21px;height: auto"/>
                 </a>
             </div>
             <div>
-                <a target="_blank" href="https://twitter.com/horan18927220" class="link">
+                <a target="_blank" href="https://twitter.com/horan18927220" class="link" rel="nofollow">
                     <font-awesome-icon :icon="['fab', 'twitter']" style="width: 21px;height: auto"/>
                 </a>
             </div>
@@ -33,7 +33,7 @@
             <div class="col">
                 <p class="text-light">技术支撑</p>
                 <ul class="text-secondary p-0 list-unstyled">
-                    <li><a class="text-secondary" href="https://github.com/horan-geeker/nana">Nana 框架</a></li>
+                    <li><a class="text-secondary" href="https://github.com/horan-geeker/nana" rel="nofollow">Nana 框架</a></li>
                     <li>Kong API 网关</li>
                     <li>Nuxt 服务端渲染</li>
                 </ul>
@@ -51,9 +51,9 @@
             <div class="col">
                 <div class="footer-copyright text-center">Designed by
                     <font-awesome-icon :icon="['fab', 'sketch']" style="width: 18px;height: auto;"/>
-                    <a class="text-white font-italic" href="https://github.com/horan-geeker" target="_blank"> Horan</a>
+                    <a class="text-white font-italic" href="https://github.com/horan-geeker" target="_blank" rel="nofollow"> Horan</a>
                     and
-                    <a class="text-white font-italic" href="https://github.com/AmazingMoon" target="_blank"> Amazing</a>
+                    <a class="text-white font-italic" href="https://github.com/AmazingMoon" target="_blank" rel="nofollow"> Amazing</a>
                 </div>
             </div>
         </div>

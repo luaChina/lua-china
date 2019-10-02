@@ -48,7 +48,13 @@
 
         setTimeout(() => this.$nuxt.$loading.finish(), 500)
       });
+      // init sentry
       Sentry.init({ dsn: 'https://b11425e91d854dc8a9a62b2ac1cc1590@sentry.io/1329324' });
+      // init baidu seo
+      var bp = document.createElement('script');
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
     },
     methods: {
       loginFresh(user) {

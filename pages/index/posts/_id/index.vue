@@ -20,8 +20,8 @@
           </div>
           <no-ssr>
               <div v-if="this.post.user_id === this.auth.id" class="ml-auto">
-                <router-link class="btn btn-sm btn-primary mr-2" :to='"/posts/" + post.id + "/edit"'>编辑</router-link>
-                <button class="btn btn-sm btn-danger pull-right" @click="moveToDraft(post.id)">移入草稿箱</button></div>
+                <router-link class="btn btn-sm btn-primary mr-2" :to='"/posts/" + post.id + "/edit"' rel="nofollow">编辑</router-link>
+                <button class="btn btn-sm btn-danger pull-right" @click="moveToDraft(post.id)" rel="nofollow">移入草稿箱</button></div>
             </no-ssr>
         </div>
         <div class="markdown-preview" v-html="compiledMarkdown"></div>

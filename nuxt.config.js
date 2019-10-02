@@ -10,8 +10,8 @@ module.exports = {
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1.0, user-scalable=no'},
-            {name: 'keywords', content: 'Lua中国,Lua中文,lua中文网,luachina,lua china,lua openresty,lua nana api 框架,nana,Lua China 社区'},
-            {hid: 'description', name: 'description', content: 'Lua 中国，这里是 Lua 中文网，为开发者提供学习交流的平台，Lua 中国需要你的力量！'}
+            {name: 'keywords', content: 'Lua中国,Lua论坛,openresty论坛,lua社区,luachina,lua china,lua openresty,lua nana api 框架,nana,Lua China 社区'},
+            {hid: 'description', name: 'description', content: 'Lua 中国，这里是 Lua 论坛，为开发者提供学习交流的平台，Lua 中国需要你的力量！'}
         ],
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
