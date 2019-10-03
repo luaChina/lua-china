@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h1 style="display:none">lua 中国社区，lua 论坛</h1>
         <div class="row">
             <div class="col-lg-9 col-12 mb-4 px-lg-3 p-0">
                 <div class="card">

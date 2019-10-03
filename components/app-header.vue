@@ -2,7 +2,6 @@
   <header class="shadow border-bottom bg-white">
     <nav class="navbar navbar-expand-lg navbar-light">
       <router-link to="/" class="navbar-brand header-title">
-        <h1 style="display:none">lua 中国社区，lua 论坛</h1>
         <h2 class="seo-h2 m-0">
           <span style="color:red">Lua</span>
           <span style="color:#666"> China</span>
