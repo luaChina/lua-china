@@ -64,6 +64,7 @@ module.exports = {
         */
         extend(config, ctx) {
 
-        }
+        },
+        extractCSS: true
     }
 };
