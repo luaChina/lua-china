@@ -1,4 +1,4 @@
-@import '../css/monokai.css'; // highlight.js 里的样式
+@import '../css/dracula.css'; // highlight.js 里的样式
 
 .markdown-preview, .editor-preview-side {
     pre code {
@@ -6,10 +6,10 @@
         overflow-x: auto;
         margin: 10px 0 0 0;
         padding: 0.5em;
-        background: #272822;
-        color: #ddd;
+        background: #282a36;
+        color: #ffffff;
         letter-spacing: -0.3px;
-        font-family: Consolas, Monaco, 'Andale Mono', monospace;
+        font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
         border: 0;
         border-radius: 0;
         line-height: 1.5;
