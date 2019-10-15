@@ -172,7 +172,7 @@ export default {
                 }
                 return {posts: res.data.data.data, pageNum: numArr, nextAble: num > 1}
             }).catch(err => {
-                error({statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com'})
+                error({statusCode: 500, message: '服务器维护中，稍后再试试吧'})
             })
     },
 
