@@ -42,9 +42,9 @@
           <div class="avatar mr-3">
             <hash-avatar :url="comment.user.avatar" :user_id="comment.user.id" :size=50 :alt="comment.user.name" class="border shadow"></hash-avatar>
           </div>
-          <div class="bg-white border shadow w-100">
+          <div class="bg-white border shadow w-100 comment-box">
             <div class="border-bottom p-2 font-weight-bold">{{comment.user.name}}</div>
-            <div class="p-3">{{comment.content}}</div>
+            <div class="p-3 comment-md" v-html="comment.contentMd"></div>
             <div class="p-3 text-muted">{{comment.created_at}}</div>
           </div>
         </div>
@@ -150,6 +150,14 @@ export default {
             });
     if (!Array.isArray(post.comments)) {
       post.comments = [];
+    } else {
+      post.comments.forEach(item => {
+        item.contentMd = marked(item.content, {
+          highlight: (code) => {
+            return require('highlight.js').highlightAuto(code, ['lua', 'html', 'xml', 'yml', 'bash', 'cpp', 'json', 'nginx', 'shell', 'dockerfile']).value;
+          }
+        })
+      });
     }
     return {
       post: post,
@@ -201,23 +209,38 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-.recommend-post {
-  background-color: #eee;
-  line-height: 30px;
-}
-.artical-title {
-  font-size: 1.6rem;
-}
-.artical-info {
-  font-size: 12px;
-  margin-right: 8px;
-  svg {
-    width: 16px;
-    height: 16px;
-    margin-right: 4px;
+  .recommend-post {
+    background-color: #eee;
+    line-height: 30px;
   }
-}
-.VueStar {
-  color: #999;
-}
+
+  .artical-title {
+    font-size: 1.6rem;
+  }
+
+  .artical-info {
+    font-size: 12px;
+    margin-right: 8px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+    }
+  }
+
+  .VueStar {
+    color: #999;
+  }
+
+  .comment-md {
+    pre {
+      background-color: #212529;
+      color: #ffffff;
+    }
+  }
+
+  .comment-box {
+    overflow: hidden;
+  }
 </style>
