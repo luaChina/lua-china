@@ -5,7 +5,7 @@
                 <div class="avatar-box" @mouseenter="isShowUploadText = true" @mouseleave="isShowUploadText = false">
                     <img :src="user.avatar" :alt="user.name" class="rounded-circle">
                     <div class="upload-text" v-if="isShowUploadText">点击上传</div>
-                    <input type="file" class="upload-file">
+                    <input type="file" class="upload-file" @change="handleFileChange($event)" v-show="!isUploading">
                 </div>
                 <input class="form-control mb-3 mt-3" type="text" placeholder="Default input" v-model.trim="user.name">
                 <button type="button" class="btn btn-primary" @click="updateInfo">确定</button>
@@ -17,6 +17,7 @@
 
 <script>
     import HashAvatar from '~/components/hash-avatar'
+    import apiService from '~/services/apiService'
     import axios from 'axios'
     import config from '~/config/api.js'
 
@@ -28,7 +29,8 @@
         data() {
             return {
                 isShowUploadText: false,
-                user: {}
+                user: {},
+                isUploading: false
             }
         },
         asyncData({params, error}) {
@@ -45,8 +47,28 @@
         },
         methods: {
             updateInfo() {
-                this.$router.push('/users/' + this.user.id)
-            }
+                console.log(this.user);
+                // this.$router.push('/users/' + this.user.id)
+            },
+            handleFileChange(e) {
+                let avatar = e.target.files[0];
+                if (typeof avatar === 'undefined') {
+                    return;
+                }
+                let formdata = new FormData();
+                formdata.append('file', avatar);
+                this.isUploading = true;
+                apiService.post('https://file.lua-china.com/v1/cos/upload/cdn', formdata).then(res => {
+                    this.user.avatar = res.data.data.cdn_url;
+                    this.$notify({
+                        type: 'success',
+                        group: 'tip',
+                        duration: 2000,
+                        title: '头像修改成功',
+                    });
+                    this.isUploading = false;
+                });
+            },
         }
     }
 </script>
