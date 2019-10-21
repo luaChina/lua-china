@@ -57,7 +57,7 @@
         <div class="form-group">
           <textarea name="comment" class="w-100 form-control" cols="30" rows="10" v-model="commentContent"></textarea>
         </div>
-        <button class="btn btn-primary" @click.prevent="publishComment">发表评论</button>
+        <button class="btn btn-primary" @click.prevent="publishComment" :disabled="isSubmit">发表评论</button>
       </div>
     </div>
     <div class="col pl-lg-0 pr-lg-0">
@@ -93,7 +93,7 @@ import syncApiService from '~/services/syncApiService'
 import HashAvatar from '~/components/hash-avatar'
 import config from '~/config/api.js'
 import localStorage from '~/utils/localStorage'
-const marked = require('marked')
+const marked = require('marked');
 
 export default {
   name: 'PostDetail',
@@ -113,7 +113,8 @@ export default {
       favor: false,
       posts: [],
       commentContent: null,
-      owner: false
+      owner: false,
+      isSubmit: false
     }
   },
   head() {
@@ -178,6 +179,7 @@ export default {
         });
         return
       }
+      this.isSubmit = true;
       apiService.post('/posts/' + this.post.id + '/comments', {content: this.commentContent}).then(response => {
         this.$notify({
           type: 'success',
@@ -190,6 +192,7 @@ export default {
           user: localStorage.get('user')
         };
         this.post.comments.push(comment);
+        this.isSubmit = false;
       })
     },
     moveToDraft(post_id) {
