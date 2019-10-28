@@ -50,7 +50,7 @@
               </a>
               <div class="dropdown">
                 <a href="#" class="dropdown-toggle text-muted" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <hash-avatar :url="auth.avatar" :user_id="auth.id" :size=31 :alt="auth.name" class="rounded-circle"></hash-avatar>
+                  <hash-avatar :url="user.avatar" :user_id="auth.id" :size=31 :alt="auth.name" class="rounded-circle"></hash-avatar>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                   <router-link :to="'/users/' + auth.id" class="dropdown-item" rel="nofollow">
@@ -98,7 +98,6 @@
 <script>
   import apiService from '~/services/apiService'
   import localStorage from '~/utils/localStorage'
-  import _ from 'lodash'
   import HashAvatar from '~/components/hash-avatar'
 
   export default {
@@ -107,9 +106,23 @@
     components: {
       'hash-avatar': HashAvatar
     },
+    data() {
+      return {
+        user: this.auth
+      }
+    },
+    watch: {
+      '$route'(to, from) {
+        if (from.name === 'index-users-id-edit') {
+          apiService.get('/users/' + this.auth.id).then(res => {
+            this.user = res.data.data;
+          });
+        }
+      }
+    },
     methods: {
       logout() {
-        localStorage.delete('user')
+        localStorage.delete('user');
         apiService.post('/logout').then(response => {
           this.$emit('loginFresh', {'id': 0});
           this.$router.push('/login')

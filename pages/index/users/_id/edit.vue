@@ -47,8 +47,9 @@
         },
         methods: {
             updateInfo() {
-                console.log(this.user);
-                // this.$router.push('/users/' + this.user.id)
+                apiService.put('/user', this.user).then(res => {
+                    this.$router.push('/users/' + this.user.id)
+                });
             },
             handleFileChange(e) {
                 let avatar = e.target.files[0];
@@ -89,6 +90,7 @@
 
     .rounded-circle {
         width: 100px;
+        height: 100px;
     }
 
     .upload-text {

@@ -9,6 +9,7 @@
                     <div>
                         <div class="username">{{user.name}}</div>
                         <div>第{{user.id}}位会员</div>
+                        <nuxt-link :to=" '/users/' + user.id + '/edit' " class="btn btn-primary btn-sm mt-4">修改</nuxt-link>
                     </div>
                 </div>
                 <div class="border-top py-3 d-flex justify-content-between text-center">
