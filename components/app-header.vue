@@ -50,7 +50,7 @@
               </a>
               <div class="dropdown">
                 <a href="#" class="dropdown-toggle text-muted" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <hash-avatar :url="user.avatar" :user_id="auth.id" :size=31 :alt="auth.name" class="rounded-circle"></hash-avatar>
+                  <hash-avatar :url="avatar" :user_id="auth.id" :size=31 :alt="auth.name" class="rounded-circle"></hash-avatar>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                   <router-link :to="'/users/' + auth.id" class="dropdown-item" rel="nofollow">
@@ -108,7 +108,7 @@
     },
     data() {
       return {
-        user: this.auth
+        user: {}
       }
     },
     watch: {
@@ -118,6 +118,11 @@
             this.user = res.data.data;
           });
         }
+      }
+    },
+    computed: {
+      avatar: function () {
+        return Object.keys(this.user).length === 0 ? this.auth.avatar : this.user.avatar;
       }
     },
     methods: {
