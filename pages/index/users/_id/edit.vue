@@ -9,7 +9,7 @@
                 </div>
                 <input class="form-control mb-3 mt-3" type="text" placeholder="Default input" v-model.trim="user.name">
                 <button type="button" class="btn btn-primary" @click="updateInfo">确定</button>
-                <nuxt-link :to=" '/users/' + 7 " class="btn btn-secondary">取消</nuxt-link>
+                <nuxt-link :to=" '/users/' + user.id " class="btn btn-secondary">取消</nuxt-link>
             </div>
         </div>
     </div>
