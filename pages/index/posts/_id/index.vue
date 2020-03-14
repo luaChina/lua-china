@@ -52,7 +52,7 @@
       <!-- 发表评论 -->
       <div class="mt-4 p-3 bg-white border border-light">
         <div class="alert alert-info" role="alert">
-            子曰：三缄其口，诚能慎之，福之根也；口是何伤？祸之门也。
+            评论区的留言会收到邮件通知哦~
         </div>
         <div class="form-group">
           <textarea name="comment" class="w-100 form-control" cols="30" rows="10" v-model="commentContent"></textarea>
