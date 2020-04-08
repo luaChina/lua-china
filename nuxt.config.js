@@ -17,9 +17,9 @@ module.exports = {
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
         ],
         script: [
-            { src: 'http://lua-china-1256147061.file.myqcloud.com/static/js/sentry.min.js', crossorigin: 'anonymous'},
-            { src: 'http://lua-china-1256147061.file.myqcloud.com/static/js/highlight.min.js', crossorigin: 'anonymous'},
-            { src: 'http://lua-china-1256147061.file.myqcloud.com/static/js/lua.min.js', crossorigin: 'anonymous'},
+            { src: 'https://lua-china-1256147061.file.myqcloud.com/static/js/sentry.min.js', crossorigin: 'anonymous'},
+            { src: 'https://lua-china-1256147061.file.myqcloud.com/static/js/highlight.min.js', crossorigin: 'anonymous'},
+            { src: 'https://lua-china-1256147061.file.myqcloud.com/static/js/lua.min.js', crossorigin: 'anonymous'},
         ],
     },
 
