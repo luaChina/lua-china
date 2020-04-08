@@ -17,9 +17,9 @@ module.exports = {
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
         ],
         script: [
-            { src: 'https://browser.sentry-cdn.com/4.3.4/bundle.min.js', crossorigin: 'anonymous'},
-            { src: '//cdn.bootcss.com/highlight.js/9.15.6/highlight.min.js', crossorigin: 'anonymous'},
-            { src: '//cdn.bootcss.com/highlight.js/9.15.6/languages/lua.min.js', crossorigin: 'anonymous'},
+            { src: 'http://lua-china-1256147061.file.myqcloud.com/static/js/sentry.min.js', crossorigin: 'anonymous'},
+            { src: 'http://lua-china-1256147061.file.myqcloud.com/static/js/highlight.min.js', crossorigin: 'anonymous'},
+            { src: 'http://lua-china-1256147061.file.myqcloud.com/static/js/lua.min.js', crossorigin: 'anonymous'},
         ],
     },
 
