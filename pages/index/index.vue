@@ -171,8 +171,8 @@ export default {
     },
 
     //2.x版本 asyncData不推荐使用callback方式
-    async asyncData({params, error}) {
-        return axios.get(config.apiInternalUrl + '/posts')
+    asyncData({params, error}) {
+        return axios.get(config.apiUrl + '/posts')
             .then((res) => {
                 let num = Math.ceil(res.data.data.total / 20);
                 let numArr = [1];
