@@ -34,7 +34,7 @@
             }
         },
         asyncData({params, error}) {
-            return axios.get(config.apiUrl + '/users/' + params.id)
+            return axios.get(config.apiInternalUrl + '/users/' + params.id)
                 .then((res) => {
                     if (res.data.status === 0x010009) {
                         error({statusCode: 404, message: '你找到这个人在地球上没有'})

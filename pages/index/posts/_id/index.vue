@@ -57,7 +57,7 @@
         <div class="form-group">
           <textarea name="comment" class="w-100 form-control" cols="30" rows="10" v-model="commentContent"></textarea>
         </div>
-        <button class="btn btn-primary" @click.prevent="publishComment" :disabled="isSubmit">发表评论</button>
+        <button class="btn btn-primary" @click.prevent="publishComment" :disabled="isSubmitting">发表评论</button>
       </div>
     </div>
     <div class="col pl-lg-0 pr-lg-0">
@@ -94,6 +94,7 @@ import HashAvatar from '~/components/hash-avatar'
 import config from '~/config/api.js'
 import localStorage from '~/utils/localStorage'
 const marked = require('marked');
+const apiInternalUrl = config.apiInternalUrl
 
 export default {
   name: 'PostDetail',
@@ -114,7 +115,7 @@ export default {
       posts: [],
       commentContent: null,
       owner: false,
-      isSubmit: false
+      isSubmitting: false
     }
   },
   head() {
@@ -133,14 +134,14 @@ export default {
   },
   async asyncData({params, error}) {
     //推荐文章
-    let posts = await syncApiService.get(config.apiUrl + '/posts/')
+    let posts = await syncApiService.get(apiInternalUrl + '/posts/')
             .then(posts => {
               return posts.data.data.data;
             }).catch(err => {
               return error({statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com'})
             });
     //当前文章
-    let post = await syncApiService.get(config.apiUrl + '/posts/' + params.id)
+    let post = await syncApiService.get(apiInternalUrl + '/posts/' + params.id)
             .then(res => {
               if (res.data.status !== 0) {
                 return error({statusCode: 404, message: '文章不存在或已删除'});
@@ -179,7 +180,7 @@ export default {
         });
         return
       }
-      this.isSubmit = true;
+      this.isSubmitting = true;
       apiService.post('/posts/' + this.post.id + '/comments', {content: this.commentContent}).then(response => {
         this.$notify({
           type: 'success',
@@ -187,12 +188,12 @@ export default {
           duration: 2000,
           title: '发布成功',
         });
+        this.isSubmitting = false;
         let comment = {
           content: this.commentContent,
           user: localStorage.get('user')
         };
         this.post.comments.push(comment);
-        this.isSubmit = false;
       })
     },
     moveToDraft(post_id) {
