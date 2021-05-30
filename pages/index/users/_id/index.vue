@@ -90,6 +90,7 @@
 
 <script>
 import apiService from '~/services/apiService'
+import syncApiService from '~/services/syncApiService'
 import HashAvatar from '~/components/hash-avatar'
 import axios from 'axios'
 import config from '~/config/api.js'
@@ -108,8 +109,8 @@ export default {
             globalAuth: this.auth
         }
     },
-    asyncData({params, error}) {
-        return axios.get(config.apiInternalUrl + '/users/' + params.id)
+    async asyncData({params, error}) {
+        return await syncApiService.get(config.apiInternalUrl + '/users/' + params.id)
             .then((res) => {
                 if (res.data.status === 0x010009) {
                     error({statusCode: 404, message: '你找到这个人在地球上没有'})
