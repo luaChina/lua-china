@@ -171,8 +171,12 @@ export default {
     },
 
     //2.x版本 asyncData不推荐使用callback方式
-    asyncData({params, error}) {
-        return axios.get(config.apiUrl + '/posts')
+    asyncData(context) {
+        let apiUrl = config.apiInternalUrl;
+        if (process.client) {
+            apiUrl = config.apiUrl;
+        }
+        return axios.get(apiUrl + '/posts')
             .then((res) => {
                 let num = Math.ceil(res.data.data.total / 20);
                 let numArr = [1];
@@ -181,10 +185,9 @@ export default {
                 }
                 return {posts: res.data.data.data, pageNum: numArr, nextAble: num > 1}
             }).catch(err => {
-                error({statusCode: 500, message: '服务器维护中，稍后再试试吧'})
+                context.error({statusCode: 500, message: '服务器维护中，稍后再试试吧'})
             })
     },
-
 
     methods: {
         buildParams(url, orignalParam) {

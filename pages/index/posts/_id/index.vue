@@ -94,7 +94,6 @@ import HashAvatar from '~/components/hash-avatar'
 import config from '~/config/api.js'
 import localStorage from '~/utils/localStorage'
 const marked = require('marked');
-const apiInternalUrl = config.apiInternalUrl
 
 export default {
   name: 'PostDetail',
@@ -133,15 +132,19 @@ export default {
     }
   },
   async asyncData({params, error}) {
+    let apiUrl = config.apiInternalUrl;
+    if (process.client) {
+        apiUrl = config.apiUrl;
+    }
     //推荐文章
-    let posts = await syncApiService.get(apiInternalUrl + '/posts/')
+    let posts = await syncApiService.get(apiUrl + '/posts/')
             .then(posts => {
               return posts.data.data.data;
             }).catch(err => {
               return error({statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com'})
             });
     //当前文章
-    let post = await syncApiService.get(apiInternalUrl + '/posts/' + params.id)
+    let post = await syncApiService.get(apiUrl + '/posts/' + params.id)
             .then(res => {
               if (res.data.status !== 0) {
                 return error({statusCode: 404, message: '文章不存在或已删除'});
