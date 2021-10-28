@@ -16,62 +16,62 @@
 </template>
 
 <script>
-    import HashAvatar from '~/components/hash-avatar'
-    import apiService from '~/services/apiService'
-    import axios from 'axios'
-    import config from '~/config/api.js'
+import HashAvatar from '~/components/hash-avatar'
+import apiService from '~/services/apiService'
+import syncApiService from '~/services/syncApiService'
+import config from '~/config/api.js'
 
-    export default {
-        name: "user-details",
-        components: {
-            'hash-avatar': HashAvatar
-        },
-        data() {
-            return {
-                isShowUploadText: false,
-                user: {},
-                isUploading: false
-            }
-        },
-        asyncData({params, error}) {
-            return axios.get(config.apiInternalUrl + '/users/' + params.id)
-                .then((res) => {
-                    if (res.data.status === 0x010009) {
-                        error({statusCode: 404, message: '你找到这个人在地球上没有'})
-                    } else {
-                        return {user: res.data.data};
-                    }
-                }).catch(err => {
-                    error({statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com'})
-                })
-        },
-        methods: {
-            updateInfo() {
-                apiService.put('/user', this.user).then(res => {
-                    this.$router.push('/users/' + this.user.id)
-                });
-            },
-            handleFileChange(e) {
-                let avatar = e.target.files[0];
-                if (typeof avatar === 'undefined') {
-                    return;
-                }
-                let formdata = new FormData();
-                formdata.append('file', avatar);
-                this.isUploading = true;
-                apiService.post('https://file.lua-china.com/v1/cos/upload/cdn', formdata).then(res => {
-                    this.user.avatar = res.data.data.cdn_url;
-                    this.$notify({
-                        type: 'success',
-                        group: 'tip',
-                        duration: 2000,
-                        title: '头像修改成功',
-                    });
-                    this.isUploading = false;
-                });
-            },
+export default {
+    name: "user-details",
+    components: {
+        'hash-avatar': HashAvatar
+    },
+    data() {
+        return {
+            isShowUploadText: false,
+            user: {},
+            isUploading: false
         }
+    },
+    async asyncData({params, error}) {
+        return await syncApiService.get(config.apiInternalUrl + '/users/' + params.id)
+            .then((res) => {
+                if (res.data.status === 0x010009) {
+                    error({statusCode: 404, message: '你找到这个人在地球上没有'})
+                } else {
+                    return {user: res.data.data};
+                }
+            }).catch(err => {
+                error({statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com'})
+            })
+    },
+    methods: {
+        updateInfo() {
+            apiService.put('/user', this.user).then(res => {
+                this.$router.push('/users/' + this.user.id)
+            });
+        },
+        handleFileChange(e) {
+            let avatar = e.target.files[0];
+            if (typeof avatar === 'undefined') {
+                return;
+            }
+            let formdata = new FormData();
+            formdata.append('file', avatar);
+            this.isUploading = true;
+            apiService.post('https://file.lua-china.com/v1/cos/upload/cdn', formdata).then(res => {
+                this.user.avatar = res.data.data.cdn_url;
+                this.$notify({
+                    type: 'success',
+                    group: 'tip',
+                    duration: 2000,
+                    title: '头像修改成功',
+                });
+                this.isUploading = false;
+            });
+        },
     }
+}
 </script>
 
 <style scoped lang="scss">
