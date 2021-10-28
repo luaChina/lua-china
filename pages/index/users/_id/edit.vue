@@ -42,6 +42,7 @@ export default {
                     return {user: res.data.data};
                 }
             }).catch(err => {
+                console.log(err)
                 error({statusCode: 500, message: '服务器挂了！赶快联系站长，13571899655@163.com'})
             })
     },
