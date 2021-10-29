@@ -1,6 +1,8 @@
-//bootstrap
-@import '~bootstrap/scss/bootstrap.scss';
+@import "./common.scss";
+@import "~bootstrap/scss/bootstrap.scss";
 
-@import '../css/animate';
+@import "../css/animate";
 
-@import './markdown-editor.scss';
+@import "./markdown-editor.scss";
+
+

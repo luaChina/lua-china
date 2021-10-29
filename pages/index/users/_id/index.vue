@@ -131,9 +131,6 @@ export default {
         });
     },
     methods: {
-        deleteDraft(draftId) {
-            console.log(draftId)
-        },
         getDraft() {
             if (this.globalAuth.id === Number(this.$route.params.id)) {
                 apiService.get('/posts/drafts').then(response => {

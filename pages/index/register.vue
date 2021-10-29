@@ -155,7 +155,6 @@ export default {
                                 duration: 2000,
                                 title: '注册成功',
                             });
-                            this.$emit('loginFresh', newAuth);
                             this.$router.push({path: '/'})
                         })
                 }
