@@ -116,7 +116,6 @@ import { ErrorBag } from "vee-validate";
 
 export default {
   name: "Login",
-  props: ["auth"],
   inject: ["$validator"], // nuxt 与 vee-validate 不兼容，需要手动注入
   components: {
     "oauth-login": OAuthLogin
