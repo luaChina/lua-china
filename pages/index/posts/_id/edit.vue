@@ -65,7 +65,7 @@ export default {
             auth: { id: 0 }
         };
     },
-    created() {
+    mounted() {
         if (authInfo()) {
             this.auth = authInfo();
         }
@@ -76,31 +76,7 @@ export default {
             .get("/posts/" + this.$route.params.id + "/edit")
             .then(response => {
                 this.post = response.data.data;
-                if (this.auth.id !== this.post.user_id) {
-                    this.$notify({
-                        type: "error",
-                        group: "tip",
-                        duration: 2000,
-                        title: "这不是你的文章，不可编辑"
-                    });
-                    return;
-                }
                 this.$refs.editor.setContent(this.post.content);
-            });
-    },
-    mounted() {
-        apiService
-            .get("/posts/" + this.$route.params.id + "/edit")
-            .then(response => {
-                this.post = response.data.data;
-                if (this.auth.id !== this.post.user_id) {
-                    this.$notify({
-                        type: "error",
-                        group: "tip",
-                        duration: 2000,
-                        title: "这不是你的文章，不可编辑"
-                    });
-                }
             });
     },
     methods: {
