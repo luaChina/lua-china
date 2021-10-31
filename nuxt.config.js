@@ -44,7 +44,6 @@ module.exports = {
         {src: '~plugins/vee-validate', ssr: false},
         {src: '~plugins/vue-star', ssr: false},
         {src: '~plugins/markdown-editor', ssr: false},
-        {src: '~plugins/fontawesome', ssr: true}
     ],
 
     /*

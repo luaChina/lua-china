@@ -28,7 +28,6 @@ import localStorage from '~/utils/localStorage'
 
 export default {
     name: 'PostCreate',
-    props: ['auth'],
     data() {
         return {
             post: {
@@ -42,10 +41,6 @@ export default {
         }
     },
     created() {
-        // if not login
-        if (!this.auth) {
-            return this.$router.push('/login')
-        }
         apiService.get('/tags').then(response => {
             this.tags = response.data.data
         })

@@ -88,9 +88,9 @@
         </div>
         <div class="row">
           <div class="col">
-            <router-link class="text-muted" to="/forget-password" rel="nofollow"
+            <!-- <router-link class="text-muted" to="/forget-password" rel="nofollow"
               >忘记密码？</router-link
-            >
+            > -->
           </div>
           <div class="col text-end">
             <router-link class="text-danger" to="/register" rel="nofollow"

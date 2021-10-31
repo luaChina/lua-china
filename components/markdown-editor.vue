@@ -9,7 +9,6 @@
 
 <script>
 import SimpleMDE from 'simplemde'
-import 'font-awesome/css/font-awesome.min.css'
 import 'simplemde/dist/simplemde.min.css'
 require('codemirror/theme/monokai.css'); // codemirror
 require('inline-attachment/src/inline-attachment');
