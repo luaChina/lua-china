@@ -1,15 +1,16 @@
-import Vue from 'vue'
-import Notifications from 'vue-notification'
+import Vue from "vue";
+import Notifications from "vue-notification";
 
 Vue.use(Notifications);
 
-window._ = require('lodash');
-window.Popper = require('popper.js').default;
-window.$ = window.jQuery = require('jquery');
-require('bootstrap');
+window._ = require("lodash");
+window.Popper = require("popper.js").default;
+window.$ = window.jQuery = require("jquery");
+require("bootstrap");
+require('bootstrap-icons/font/bootstrap-icons.css');
 
 // @todo 这里可能有问题，单页应用只刷新时初始化
 // init tooltip
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
+$(function() {
+  $('[data-toggle="tooltip"]').tooltip();
 });
