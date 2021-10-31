@@ -27,6 +27,7 @@ service.interceptors.response.use(
         });
     },
     err => {
+        console.log("api service:", err)
         Vue.notify({
             type: 'error',
             group: 'tip',
