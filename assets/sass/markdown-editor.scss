@@ -1,6 +1,7 @@
-@import '../css/dracula.css'; // highlight.js 里的样式
+@import "../css/dracula.css"; // highlight.js 里的样式
 
-.markdown-preview, .editor-preview-side {
+.markdown-preview,
+.editor-preview-side {
     pre code {
         display: block;
         overflow-x: auto;
@@ -9,7 +10,8 @@
         background: #282a36;
         color: #ffffff;
         letter-spacing: -0.3px;
-        font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+        font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New,
+            monospace;
         border: 0;
         border-radius: 0;
         line-height: 1.5;
@@ -37,12 +39,13 @@
         color: #333;
     }
     h4 {
-        font-size: 1.0rem;
+        font-size: 1rem;
         line-height: 18px;
         margin: 20px 0 2px;
         color: #333;
     }
-    h5,h6 {
+    h5,
+    h6 {
         font-size: 1rem;
         line-height: 17px;
         margin: 10px 0 -4px;
@@ -55,8 +58,7 @@
         color: #777777;
     }
     img {
-        display: block;
-        width: 400px;
-        margin: auto;
+        max-width: 100%;
+        height: auto;
     }
 }
