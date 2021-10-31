@@ -5,18 +5,35 @@
                 <div class="d-flex py-3">
                     <div>
                         <hash-avatar
-                            :url="user.avatar"
-                            :user_id="user.id"
+                            :url="
+                                auth.id == $route.params.id
+                                    ? auth.avatar
+                                    : user.avatar
+                            "
+                            :user_id="
+                                auth.id == $route.params.id ? auth.id : user.id
+                            "
                             :size="100"
-                            :alt="user.name"
+                            alt="avatar"
                             class="rounded-circle mr-2"
                         ></hash-avatar>
                     </div>
                     <div>
-                        <div class="username">{{ user.name }}</div>
-                        <div>第{{ user.id }}位会员</div>
+                        <div class="username">
+                            {{
+                                auth.id == $route.params.id
+                                    ? auth.name
+                                    : user.name
+                            }}
+                        </div>
+                        <div>
+                            第{{
+                                auth.id == $route.params.id ? auth.id : user.id
+                            }}位会员
+                        </div>
                         <nuxt-link
-                            :to="'/users/' + user.id + '/edit'"
+                            v-if="auth.id == $route.params.id"
+                            :to="'/users/' + auth.id + '/edit'"
                             class="btn btn-primary btn-sm mt-4"
                             >修改</nuxt-link
                         >
@@ -39,29 +56,12 @@
                     </div>
                 </div>
             </div>
-            <!-- <div v-if="auth.id" class="mt-2 bg-white border text-center p-3">
-                <div class="border-bottom"><a >我的草稿箱</a></div>
-            </div> -->
         </div>
         <div class="col-md-9">
             <div class="border bg-white mb-4">
                 <div class="border-bottom text-center p-2 font-red">
-                    <svg
-                        width="18"
-                        height="18"
-                        aria-hidden="true"
-                        data-prefix="fas"
-                        data-icon="book-open"
-                        class="svg-inline--fa fa-book-open fa-w-18 mr-2"
-                        role="img"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 576 512"
-                    >
-                        <path
-                            fill="currentColor"
-                            d="M542.22 32.05c-54.8 3.11-163.72 14.43-230.96 55.59-4.64 2.84-7.27 7.89-7.27 13.17v363.87c0 11.55 12.63 18.85 23.28 13.49 69.18-34.82 169.23-44.32 218.7-46.92 16.89-.89 30.02-14.43 30.02-30.66V62.75c.01-17.71-15.35-31.74-33.77-30.7zM264.73 87.64C197.5 46.48 88.58 35.17 33.78 32.05 15.36 31.01 0 45.04 0 62.75V400.6c0 16.24 13.13 29.78 30.02 30.66 49.49 2.6 149.59 12.11 218.77 46.95 10.62 5.35 23.21-1.94 23.21-13.46V100.63c0-5.29-2.62-10.14-7.27-12.99z"
-                        ></path></svg
-                    >撰写的文章
+                    <i class="bi bi-pen-fill"></i>
+                    撰写的文章
                 </div>
                 <div
                     class="px-2 py-2 border-bottom border-light d-flex justify-content-between"
@@ -85,22 +85,8 @@
             </div>
             <div class="border bg-white mb-4">
                 <div class="border-bottom text-center p-2 font-red">
-                    <svg
-                        height="18"
-                        width="18"
-                        aria-hidden="true"
-                        data-prefix="fas"
-                        data-icon="comment-dots"
-                        class="mr-2 svg-inline--fa fa-comment-dots fa-w-16"
-                        role="img"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
-                    >
-                        <path
-                            fill="currentColor"
-                            d="M256 32C114.6 32 0 125.1 0 240c0 49.6 21.4 95 57 130.7C44.5 421.1 2.7 466 2.2 466.5c-2.2 2.3-2.8 5.7-1.5 8.7S4.8 480 8 480c66.3 0 116-31.8 140.6-51.4 32.7 12.3 69 19.4 107.4 19.4 141.4 0 256-93.1 256-208S397.4 32 256 32zM128 272c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm128 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm128 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z"
-                        ></path></svg
-                    >最近发表的评论
+                    <i class="bi bi-chat-right-quote-fill"></i>
+                    最近发表的评论
                 </div>
                 <div
                     class="px-4 py-2 border-bottom border-light"
@@ -129,26 +115,12 @@
             </div>
             <no-ssr>
                 <div
-                    v-if="user.id == $route.params.id"
                     class="border bg-white mb-4"
+                    v-if="auth.id == $route.params.id"
                 >
                     <div class="border-bottom text-center p-2 font-red">
-                        <svg
-                            height="18"
-                            width="18"
-                            aria-hidden="true"
-                            data-prefix="fas"
-                            data-icon="box-open"
-                            class="mr-2 svg-inline--fa fa-box-open fa-w-20"
-                            role="img"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 640 512"
-                        >
-                            <path
-                                fill="currentColor"
-                                d="M53.2 41L1.7 143.8c-4.6 9.2.3 20.2 10.1 23l197.9 56.5c7.1 2 14.7-1 18.5-7.3L320 64 69.8 32.1c-6.9-.8-13.5 2.7-16.6 8.9zm585.1 102.8L586.8 41c-3.1-6.2-9.8-9.8-16.7-8.9L320 64l91.7 152.1c3.8 6.3 11.4 9.3 18.5 7.3l197.9-56.5c9.9-2.9 14.7-13.9 10.2-23.1zM425.7 256c-16.9 0-32.8-9-41.4-23.4L320 126l-64.2 106.6c-8.7 14.5-24.6 23.5-41.5 23.5-4.5 0-9-.6-13.3-1.9L64 215v178c0 14.7 10 27.5 24.2 31l216.2 54.1c10.2 2.5 20.9 2.5 31 0L551.8 424c14.2-3.6 24.2-16.4 24.2-31V215l-137 39.1c-4.3 1.3-8.8 1.9-13.3 1.9z"
-                            ></path></svg
-                        >我的草稿箱
+                        <i class="bi bi-archive-fill"></i>
+                        我的草稿箱
                     </div>
                     <div
                         class="px-2 py-2 border-bottom border-light d-flex justify-content-between"
@@ -208,11 +180,22 @@ export default {
     },
     data() {
         return {
-            user: { id: 0 },
+            user: {},
+            auth: { id: 0 },
             posts: [],
             comments: [],
             drafts: []
         };
+    },
+    watch: {
+        $route(to, from) {
+            if (from.params.id !== to.params.id) {
+                this.getPostInfo();
+            }
+            if (Number(this.auth.id) === Number(to.params.id)) {
+                this.getDraft();
+            }
+        }
     },
     asyncData({ params, error }) {
         return axios
@@ -234,29 +217,32 @@ export default {
                 });
             });
     },
-    created() {
-        apiService
-            .get("/users/" + this.$route.params.id + "/posts")
-            .then(response => {
-                this.posts = response.data.data;
-            });
-        apiService
-            .get("/users/" + this.$route.params.id + "/comments")
-            .then(response => {
-                this.comments = response.data.data;
-            });
+    mounted() {
         if (authInfo()) {
-            this.user = authInfo();
-            if (this.user.id === this.$route.params.id) {
+            this.auth = authInfo();
+            if (Number(this.auth.id) === Number(this.$route.params.id)) {
                 this.getDraft();
             }
         }
+        this.getPostInfo();
     },
     methods: {
         getDraft() {
             apiService.get("/posts/drafts").then(response => {
                 this.drafts = response.data.data;
             });
+        },
+        getPostInfo() {
+            apiService
+                .get("/users/" + this.$route.params.id + "/posts")
+                .then(response => {
+                    this.posts = response.data.data;
+                });
+            apiService
+                .get("/users/" + this.$route.params.id + "/comments")
+                .then(response => {
+                    this.comments = response.data.data;
+                });
         }
     }
 };
