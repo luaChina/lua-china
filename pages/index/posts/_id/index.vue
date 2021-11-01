@@ -41,25 +41,27 @@
                 </div>
                 <div class="markdown-preview" v-html="compiledMarkdown"></div>
             </div>
-            <div
-                class="d-flex justify-content-center mb-5"
-                style="height:100px"
-            >
-                <no-ssr>
-                    <vue-star
-                        animate="animated rotateInDownLeft"
-                        color="#F05654"
+            <div class="d-flex justify-content-center mb-5 mt-3">
+                <div class="card text-dark bg-light mb-3" style="width: 100px">
+                    <div class="card-header text-center">点赞</div>
+                    <div
+                        class="card-body d-flex justify-content-center align-items-center"
                     >
-                        <a
-                            slot="icon"
-                            class="btn btn-outline-secondary d-flex align-items-center justify-content-between"
-                            @click="favorClick"
-                        >
-                            <span class="mr-2">点赞</span>
-                            <i class="bi bi-hand-thumbs-up-fill"></i>
-                        </a>
-                    </vue-star>
-                </no-ssr>
+                        <no-ssr>
+                            <vue-star
+                                animate="animated rubberBand"
+                                color="#F05654"
+                            >
+                                <i
+                                    class="bi bi-hand-thumbs-up-fill"
+                                    slot="icon"
+                                    type="button"
+                                    @click="favorClick"
+                                ></i>
+                            </vue-star>
+                        </no-ssr>
+                    </div>
+                </div>
             </div>
             <!-- 评论区 -->
             <div>
