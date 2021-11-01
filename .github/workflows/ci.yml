@@ -1,0 +1,46 @@
+name: LuaChine
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build docker image
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Change env.lua
+      run: cp env.example.json env.json
+
+    - name: Build and push
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+        image: horan/lua-china
+        registry: docker.io
+        tags: $GITHUB_SHA
+        username: horan
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+  
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy docker
+    needs: build
+    steps:
+    - name: ssh pipelines
+      uses: cross-the-world/ssh-pipeline@master
+      env:
+        WELCOME: "ssh pipeline"
+      with:
+        host: 115.28.82.133
+        user: root
+        pass: ${{ secrets.SSH_PASSWORD }}
+        port: 22
+        connect_timeout: 10s
+        script: |
+          (docker pull horan/lua-china:$GITHUB_SHA) && 
+          (docker rm -f lua-china || true) &&
+          docker run -p 10.31.231.178:8888:80 --name=lua-china -d horan/lua-china:$GITHUB_SHA
