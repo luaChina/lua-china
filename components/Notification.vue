@@ -1,8 +1,8 @@
 <template>
     <div
-        class="toast align-items-center text-white position-absolute end-0"
+        class="toast align-items-center text-white fixed-top end-0"
         :class="color"
-        style="top: 60px;"
+        style="top: 60px;right: 0!important;left: auto"
         role="alert"
         aria-live="assertive"
         aria-atomic="true"

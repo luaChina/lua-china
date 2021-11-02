@@ -167,7 +167,7 @@
                     >
                         <router-link
                             :to="'/posts/' + item.id"
-                            class="text-center text-body"
+                            class="text-center text-body text-decoration-none"
                             >{{ item.title }}</router-link
                         >
                     </li>
