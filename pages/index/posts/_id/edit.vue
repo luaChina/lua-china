@@ -82,21 +82,17 @@ export default {
     methods: {
         submitForm() {
             if (!this.post.title) {
-                this.$notify({
+                this.$toast({
                     type: "error",
-                    group: "tip",
-                    duration: 2000,
-                    title: "请填写文章标题"
+                    message: "请填写文章标题"
                 });
                 return;
             }
             this.post.content = this.$refs.editor.getContent();
             if (!this.post.content) {
-                this.$notify({
+                this.$toast({
                     type: "error",
-                    group: "tip",
-                    duration: 2000,
-                    title: "请填写文章内容"
+                    message: "请填写文章内容"
                 });
                 return;
             }
@@ -108,11 +104,9 @@ export default {
             apiService
                 .put("/posts/" + this.$route.params.id, post)
                 .then(response => {
-                    this.$notify({
+                    this.$toast({
                         type: "success",
-                        group: "tip",
-                        duration: 2000,
-                        title: "发布成功"
+                        message: "发布成功"
                     });
                     this.$router.push("/");
                 });

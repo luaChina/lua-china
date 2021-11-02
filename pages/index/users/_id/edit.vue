@@ -101,11 +101,9 @@ export default {
                 .post("https://file.lua-china.com/v1/cos/upload/cdn", formdata)
                 .then(res => {
                     this.user.avatar = res.data.data.cdn_url;
-                    this.$notify({
+                    this.$toast({
                         type: "success",
-                        group: "tip",
-                        duration: 2000,
-                        title: "头像修改成功"
+                        message: "头像修改成功"
                     });
                     this.isUploading = false;
                 });

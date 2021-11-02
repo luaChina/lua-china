@@ -70,7 +70,7 @@
                 >
                     <div class="col-md-11">
                         <a
-                            class="text-muted"
+                            class="text-muted text-decoration-none"
                             target="_blank"
                             :href="'/posts/' + post.id"
                             ><div>{{ post.title }}</div></a
@@ -96,7 +96,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <a
-                                class="text-secondary comment-post-title"
+                                class="text-secondary comment-post-title text-decoration-none"
                                 :href="'/posts/' + comment.post.id"
                                 >{{ comment.post.title }}</a
                             >
@@ -132,7 +132,7 @@
                         </div>
                         <div class="col-md-2 text-right">
                             <a
-                                class="btn btn-sm btn-primary mr-1"
+                                class="btn btn-sm btn-primary mr-1 text-decoration-none"
                                 target="_blank"
                                 :href="'/posts/' + draft.id + '/edit'"
                                 >编辑</a

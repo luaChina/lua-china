@@ -203,11 +203,9 @@ export default {
                         let newAuth = response.data.data;
                         newAuth.login_at = Date.now();
                         localStorage.set("user", newAuth);
-                        this.$notify({
+                        this.$toast({
                             type: "success",
-                            group: "tip",
-                            duration: 2000,
-                            title: "注册成功"
+                            message: "注册成功"
                         });
                         this.$router.push({ path: "/" });
                     });

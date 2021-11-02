@@ -127,12 +127,12 @@
                                         class="rounded-circle mr-2"
                                     ></hash-avatar>
                                     <router-link
-                                        class="font-red"
+                                        class="font-red text-decoration-none"
                                         :to="'/users/' + user.id"
                                         >{{ user.name }}</router-link
                                     >
                                 </div>
-                                <span class="badge badge-pill badge-danger">{{
+                                <span class="badge rounded-pill bg-danger">{{
                                     index + 1
                                 }}</span>
                             </li>
@@ -208,7 +208,7 @@
 }
 
 .announcement-content {
-   display: block;
+    display: block;
 }
 
 .list-content {
