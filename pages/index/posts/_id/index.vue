@@ -310,11 +310,9 @@ export default {
         },
         publishComment() {
             if (!this.commentContent) {
-                this.$notify({
+                this.$toast({
                     type: "error",
-                    group: "tip",
-                    duration: 2000,
-                    title: "评论内容不能为空"
+                    message: "评论内容不能为空"
                 });
                 return;
             }
@@ -324,11 +322,9 @@ export default {
                     content: this.commentContent
                 })
                 .then(response => {
-                    this.$notify({
+                    this.$toast({
                         type: "success",
-                        group: "tip",
-                        duration: 2000,
-                        title: "发布成功"
+                        message: "发布成功"
                     });
                     this.isSubmitting = false;
                     let comment = {
@@ -340,11 +336,9 @@ export default {
         },
         moveToDraft(post_id) {
             apiService.delete("/posts/" + this.post.id).then(response => {
-                this.$notify({
+                this.$toast({
                     type: "success",
-                    group: "tip",
-                    duration: 2000,
-                    title: "已移入草稿箱，可到个人中心查看"
+                    message: "已移入草稿箱，可到个人中心查看"
                 });
                 this.$router.push("/users/" + this.auth.id);
             });
