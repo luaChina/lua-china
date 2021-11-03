@@ -82,6 +82,13 @@
                         {{ post.read_count }} 阅读
                     </div>
                 </div>
+                <div
+                    v-if="Object.keys(posts).length === 0"
+                    class="px-2 py-2 border-bottom border-light text-center text-muted text-break"
+                >
+                    <i class="bi bi-emoji-frown"></i>
+                    <cite>暂无</cite>
+                </div>
             </div>
             <div class="border bg-white mb-4">
                 <div class="border-bottom text-center p-2 font-red">
@@ -112,6 +119,13 @@
                     </div>
                     <div class="ml-2 text-muted text-desc"></div>
                 </div>
+                <div
+                    v-if="Object.keys(comments).length === 0"
+                    class="px-2 py-2 border-bottom border-light text-center text-muted text-break"
+                >
+                    <i class="bi bi-emoji-frown"></i>
+                    <cite>暂无</cite>
+                </div>
             </div>
             <no-ssr>
                 <div
@@ -139,6 +153,12 @@
                             >
                             <!-- <button class="btn btn-sm btn-danger" @click="deleteDraft(draft.id)">删除</button> -->
                         </div>
+                    </div>
+                    <div
+                        v-if="Object.keys(drafts).length === 0"
+                        class="px-2 py-2 border-bottom border-light text-center text-muted text-break"
+                    >
+                        <cite>暂无</cite>
                     </div>
                 </div>
             </no-ssr>

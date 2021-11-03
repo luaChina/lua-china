@@ -76,7 +76,7 @@
                             :user_id="comment.user.id"
                             :size="50"
                             :alt="comment.user.name"
-                            class="border shadow"
+                            class="border shadow rounded-circle me-2"
                         ></hash-avatar>
                     </div>
                     <div class="bg-white border shadow w-100 comment-box">
@@ -84,7 +84,7 @@
                             {{ comment.user.name }}
                         </div>
                         <div
-                            class="p-3 comment-md"
+                            class="p-3 comment-md text-break"
                             v-html="comment.contentMd"
                         ></div>
                         <div class="p-3 text-muted">
