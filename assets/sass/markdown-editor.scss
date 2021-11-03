@@ -2,6 +2,7 @@
 
 .markdown-preview,
 .editor-preview-side {
+    word-break: break-all;
     pre code {
         display: block;
         overflow-x: auto;

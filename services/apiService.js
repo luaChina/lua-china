@@ -15,11 +15,9 @@ service.interceptors.response.use(
                 return
             }
             if (response.data.status !== 0) {
-                Vue.notify({
+                Vue.toast({
                     type: 'error',
-                    group: 'tip',
-                    duration: 2000,
-                    title: response.data.msg,
+                    message: response.data.msg,
                 });
                 return
             }
@@ -27,12 +25,9 @@ service.interceptors.response.use(
         });
     },
     err => {
-        console.log("api service:", err)
-        Vue.notify({
+        Vue.toast({
             type: 'error',
-            group: 'tip',
-            duration: 2000,
-            title: err
+            message: err
         });
         return Promise.reject(err)
     }

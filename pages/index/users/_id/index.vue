@@ -64,7 +64,7 @@
                     撰写的文章
                 </div>
                 <div
-                    class="px-2 py-2 border-bottom border-light d-flex justify-content-between"
+                    class="px-2 py-2 border-bottom border-light d-flex justify-content-between text-break"
                     v-for="(post, index) in posts"
                     :key="index"
                 >
@@ -77,10 +77,17 @@
                         >
                     </div>
                     <div
-                        class="col-md-1 text-muted text-desc p-0 items-align-bottom align-self-center text-right"
+                        class="col-md-1 text-muted text-desc p-0 items-align-bottom align-self-center text-end flex-shrink-0"
                     >
                         {{ post.read_count }} 阅读
                     </div>
+                </div>
+                <div
+                    v-if="Object.keys(posts).length === 0"
+                    class="px-2 py-2 border-bottom border-light text-center text-muted text-break"
+                >
+                    <i class="bi bi-emoji-frown"></i>
+                    <cite>暂无</cite>
                 </div>
             </div>
             <div class="border bg-white mb-4">
@@ -89,7 +96,7 @@
                     最近发表的评论
                 </div>
                 <div
-                    class="px-4 py-2 border-bottom border-light"
+                    class="px-2 py-2 border-bottom border-light text-break"
                     v-for="(comment, index) in comments"
                     :key="index"
                 >
@@ -102,7 +109,7 @@
                             >
                         </div>
                         <div
-                            class="col-md-4 text-muted comment-time align-self-center text-right"
+                            class="col-md-4 text-muted comment-time align-self-center text-end flex-shrink-0"
                         >
                             发布于 {{ comment.updated_at }}
                         </div>
@@ -111,6 +118,13 @@
                         {{ comment.content }}
                     </div>
                     <div class="ml-2 text-muted text-desc"></div>
+                </div>
+                <div
+                    v-if="Object.keys(comments).length === 0"
+                    class="px-2 py-2 border-bottom border-light text-center text-muted text-break"
+                >
+                    <i class="bi bi-emoji-frown"></i>
+                    <cite>暂无</cite>
                 </div>
             </div>
             <no-ssr>
@@ -123,14 +137,14 @@
                         我的草稿箱
                     </div>
                     <div
-                        class="px-2 py-2 border-bottom border-light d-flex justify-content-between"
+                        class="px-2 py-2 border-bottom border-light d-flex justify-content-between text-break"
                         v-for="(draft, index) in drafts"
                         :key="index"
                     >
                         <div class="col-md-10">
                             <span class="text-muted">{{ draft.title }}</span>
                         </div>
-                        <div class="col-md-2 text-right">
+                        <div class="col-md-2 text-end flex-shrink-0">
                             <a
                                 class="btn btn-sm btn-primary mr-1 text-decoration-none"
                                 target="_blank"
@@ -139,6 +153,12 @@
                             >
                             <!-- <button class="btn btn-sm btn-danger" @click="deleteDraft(draft.id)">删除</button> -->
                         </div>
+                    </div>
+                    <div
+                        v-if="Object.keys(drafts).length === 0"
+                        class="px-2 py-2 border-bottom border-light text-center text-muted text-break"
+                    >
+                        <cite>暂无</cite>
                     </div>
                 </div>
             </no-ssr>
