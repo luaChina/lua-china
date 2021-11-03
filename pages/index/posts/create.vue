@@ -1,8 +1,8 @@
 <template>
     <div>
         <no-ssr>
-            <div class="form-row form-group">
-                <label for="title">文章标题</label>
+            <div class="form-row form-group mb-3">
+                <label for="title" class="form-label">文章标题</label>
                 <input
                     type="text"
                     class="form-control"
@@ -10,8 +10,8 @@
                     v-model.trim="post.title"
                 />
             </div>
-            <div class="form-row form-group">
-                <label for="tags">文章标签</label>
+            <div class="form-row form-group mb-3">
+                <label for="tags" class="form-label">文章标签</label>
                 <select class="form-control" id="tags" v-model="post.tag_id">
                     <option
                         v-for="item in tags"
@@ -22,7 +22,7 @@
                 </select>
             </div>
             <div>
-                <label for="markdownSection">文章内容</label>
+                <label for="markdownSection" class="form-label">文章内容</label>
                 <markdown-editor ref="editor" :edit="false"></markdown-editor>
             </div>
             <div class="form-row form-group justify-content-center">

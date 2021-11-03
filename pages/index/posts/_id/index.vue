@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-md-9 p-0 mr-lg-4 mr-0 mb-5">
+        <div class="col-md-9 mr-lg-4 mr-0 mb-5">
             <div class="bg-white border p-4">
                 <div class="mb-2">
                     <h1 class="my-4 artical-title">{{ post.title }}</h1>
@@ -108,7 +108,7 @@
                     ></textarea>
                 </div>
                 <button
-                    class="btn btn-primary"
+                    class="btn btn-primary mt-3"
                     @click.prevent="publishComment"
                     :disabled="isSubmitting"
                 >

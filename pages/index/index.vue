@@ -2,7 +2,7 @@
     <div>
         <h1 style="display:none">lua 中国社区，lua 论坛</h1>
         <div class="row">
-            <div class="col-lg-9 col-12 mb-4 px-lg-3 p-0">
+            <div class="col-lg-9 col-12 mb-4 px-lg-3">
                 <div class="card">
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs">
@@ -92,7 +92,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col p-0">
+            <div class="col">
                 <div class="border bg-white mb-4">
                     <div
                         class="text-muted border-bottom right-card-title d-flex align-items-center justify-content-center"

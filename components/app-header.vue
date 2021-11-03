@@ -101,7 +101,7 @@
                                         ></hash-avatar>
                                     </a>
                                     <div
-                                        class="dropdown-menu dropdown-menu-end"
+                                        class="dropdown-menu dropdown-menu-lg-end"
                                         aria-labelledby="dropdownMenuButton"
                                     >
                                         <router-link
