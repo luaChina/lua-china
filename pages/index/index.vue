@@ -30,7 +30,7 @@
                             <li
                                 v-for="(post, index) in posts"
                                 :key="index"
-                                class="list-group-item list-group-item-action border-left-0 border-right-0"
+                                class="list-group-item py-3 list-group-item-action border-left-0 border-right-0"
                             >
                                 <router-link
                                     :to="'/posts/' + post.id"

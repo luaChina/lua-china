@@ -77,7 +77,7 @@
                         >
                     </div>
                     <div
-                        class="col-md-1 text-muted text-desc p-0 items-align-bottom align-self-center text-right"
+                        class="col-md-1 text-muted text-desc p-0 items-align-bottom align-self-center text-end"
                     >
                         {{ post.read_count }} 阅读
                     </div>
@@ -89,7 +89,7 @@
                     最近发表的评论
                 </div>
                 <div
-                    class="px-4 py-2 border-bottom border-light"
+                    class="px-2 py-2 border-bottom border-light"
                     v-for="(comment, index) in comments"
                     :key="index"
                 >
@@ -102,7 +102,7 @@
                             >
                         </div>
                         <div
-                            class="col-md-4 text-muted comment-time align-self-center text-right"
+                            class="col-md-4 text-muted comment-time align-self-center text-end"
                         >
                             发布于 {{ comment.updated_at }}
                         </div>
@@ -130,7 +130,7 @@
                         <div class="col-md-10">
                             <span class="text-muted">{{ draft.title }}</span>
                         </div>
-                        <div class="col-md-2 text-right">
+                        <div class="col-md-2 text-end">
                             <a
                                 class="btn btn-sm btn-primary mr-1 text-decoration-none"
                                 target="_blank"
