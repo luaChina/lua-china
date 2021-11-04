@@ -5,7 +5,7 @@
             <div class="col-6 text-center">其他登录方式</div>
             <div class="col-3 border-bottom mb-2"></div>
         </div>
-        <div class="d-flex justify-content-around">
+        <div class="d-flex justify-content-center">
             <div class="text-center">
                 <button
                     type="button"
@@ -15,7 +15,7 @@
                     <i class="bi bi-github"></i>&nbsp;GitHub登录
                 </button>
             </div>
-            <div class="text-center pointer-cursor" @click="smsLogin">
+            <div class="text-center pointer-cursor ms-lg-5 ms-4" @click="smsLogin">
                 <button type="button" class="btn btn-outline-secondary">
                     <i class="bi bi-chat-text-fill"></i>&nbsp;验证码登录
                 </button>

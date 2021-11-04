@@ -63,8 +63,7 @@ module.exports = {
      */
     plugins: [
         { src: "~plugins/app", ssr: false },
-        { src: "~plugins/vee-validate", ssr: false },
-        { src: "~plugins/markdown-editor", ssr: false },
+        { src: "~plugins/vee-validate", ssr: false }
     ],
 
     /*
