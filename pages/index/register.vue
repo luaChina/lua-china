@@ -44,14 +44,9 @@
                                     <input
                                         type="text"
                                         class="form-control"
-                                        :class="
-                                            errors.length > 0
-                                                ? 'is-invalid'
-                                                : {
-                                                      'is-valid':
-                                                          wasValid === true
-                                                  }
-                                        "
+                                        :class="{
+                                            'is-invalid': errors.length > 0
+                                        }"
                                         placeholder="请输入手机号"
                                         v-model.trim="user.phone"
                                     />
@@ -74,14 +69,9 @@
                                     <input
                                         type="text"
                                         class="form-control mr-2"
-                                        :class="
-                                            errors.length > 0
-                                                ? 'is-invalid'
-                                                : {
-                                                      'is-valid':
-                                                          wasValid === true
-                                                  }
-                                        "
+                                        :class="{
+                                            'is-invalid': errors.length > 0
+                                        }"
                                         placeholder="请输入验证码"
                                         v-model.trim="user.sms_code"
                                     />
@@ -114,14 +104,9 @@
                                     <input
                                         type="password"
                                         class="form-control"
-                                        :class="
-                                            errors.length > 0
-                                                ? 'is-invalid'
-                                                : {
-                                                      'is-valid':
-                                                          wasValid === true
-                                                  }
-                                        "
+                                        :class="{
+                                            'is-invalid': errors.length > 0
+                                        }"
                                         placeholder="请输入密码"
                                         v-model="user.password"
                                     />
@@ -144,14 +129,9 @@
                                     <input
                                         type="password"
                                         class="form-control"
-                                        :class="
-                                            errors.length > 0
-                                                ? 'is-invalid'
-                                                : {
-                                                      'is-valid':
-                                                          wasValid === true
-                                                  }
-                                        "
+                                        :class="{
+                                            'is-invalid': errors.length > 0
+                                        }"
                                         placeholder="请再次输入密码"
                                         v-model="user.password_confirmed"
                                         ref="password_confirmed"
@@ -185,7 +165,6 @@ export default {
     },
     data() {
         return {
-            wasValid: false,
             interval: null,
             phoneClass: null,
             smsBtnDisabled: false,
@@ -227,20 +206,17 @@ export default {
         },
         submitForm() {
             this.$refs.form.validate().then(res => {
-                this.wasValid = !res;
-                console.log(res);
                 if (!res) return;
-
-                // apiService.post("/register", this.user).then(response => {
-                //     let newAuth = response.data.data;
-                //     newAuth.login_at = Date.now();
-                //     localStorage.set("user", newAuth);
-                //     this.$toast({
-                //         type: "success",
-                //         message: "注册成功"
-                //     });
-                //     this.$router.push({ path: "/" });
-                // });
+                apiService.post("/register", this.user).then(response => {
+                    let newAuth = response.data.data;
+                    newAuth.login_at = Date.now();
+                    localStorage.set("user", newAuth);
+                    this.$toast({
+                        type: "success",
+                        message: "注册成功"
+                    });
+                    this.$router.push({ path: "/" });
+                });
             });
         }
     }

@@ -29,14 +29,9 @@
                                     <input
                                         type="text"
                                         class="form-control"
-                                        :class="
-                                            errors.length > 0
-                                                ? 'is-invalid'
-                                                : {
-                                                      'is-valid':
-                                                          wasValid === true
-                                                  }
-                                        "
+                                        :class="{
+                                            'is-invalid': errors.length > 0
+                                        }"
                                         placeholder="请输入手机号"
                                         v-model.trim="user.phone"
                                     />
@@ -60,14 +55,9 @@
                                     <input
                                         type="text"
                                         class="form-control mr-2"
-                                        :class="
-                                            errors.length > 0
-                                                ? 'is-invalid'
-                                                : {
-                                                      'is-valid':
-                                                          wasValid === true
-                                                  }
-                                        "
+                                        :class="{
+                                            'is-invalid': errors.length > 0
+                                        }"
                                         name="sms_code"
                                         placeholder="请输入验证码"
                                         v-model="user.sms_code"
@@ -102,14 +92,9 @@
                                     <input
                                         type="password"
                                         class="form-control"
-                                        :class="
-                                            errors.length > 0
-                                                ? 'is-invalid'
-                                                : {
-                                                      'is-valid':
-                                                          wasValid === true
-                                                  }
-                                        "
+                                        :class="{
+                                            'is-invalid': errors.length > 0
+                                        }"
                                         placeholder="请输入密码"
                                         v-model="user.password"
                                     />
@@ -154,7 +139,6 @@ export default {
     },
     data() {
         return {
-            wasValid: false,
             smsBtnDisabled: false,
             isSmsLogin: false,
             user: {
@@ -167,7 +151,6 @@ export default {
     methods: {
         changeLoginWay() {
             this.$refs.form.reset();
-            this.wasValid = false;
             this.user.password = null;
             this.isSmsLogin = true;
         },
@@ -201,7 +184,6 @@ export default {
         },
         submitForm() {
             this.$refs.form.validate().then(res => {
-                this.wasValid = !res;
                 if (!res) return;
                 for (let k in this.user) {
                     if (this.user[k] == null) delete this.user[k];
