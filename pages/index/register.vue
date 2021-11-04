@@ -8,144 +8,157 @@
                 <span style="color:#666"> China</span>
             </div>
             <!-- 在 @submit 或 @click 上需要加 prevent，阻止默认事件触发，否则会发生跳转 -->
-            <form
-                class="needs-validation"
-                novalidate
-                @submit.prevent="submitForm"
-                id="login-form"
-                method="post"
-            >
-                <div class="form-row form-group">
-                    <div class="input-group  mb-4">
-                        <div class="input-group-text">
-                            <i class="bi bi-person-lines-fill"></i>
+            <no-ssr>
+                <ValidationObserver ref="form">
+                    <form
+                        class="needs-validation"
+                        novalidate
+                        @submit.prevent="submitForm"
+                        method="post"
+                    >
+                        <div class="form-row form-group">
+                            <div class="input-group  mb-4">
+                                <div class="input-group-text">
+                                    <i class="bi bi-person-lines-fill"></i>
+                                </div>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="name"
+                                    placeholder="昵称（可选）"
+                                    v-model.trim="user.name"
+                                />
+                            </div>
                         </div>
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="name"
-                            placeholder="昵称（可选）"
-                            v-model.trim="user.name"
-                        />
-                    </div>
-                </div>
-                <div class="form-row form-group">
-                    <div class="input-group  mb-4">
-                        <div class="input-group-text">
-                            <i class="bi bi-telephone-fill"></i>
-                        </div>
-                        <input
-                            type="text"
-                            class="form-control"
-                            v-validate="'required|numeric|min:11'"
-                            :class="{ 'is-invalid': errors.has('phone') }"
-                            name="phone"
-                            placeholder="手机号"
-                            data-vv-as="手机号"
-                            v-model.trim="user.phone"
-                        />
-                        <div class="invalid-feedback">
-                            <span>{{ errors.first("phone") }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row form-group">
-                    <div class="input-group  mb-4">
-                        <div class="input-group-text">
-                            <i class="bi bi-shield-shaded"></i>
-                        </div>
-                        <input
-                            type="text"
-                            class="form-control mr-2"
-                            v-validate="'required|numeric|min:4'"
-                            :class="{ 'is-invalid': errors.has('sms_code') }"
-                            data-vv-as="短信验证码"
-                            name="sms_code"
-                            placeholder="输入验证码"
-                            v-model="user.sms_code"
-                            required
-                        />
-                        <button
-                            class="btn btn-success"
-                            :disabled="smsBtnDisabled"
-                            type="button"
-                            ref="get_sms"
-                            @click="getSmsCode()"
+                        <ValidationProvider
+                            name="手机号"
+                            rules="required|numeric|min:11"
+                            v-slot="{ errors }"
+                            ref="phone"
                         >
-                            获取验证码
-                        </button>
-                        <div class="invalid-feedback">
-                            <span>{{ errors.first("sms_code") }}</span>
+                            <div class="form-row form-group">
+                                <div class="input-group  mb-4 has-validation">
+                                    <div class="input-group-text">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        :class="{
+                                            'is-invalid': errors.length > 0
+                                        }"
+                                        placeholder="请输入手机号"
+                                        v-model.trim="user.phone"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{ errors[0] }}
+                                    </div>
+                                </div>
+                            </div>
+                        </ValidationProvider>
+                        <ValidationProvider
+                            name="验证码"
+                            rules="required|numeric|min:4"
+                            v-slot="{ errors }"
+                        >
+                            <div class="form-row form-group">
+                                <div class="input-group  mb-4 has-validation">
+                                    <div class="input-group-text">
+                                        <i class="bi bi-shield-shaded"></i>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control mr-2"
+                                        :class="{
+                                            'is-invalid': errors.length > 0
+                                        }"
+                                        placeholder="请输入验证码"
+                                        v-model.trim="user.sms_code"
+                                    />
+                                    <button
+                                        class="btn btn-success"
+                                        :disabled="smsBtnDisabled"
+                                        type="button"
+                                        ref="get_sms"
+                                        @click="getSmsCode()"
+                                    >
+                                        获取验证码
+                                    </button>
+                                    <div class="invalid-feedback">
+                                        {{ errors[0] }}
+                                    </div>
+                                </div>
+                            </div>
+                        </ValidationProvider>
+                        <ValidationProvider
+                            name="密码"
+                            rules="required|min:6"
+                            v-slot="{ errors }"
+                            vid="password"
+                        >
+                            <div class="form-row form-group">
+                                <div class="input-group  mb-4 has-validation">
+                                    <div class="input-group-text">
+                                        <i class="bi bi-key-fill"></i>
+                                    </div>
+                                    <input
+                                        type="password"
+                                        class="form-control"
+                                        :class="{
+                                            'is-invalid': errors.length > 0
+                                        }"
+                                        placeholder="请输入密码"
+                                        v-model="user.password"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{ errors[0] }}
+                                    </div>
+                                </div>
+                            </div>
+                        </ValidationProvider>
+                        <ValidationProvider
+                            name="确认密码"
+                            rules="required|min:6|confirmed:password"
+                            v-slot="{ errors }"
+                        >
+                            <div class="form-row form-group">
+                                <div class="input-group  mb-4 has-validation">
+                                    <div class="input-group-text">
+                                        <i class="bi bi-key-fill"></i>
+                                    </div>
+                                    <input
+                                        type="password"
+                                        class="form-control"
+                                        :class="{
+                                            'is-invalid': errors.length > 0
+                                        }"
+                                        placeholder="请再次输入密码"
+                                        v-model="user.password_confirmed"
+                                        ref="password_confirmed"
+                                    />
+                                    <div class="invalid-feedback">
+                                        {{ errors[0] }}
+                                    </div>
+                                </div>
+                            </div>
+                        </ValidationProvider>
+                        <div class="input-group">
+                            <button class="col btn btn-primary" type="submit">
+                                注册
+                            </button>
                         </div>
-                    </div>
-                </div>
-                <div class="form-row form-group">
-                    <div class="input-group  mb-4">
-                        <div class="input-group-text">
-                            <i class="bi bi-key-fill"></i>
-                        </div>
-                        <input
-                            type="password"
-                            class="form-control"
-                            name="password"
-                            v-validate="'required|min:6'"
-                            data-vv-as="密码"
-                            :class="{ 'is-invalid': errors.has('password') }"
-                            placeholder="密码"
-                            v-model="user.password"
-                            ref="password"
-                        />
-                        <div class="invalid-feedback">
-                            <span>{{ errors.first("password") }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row form-group">
-                    <div class="input-group  mb-4">
-                        <div class="input-group-text">
-                            <i class="bi bi-key-fill"></i>
-                        </div>
-                        <input
-                            type="password"
-                            class="form-control"
-                            name="password_confirmed"
-                            v-validate="'required|min:6|confirmed:password'"
-                            data-vv-as="确认密码"
-                            :class="{
-                                'is-invalid': errors.has('password_confirmed')
-                            }"
-                            placeholder="再次输入确认密码"
-                            v-model="user.password_confirmed"
-                            ref="password_confirmed"
-                        />
-                        <div class="invalid-feedback">
-                            <span>{{
-                                errors.first("password_confirmed")
-                            }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <button class="col btn btn-primary" type="submit">
-                        注册
-                    </button>
-                </div>
-            </form>
+                    </form>
+                </ValidationObserver>
+            </no-ssr>
         </div>
     </div>
 </template>
 
 <script>
 import apiService from "~/services/apiService";
-import localStorage from "~/utils/localStorage";
-import { ErrorBag } from "vee-validate";
 
 export default {
     name: "Register",
-    inject: ["$validator"], // nuxt 与 vee-validate 不兼容，需要手动注入
-    $_veeValidate: {
-        validator: "new"
-    },
     components: {},
     beforeDestroy() {
         clearInterval(this.interval);
@@ -165,16 +178,11 @@ export default {
             }
         };
     },
-    computed: {
-        errors: function() {
-            return new ErrorBag();
-        }
-    },
     methods: {
         getSmsCode() {
             const that = this;
-            this.$validator.validate("phone").then(isValid => {
-                if (isValid) {
+            this.$refs.phone.validate().then(res => {
+                if (res.valid) {
                     apiService.post("/send/sms", that.user).then(response => {
                         let time = 60;
                         that.smsBtnDisabled = true;
@@ -197,19 +205,18 @@ export default {
             });
         },
         submitForm() {
-            this.$validator.validateAll().then(isValid => {
-                if (isValid) {
-                    apiService.post("/register", this.user).then(response => {
-                        let newAuth = response.data.data;
-                        newAuth.login_at = Date.now();
-                        localStorage.set("user", newAuth);
-                        this.$toast({
-                            type: "success",
-                            message: "注册成功"
-                        });
-                        this.$router.push({ path: "/" });
+            this.$refs.form.validate().then(res => {
+                if (!res) return;
+                apiService.post("/register", this.user).then(response => {
+                    let newAuth = response.data.data;
+                    newAuth.login_at = Date.now();
+                    localStorage.set("user", newAuth);
+                    this.$toast({
+                        type: "success",
+                        message: "注册成功"
                     });
-                }
+                    this.$router.push({ path: "/" });
+                });
             });
         }
     }
