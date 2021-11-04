@@ -1,6 +1,6 @@
 <template>
-    <div class="row justify-content-center">
-        <div class="col-md-5 col bg-white border shadow p-5 m-lg-5">
+    <div class="d-flex justify-content-center">
+        <div class="col-md-5 col bg-white border shadow p-4 m-lg-5 p-lg-5">
             <div
                 class="d-flex justify-content-center align-items-center header-title pb-5 font-weight-bold"
             >

@@ -32,7 +32,6 @@ export default {
             };
             this.simplemde = new SimpleMDE({
                 element: document.getElementById('markdownSection'),
-                autoDownloadFontAwesome: false,
                 spellChecker: false,
                 autosave: autoSave,
                 renderingConfig: {
