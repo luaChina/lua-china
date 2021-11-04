@@ -131,6 +131,7 @@
 <script>
 import OAuthLogin from "~/components/oauth-login";
 import apiService from "~/services/apiService";
+import localStorage from "~/utils/localStorage";
 
 export default {
     name: "Login",
