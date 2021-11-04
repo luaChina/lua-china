@@ -8,6 +8,7 @@ const COLOR = {
 notification.install = function(Vue) {
     let exToast = Vue.extend(Notification);
     Vue.prototype.$toast = toast;
+    Vue.toast =toast;
     function buildProps(args) {
         let props = {};
         props.message = args[0].message;
