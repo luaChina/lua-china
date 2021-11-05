@@ -25,24 +25,6 @@ module.exports = {
                     "Lua 中国，这里是 Lua 论坛，为开发者提供学习交流的平台，Lua 中国需要你的力量！"
             }
         ],
-        link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
-        script: [
-            {
-                src:
-                    "https://lua-china-1256147061.file.myqcloud.com/static/js/sentry.min.js",
-                crossorigin: "anonymous"
-            },
-            {
-                src:
-                    "https://lua-china-1256147061.file.myqcloud.com/static/js/highlight.min.js",
-                crossorigin: "anonymous"
-            },
-            {
-                src:
-                    "https://lua-china-1256147061.file.myqcloud.com/static/js/lua.min.js",
-                crossorigin: "anonymous"
-            }
-        ]
     },
 
     /*

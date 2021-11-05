@@ -179,7 +179,6 @@
 
 <script>
 import apiService from "~/services/apiService";
-import syncApiService from "~/services/syncApiService";
 import HashAvatar from "~/components/hash-avatar";
 import config from "~/config/api.js";
 import localStorage from "~/utils/localStorage";
@@ -246,7 +245,7 @@ export default {
             apiUrl = config.apiUrl;
         }
         //推荐文章
-        let posts = await syncApiService
+        let posts = await apiService
             .get(apiUrl + "/posts/")
             .then(posts => {
                 return posts.data.data.data;
@@ -258,7 +257,7 @@ export default {
                 });
             });
         //当前文章
-        let post = await syncApiService
+        let post = await apiService
             .get(apiUrl + "/posts/" + params.id)
             .then(res => {
                 if (res.data.status !== 0) {

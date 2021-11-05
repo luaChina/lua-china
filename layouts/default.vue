@@ -10,6 +10,8 @@
 <script>
 import header from "~/components/app-header.vue";
 import footer from "~/components/app-footer.vue";
+import * as Sentry from "@sentry/browser";
+import { Integrations } from "@sentry/tracing";
 export default {
   name: "layout",
   components: {
@@ -23,7 +25,9 @@ export default {
         });
         // init sentry
         Sentry.init({
-            dsn: "https://b11425e91d854dc8a9a62b2ac1cc1590@sentry.io/1329324"
+            dsn: "https://b11425e91d854dc8a9a62b2ac1cc1590@sentry.io/1329324",
+            integrations: [new Integrations.BrowserTracing()],
+            tracesSampleRate: 1.0,
         });
         // init baidu seo
         var bp = document.createElement("script");

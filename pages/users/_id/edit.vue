@@ -48,7 +48,6 @@
 <script>
 import HashAvatar from "~/components/hash-avatar";
 import apiService from "~/services/apiService";
-import syncApiService from "~/services/syncApiService";
 import config from "~/config/api.js";
 
 export default {
@@ -64,7 +63,7 @@ export default {
         };
     },
     async asyncData({ params, error }) {
-        return await syncApiService
+        return await apiService
             .get(config.apiInternalUrl + "/users/" + params.id)
             .then(res => {
                 if (res.data.status === 0x010009) {
