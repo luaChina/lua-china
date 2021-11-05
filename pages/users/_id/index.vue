@@ -127,7 +127,7 @@
                     <cite>暂无</cite>
                 </div>
             </div>
-            <no-ssr>
+            <client-only>
                 <div
                     class="border bg-white mb-4"
                     v-if="auth.id == $route.params.id"
@@ -161,7 +161,7 @@
                         <cite>暂无</cite>
                     </div>
                 </div>
-            </no-ssr>
+            </client-only>
         </div>
     </div>
 </template>
@@ -192,7 +192,7 @@ import apiService from "~/services/apiService";
 import HashAvatar from "~/components/hash-avatar";
 import axios from "axios";
 import config from "~/config/api.js";
-import { authInfo } from "../../../../utils/helper";
+import { authInfo } from "~/utils/helper";
 
 export default {
     components: {

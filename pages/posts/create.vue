@@ -1,8 +1,8 @@
 <template>
     <div>
-        <no-ssr>
-            <div class="form-row form-group">
-                <label for="title">文章标题</label>
+        <client-only>
+            <div class="form-row form-group mb-3">
+                <label for="title" class="form-label">文章标题</label>
                 <input
                     type="text"
                     class="form-control"
@@ -10,13 +10,9 @@
                     v-model.trim="post.title"
                 />
             </div>
-            <div class="form-row form-group">
-                <label for="tags">文章标签</label>
-                <select
-                    class="form-control"
-                    id="tags"
-                    v-model="post.post_tag_id"
-                >
+            <div class="form-row form-group mb-3">
+                <label for="tags" class="form-label">文章标签</label>
+                <select class="form-control" id="tags" v-model="post.tag_id">
                     <option
                         v-for="item in tags"
                         :key="item.id"
@@ -26,12 +22,8 @@
                 </select>
             </div>
             <div>
-                <label for="markdownSection">文章内容</label>
-                <markdown-editor
-                    ref="editor"
-                    :post="post"
-                    :edit="true"
-                ></markdown-editor>
+                <label for="markdownSection" class="form-label">文章内容</label>
+                <markdown-editor ref="editor" :edit="false"></markdown-editor>
             </div>
             <div class="form-row form-group justify-content-center">
                 <button
@@ -39,16 +31,16 @@
                     type="submit"
                     @click="submitForm()"
                 >
-                    提交
+                    发布
                 </button>
             </div>
-        </no-ssr>
+        </client-only>
     </div>
 </template>
 
 <script>
 import apiService from "~/services/apiService";
-import { authInfo } from "../../../../utils/helper";
+import localStorage from "~/utils/localStorage";
 
 export default {
     name: "PostCreate",
@@ -57,27 +49,17 @@ export default {
             post: {
                 title: null,
                 content: null,
-                post_tag_id: 1,
+                tag_id: 1,
                 user: {}
             },
             tags: {},
-            editor: Object,
-            auth: { id: 0 }
+            editor: Object
         };
     },
-    mounted() {
-        if (authInfo()) {
-            this.auth = authInfo();
-        }
+    created() {
         apiService.get("/tags").then(response => {
             this.tags = response.data.data;
         });
-        apiService
-            .get("/posts/" + this.$route.params.id + "/edit")
-            .then(response => {
-                this.post = response.data.data;
-                this.$refs.editor.setContent(this.post.content);
-            });
     },
     methods: {
         submitForm() {
@@ -96,20 +78,16 @@ export default {
                 });
                 return;
             }
-            let post = {
-                title: this.post.title,
-                post_tag_id: this.post.post_tag_id,
-                content: this.post.content
-            };
-            apiService
-                .put("/posts/" + this.$route.params.id, post)
-                .then(response => {
-                    this.$toast({
-                        type: "success",
-                        message: "发布成功"
-                    });
-                    this.$router.push("/");
+            apiService.post("/posts", this.post).then(response => {
+                this.$toast({
+                    type: "success",
+                    message: "发布成功"
                 });
+                // 触发子组件 destroy 消除定时器
+                this.$router.push("/");
+                // 定时器消除后删除 localstorage
+                localStorage.delete("smde_article");
+            });
         }
     }
 };

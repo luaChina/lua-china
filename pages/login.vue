@@ -1,14 +1,13 @@
 <template>
     <div class="d-flex justify-content-center">
-        <div class="col-md-5 col bg-white border shadow p-5 m-lg-5">
+        <div class="col-md-5 col bg-white border shadow p-4 m-lg-5 p-lg-5">
             <div
                 class="d-flex justify-content-center align-items-center header-title pb-5 font-weight-bold"
             >
                 <span style="color:red">Lua</span>
                 <span style="color:#666"> China</span>
             </div>
-            <!-- 在 @submit 或 @click 上需要加 prevent，阻止默认事件触发，否则会发生跳转 -->
-            <no-ssr>
+            <client-only>
                 <ValidationObserver ref="form">
                     <form
                         class="needs-validation"
@@ -16,20 +15,6 @@
                         @submit.prevent="submitForm"
                         method="post"
                     >
-                        <div class="form-row form-group">
-                            <div class="input-group  mb-4">
-                                <div class="input-group-text">
-                                    <i class="bi bi-person-lines-fill"></i>
-                                </div>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    name="name"
-                                    placeholder="昵称（可选）"
-                                    v-model.trim="user.name"
-                                />
-                            </div>
-                        </div>
                         <ValidationProvider
                             name="手机号"
                             rules="required|numeric|min:11"
@@ -37,10 +22,10 @@
                             ref="phone"
                         >
                             <div class="form-row form-group">
-                                <div class="input-group  mb-4 has-validation">
-                                    <div class="input-group-text">
-                                        <i class="bi bi-telephone-fill"></i>
-                                    </div>
+                                <div class="input-group mb-4 has-validation">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-telephone-fill"></i
+                                    ></span>
                                     <input
                                         type="text"
                                         class="form-control"
@@ -60,9 +45,10 @@
                             name="验证码"
                             rules="required|numeric|min:4"
                             v-slot="{ errors }"
+                            v-if="isSmsLogin"
                         >
                             <div class="form-row form-group">
-                                <div class="input-group  mb-4 has-validation">
+                                <div class="input-group mb-3 has-validation">
                                     <div class="input-group-text">
                                         <i class="bi bi-shield-shaded"></i>
                                     </div>
@@ -72,8 +58,10 @@
                                         :class="{
                                             'is-invalid': errors.length > 0
                                         }"
+                                        name="sms_code"
                                         placeholder="请输入验证码"
-                                        v-model.trim="user.sms_code"
+                                        v-model="user.sms_code"
+                                        required
                                     />
                                     <button
                                         class="btn btn-success"
@@ -94,10 +82,10 @@
                             name="密码"
                             rules="required|min:6"
                             v-slot="{ errors }"
-                            vid="password"
+                            v-if="!isSmsLogin"
                         >
                             <div class="form-row form-group">
-                                <div class="input-group  mb-4 has-validation">
+                                <div class="input-group mb-4 has-validation">
                                     <div class="input-group-text">
                                         <i class="bi bi-key-fill"></i>
                                     </div>
@@ -116,105 +104,98 @@
                                 </div>
                             </div>
                         </ValidationProvider>
-                        <ValidationProvider
-                            name="确认密码"
-                            rules="required|min:6|confirmed:password"
-                            v-slot="{ errors }"
-                        >
-                            <div class="form-row form-group">
-                                <div class="input-group  mb-4 has-validation">
-                                    <div class="input-group-text">
-                                        <i class="bi bi-key-fill"></i>
-                                    </div>
-                                    <input
-                                        type="password"
-                                        class="form-control"
-                                        :class="{
-                                            'is-invalid': errors.length > 0
-                                        }"
-                                        placeholder="请再次输入密码"
-                                        v-model="user.password_confirmed"
-                                        ref="password_confirmed"
-                                    />
-                                    <div class="invalid-feedback">
-                                        {{ errors[0] }}
-                                    </div>
-                                </div>
+                        <div class="row">
+                            <div class="col"></div>
+                            <div class="col text-end">
+                                <router-link
+                                    class="text-danger"
+                                    to="/register"
+                                    rel="nofollow"
+                                    >注册账号</router-link
+                                >
                             </div>
-                        </ValidationProvider>
-                        <div class="input-group">
+                        </div>
+                        <div class="input-group mt-4">
                             <button class="col btn btn-primary" type="submit">
-                                注册
+                                登录
                             </button>
                         </div>
                     </form>
                 </ValidationObserver>
-            </no-ssr>
+            </client-only>
+            <oauth-login />
         </div>
     </div>
 </template>
 
 <script>
+import OAuthLogin from "~/components/oauth-login";
 import apiService from "~/services/apiService";
 import localStorage from "~/utils/localStorage";
 
 export default {
-    name: "Register",
-    components: {},
-    beforeDestroy() {
-        clearInterval(this.interval);
+    name: "Login",
+    components: {
+        "oauth-login": OAuthLogin
     },
     data() {
         return {
-            interval: null,
-            phoneClass: null,
             smsBtnDisabled: false,
+            isSmsLogin: false,
             user: {
                 phone: null,
                 password: null,
-                remember: null,
-                password_confirmed: null,
-                sms_code: null,
-                name: null
+                sms_code: null
             }
         };
     },
     methods: {
+        changeLoginWay() {
+            this.$refs.form.reset();
+            this.user.password = null;
+            this.isSmsLogin = true;
+        },
         getSmsCode() {
             const that = this;
             this.$refs.phone.validate().then(res => {
                 if (res.valid) {
-                    apiService.post("/send/sms", that.user).then(response => {
-                        let time = 60;
-                        that.smsBtnDisabled = true;
-                        that.interval = setInterval(() => {
-                            if (that.$refs.get_sms) {
-                                that.$refs.get_sms.innerHTML =
-                                    time-- + "秒后重试";
-                            }
-                            if (time <= 0) {
-                                clearInterval(that.interval);
-                                that.smsBtnDisabled = false;
+                    apiService
+                        .post("/send/sms", { phone: that.user.phone })
+                        .then(response => {
+                            let time = 60;
+                            that.smsBtnDisabled = true;
+                            that.interval = setInterval(() => {
                                 if (that.$refs.get_sms) {
-                                    that.$refs.get_sms.innerHTML = "获取验证码";
+                                    that.$refs.get_sms.innerHTML =
+                                        time-- + "秒后重试";
                                 }
-                                return false;
-                            }
-                        }, 1000);
-                    });
+                                if (time <= 0) {
+                                    clearInterval(that.interval);
+                                    that.smsBtnDisabled = false;
+                                    if (that.$refs.get_sms) {
+                                        that.$refs.get_sms.innerHTML =
+                                            "获取验证码";
+                                    }
+                                    return false;
+                                }
+                            }, 1000);
+                        });
                 }
             });
         },
         submitForm() {
             this.$refs.form.validate().then(res => {
                 if (!res) return;
-                apiService.post("/register", this.user).then(response => {
+                for (let k in this.user) {
+                    if (this.user[k] == null) delete this.user[k];
+                }
+                apiService.post("/login", this.user).then(response => {
                     let newAuth = response.data.data;
                     newAuth.login_at = Date.now();
                     localStorage.set("user", newAuth);
                     this.$toast({
                         type: "success",
-                        message: "注册成功"
+                        message: "登录成功"
                     });
                     this.$router.push({ path: "/" });
                 });
@@ -223,12 +204,3 @@ export default {
     }
 };
 </script>
-
-<style lang="scss">
-.input-group-text {
-    svg {
-        width: 16px;
-        height: 16px;
-    }
-}
-</style>

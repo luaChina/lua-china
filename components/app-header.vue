@@ -53,7 +53,7 @@
                             >
                         </li>
                     </ul>
-                    <no-ssr>
+                    <client-only>
                         <div>
                             <div v-if="user.id == 0">
                                 <router-link to="/login" rel="nofollow">
@@ -176,7 +176,7 @@
                                 </div>
                             </div>
                         </div>
-                    </no-ssr>
+                    </client-only>
                 </div>
             </div>
         </nav>
