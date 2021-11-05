@@ -7,7 +7,7 @@
                 <span style="color:red">Lua</span>
                 <span style="color:#666"> China</span>
             </div>
-            <no-ssr>
+            <client-only>
                 <ValidationObserver ref="form">
                     <form
                         class="needs-validation"
@@ -122,7 +122,7 @@
                         </div>
                     </form>
                 </ValidationObserver>
-            </no-ssr>
+            </client-only>
             <oauth-login />
         </div>
     </div>

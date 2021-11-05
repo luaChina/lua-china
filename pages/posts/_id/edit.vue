@@ -1,6 +1,6 @@
 <template>
     <div>
-        <no-ssr>
+        <client-only>
             <div class="form-row form-group">
                 <label for="title">文章标题</label>
                 <input
@@ -42,7 +42,7 @@
                     提交
                 </button>
             </div>
-        </no-ssr>
+        </client-only>
     </div>
 </template>
 

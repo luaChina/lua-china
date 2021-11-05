@@ -127,7 +127,7 @@
                     <cite>暂无</cite>
                 </div>
             </div>
-            <no-ssr>
+            <client-only>
                 <div
                     class="border bg-white mb-4"
                     v-if="auth.id == $route.params.id"
@@ -161,7 +161,7 @@
                         <cite>暂无</cite>
                     </div>
                 </div>
-            </no-ssr>
+            </client-only>
         </div>
     </div>
 </template>

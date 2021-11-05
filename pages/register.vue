@@ -8,7 +8,7 @@
                 <span style="color:#666"> China</span>
             </div>
             <!-- 在 @submit 或 @click 上需要加 prevent，阻止默认事件触发，否则会发生跳转 -->
-            <no-ssr>
+            <client-only>
                 <ValidationObserver ref="form">
                     <form
                         class="needs-validation"
@@ -149,7 +149,7 @@
                         </div>
                     </form>
                 </ValidationObserver>
-            </no-ssr>
+            </client-only>
         </div>
     </div>
 </template>

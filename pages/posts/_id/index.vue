@@ -18,7 +18,7 @@
                             <span>评论数：{{ post.comments.length || 0 }}</span>
                         </div>
                     </div>
-                    <no-ssr>
+                    <client-only>
                         <div
                             v-if="this.post.user_id === this.auth.id"
                             class="ml-auto"
@@ -37,7 +37,7 @@
                                 移入草稿箱
                             </button>
                         </div>
-                    </no-ssr>
+                    </client-only>
                 </div>
                 <div class="markdown-preview" v-html="compiledMarkdown"></div>
             </div>
@@ -47,7 +47,7 @@
                     <div
                         class="card-body d-flex justify-content-center align-items-center"
                     >
-                        <no-ssr>
+                        <client-only>
                             <vue-star
                                 animate="animated rubberBand"
                                 color="#F05654"
@@ -59,7 +59,7 @@
                                     @click="favorClick"
                                 ></i>
                             </vue-star>
-                        </no-ssr>
+                        </client-only>
                     </div>
                 </div>
             </div>
