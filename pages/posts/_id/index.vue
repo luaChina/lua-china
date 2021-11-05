@@ -183,7 +183,7 @@ import syncApiService from "~/services/syncApiService";
 import HashAvatar from "~/components/hash-avatar";
 import config from "~/config/api.js";
 import localStorage from "~/utils/localStorage";
-import { authInfo } from "../../../../utils/helper";
+import { authInfo } from "~/utils/helper";
 const marked = require("marked");
 import mediumZoom from "medium-zoom";
 

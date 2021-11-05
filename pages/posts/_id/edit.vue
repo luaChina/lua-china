@@ -48,7 +48,7 @@
 
 <script>
 import apiService from "~/services/apiService";
-import { authInfo } from "../../../../utils/helper";
+import { authInfo } from "~/utils/helper";
 
 export default {
     name: "PostCreate",

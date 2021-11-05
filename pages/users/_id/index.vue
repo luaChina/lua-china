@@ -192,7 +192,7 @@ import apiService from "~/services/apiService";
 import HashAvatar from "~/components/hash-avatar";
 import axios from "axios";
 import config from "~/config/api.js";
-import { authInfo } from "../../../../utils/helper";
+import { authInfo } from "~/utils/helper";
 
 export default {
     components: {
