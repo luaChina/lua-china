@@ -7,7 +7,7 @@ on:
 
 env:
   TKE_DOCKER_HUB: ccr.ccs.tencentyun.com
-  TKE_IMAGE_URL: ccr.ccs.tencentyun.com/hejunwei/machine-manage-api
+  TKE_IMAGE_URL: ccr.ccs.tencentyun.com/hejunwei/lua-china
 
 jobs:
   build:
