@@ -5,6 +5,10 @@ on:
     branches:
     - master
 
+env:
+  TKE_DOCKER_HUB: ccr.ccs.tencentyun.com
+  TKE_IMAGE_URL: ccr.ccs.tencentyun.com/hejunwei/machine-manage-api
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,31 +20,17 @@ jobs:
     - name: Change env.lua
       run: cp env.example.json env.json
 
-    - name: Build and push
-      uses: mr-smithers-excellent/docker-build-push@v5
-      with:
-        image: horan/lua-china
-        registry: docker.io
-        tags: $GITHUB_SHA
-        username: horan
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-  
-  deploy:
-    runs-on: ubuntu-latest
-    name: Deploy docker
-    needs: build
-    steps:
-    - name: ssh pipelines
-      uses: cross-the-world/ssh-pipeline@master
-      env:
-        WELCOME: "ssh pipeline"
-      with:
-        host: 115.28.82.133
-        user: root
-        pass: ${{ secrets.SSH_PASSWORD }}
-        port: 22
-        connect_timeout: 10s
-        script: |
-          (docker pull horan/lua-china:$GITHUB_SHA) && 
-          (docker rm -f lua-china || true) &&
-          docker run -p 10.31.231.178:8888:80 --name=lua-china -d horan/lua-china:$GITHUB_SHA
+    - name: Export Date Env
+      id: CURRENT_DATE
+      run: echo "::set-output name=date::$(TZ=Asia/Shanghai date +'%Y-%m-%d-%H-%M-%S')"
+
+    - name: Build the Docker image
+      run: docker build -t ${TKE_IMAGE_URL}:${{steps.CURRENT_DATE.outputs.date}} .
+
+    - name: Login TKE Registry
+      run: |
+        docker login ${TKE_DOCKER_HUB} --username="${{secrets.TENCENT_CLOUD_ACCOUNT_ID}}" -p "${{ secrets.TKE_REGISTRY_PASSWORD }}"
+
+    - name: Push docker image
+      run: |
+        docker push ${TKE_IMAGE_URL}:${{steps.CURRENT_DATE.outputs.date}}
