@@ -34,8 +34,8 @@
         "vue-star": "0.0.4"
     },
     "devDependencies": {
-        "node-sass": "^7.0.0",
         "nodemon": "^1.18.9",
+        "sass": "^1.50.0",
         "sass-loader": "^7.1.0"
     }
 }
