@@ -1,7 +1,7 @@
 <template>
     <div class="bg-light d-flex flex-column main" id="app">
         <app-header></app-header>
-        <div class="container pt-4 main-content">
+        <div class="container pt-3 main-content">
             <nuxt />
         </div>
         <app-foot></app-foot>

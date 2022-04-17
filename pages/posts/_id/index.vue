@@ -3,19 +3,23 @@
         <div class="col-md-9 mr-lg-4 mr-0 mb-5">
             <div class="bg-white border p-4">
                 <div class="mb-2">
-                    <h1 class="my-4 artical-title">{{ post.title }}</h1>
+                    <h1 class="my-4 article-title">{{ post.title }}</h1>
                     <div class="text-muted border-bottom mb-2 pb-2 d-flex">
-                        <div class="d-flex align-items-center artical-info">
-                            <span v-text="post.updated_at"></span>
+                        <div>
+                            <div class="d-flex align-items-center article-info articleTime">
+                                <span>{{displayTime}}</span>
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center artical-info">
-                            <span>收藏数：{{ post.favor_count }}</span>
-                        </div>
-                        <div class="d-flex align-items-center artical-info">
-                            <span>阅读数：{{ post.read_count }}</span>
-                        </div>
-                        <div class="d-flex align-items-center artical-info">
-                            <span>评论数：{{ post.comments.length || 0 }}</span>
+                        <div class="d-flex">
+                            <div class="d-flex align-items-center article-info">
+                                <span>收藏：{{ post.favor_count }}</span>
+                            </div>
+                            <div class="d-flex align-items-center article-info">
+                                <span>阅读：{{ post.read_count }}</span>
+                            </div>
+                            <div class="d-flex align-items-center article-info">
+                                <span>评论：{{ post.comments.length || 0 }}</span>
+                            </div>
                         </div>
                     </div>
                     <client-only>
@@ -70,11 +74,11 @@
                     v-for="(comment, index) in post.comments"
                     :key="index"
                 >
-                    <div class="avatar mr-3">
+                    <div class="avatar">
                         <hash-avatar
                             :url="comment.user.avatar"
                             :user_id="comment.user.id"
-                            :size="50"
+                            :size="40"
                             :alt="comment.user.name"
                             class="border shadow rounded-circle me-2"
                         ></hash-avatar>
@@ -198,7 +202,8 @@ export default {
                 title: null,
                 content: "",
                 editor: {},
-                comments: []
+                comments: [],
+                updated_at: null,
             },
             favor: false,
             posts: [],
@@ -220,6 +225,38 @@ export default {
         };
     },
     computed: {
+        displayTime: function() {
+            let date = new Date(this.post.updated_at)
+            var minute = 1000 * 60;
+            var hour = minute * 60;
+            var day = hour * 24;
+            var month = day * 30;
+            var now = new Date().getTime();
+            var diffValue = now - date.getTime();
+            if(diffValue < 0){return;}
+            var monthC =diffValue/month;
+            var weekC =diffValue/(7*day);
+            var dayC =diffValue/day;
+            var hourC =diffValue/hour;
+            var minC =diffValue/minute;
+
+            if(monthC >= 4) {
+                console.log(date)
+                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+            } else if(monthC>=1){
+                return "" + parseInt(monthC) + "月前";
+            } else if(weekC>=1){
+                return "" + parseInt(weekC) + "周前";
+            } else if(dayC>=1){
+                return ""+ parseInt(dayC) +"天前";
+            } else if(hourC>=1){
+                return ""+ parseInt(hourC) +"小时前";
+            } else if(minC>=1){
+                return ""+ parseInt(minC) +"分钟前";
+            } else {
+                return "刚刚";
+            }
+        },
         compiledMarkdown: function() {
             return marked(this.post.content, {
                 highlight: code => {
@@ -357,11 +394,11 @@ export default {
     z-index: 889;
 }
 
-.artical-title {
+.article-title {
     font-size: 1.6rem;
 }
 
-.artical-info {
+.article-info {
     font-size: 12px;
     margin-right: 8px;
 
@@ -370,6 +407,16 @@ export default {
         height: 16px;
         margin-right: 4px;
     }
+}
+
+@media screen and (max-width: 400px) {
+    .article-info {
+        font-size: 11px;
+    }
+}
+
+.articleTime {
+    margin-right: 2rem;
 }
 
 .VueStar {
