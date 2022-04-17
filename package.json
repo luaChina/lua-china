@@ -26,7 +26,7 @@
         "inline-attachment": "^2.0.3",
         "koa": "^2.6.2",
         "lodash": "^4.17.21",
-        "marked": "^3.0.8",
+        "marked": "^4.0.10",
         "medium-zoom": "^1.0.6",
         "nuxt": "^2.15.8",
         "simplemde": "^1.11.2",
