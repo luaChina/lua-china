@@ -67,8 +67,7 @@
                         <a
                             class="page-link"
                             aria-label="Previous"
-                            @click="getPosts(pageActive - 1)"
-                            href="#"
+                            :href="getPageUrl(pageActive - 1)"
                         >
                             <span aria-hidden="true">&laquo;</span>
                         </a>
@@ -85,8 +84,7 @@
                         >
                             <a
                                 class="page-link"
-                                @click="getPosts(item)"
-                                href="#"
+                                :href="getPageUrl(item)"
                                 >{{ item }}</a
                             >
                         </li>
@@ -95,7 +93,7 @@
                         <li
                             :key="'pa' + index"
                             :class="
-                                pageActive === item
+                                pageActive == item
                                     ? 'page-item active'
                                     : 'page-item'
                             "
@@ -103,8 +101,7 @@
                         >
                             <a
                                 class="page-link"
-                                @click="getPosts(item)"
-                                href="#"
+                                :href="getPageUrl(item)"
                                 >{{ item }}</a
                             >
                         </li>
@@ -118,23 +115,21 @@
                         >
                             <a
                                 class="page-link"
-                                @click="getPosts(pageActive)"
-                                href="#"
+                                :href="getPageUrl(pageActive)"
                                 >{{ pageActive }}</a
                             >
                         </li>
                         <li
                             :key="'pa' + pageNum.length - 1"
                             :class="
-                                pageActive === pageNum[pageNum.length - 1]
+                                pageActive == pageNum[pageNum.length - 1]
                                     ? 'page-item active'
                                     : 'page-item'
                             "
                         >
                             <a
                                 class="page-link"
-                                @click="getPosts(pageNum[pageNum.length - 1])"
-                                href="#"
+                                :href="getPageUrl(pageNum[pageNum.length - 1])"
                                 >{{ pageNum[pageNum.length - 1] }}</a
                             >
                         </li>
@@ -144,8 +139,7 @@
                         <a
                             class="page-link"
                             aria-label="Next"
-                            @click="getPosts(pageActive + 1)"
-                            href="#"
+                            :href="getPageUrl(parseInt(pageActive) + 1)"
                         >
                             <span aria-hidden="true">&raquo;</span>
                         </a>
@@ -336,8 +330,6 @@ export default {
             posts: [],
             pageNum: [1],
             pageActive: 1,
-            prevAble: false,
-            nextAble: false,
         };
     },
     created() {
@@ -345,15 +337,27 @@ export default {
             this.topUsers = response.data.data;
         });
     },
-
+    computed: {
+        prevAble() {
+            return parseInt(this.pageActive) != 1
+        },
+        nextAble() {
+            return parseInt(this.pageActive) <= this.pageNum.length-1
+        },
+    },
     //2.x版本 asyncData不推荐使用callback方式
     asyncData(context) {
+        let query = context.query
+        var page = 1
+        if (query.page) {
+            page = query.page
+        }
         let apiUrl = config.apiInternalUrl;
         if (process.client) {
             apiUrl = config.apiUrl;
         }
         return axios
-            .get(apiUrl + "/posts")
+            .get(apiUrl + "/posts?page=" + page)
             .then((res) => {
                 let num = Math.ceil(res.data.data.total / 20);
                 let numArr = [1];
@@ -363,7 +367,7 @@ export default {
                 return {
                     posts: res.data.data.data,
                     pageNum: numArr,
-                    nextAble: num > 1,
+                    pageActive: page
                 };
             })
             .catch((err) => {
@@ -380,13 +384,13 @@ export default {
         },
         getPosts(page = 1) {
             scrollTo(0, 0);
-            this.pageActive = page;
-            this.nextAble = page < this.pageNum.length;
-            this.prevAble = page > 1;
             apiService.get("/posts?page=" + page).then((response) => {
                 this.posts = response.data.data.data;
             });
         },
+        getPageUrl(page = 1) {
+            return '/?page=' + page;
+        }
     },
 };
 </script>

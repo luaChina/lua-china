@@ -28,11 +28,11 @@ async function start () {
   
   app.use(ctx => {
     // redirect http to https
-    if (!config.dev && ctx.request.protocol == 'http') {
-        ctx.status = 301
-        ctx.response.redirect(ctx.request.href.replace('http://', 'https://'))
-        return
-    }
+    // if (!config.dev && ctx.request.protocol == 'http') {
+    //     ctx.status = 301
+    //     ctx.response.redirect(ctx.request.href.replace('http://', 'https://'))
+    //     return
+    // }
 
     ctx.status = 200
     ctx.respond = false // Bypass Koa's built-in response handling
