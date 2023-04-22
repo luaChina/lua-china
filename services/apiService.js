@@ -10,17 +10,6 @@ const service = axios.create({
 service.interceptors.response.use(
     response => {
         return new Promise(resolve => {
-            if (response.data.status === 4) {
-                window.location.href = '/login';
-                return
-            }
-            if (response.data.status !== 0) {
-                Vue.toast({
-                    type: 'error',
-                    message: response.data.msg,
-                });
-                return
-            }
             resolve(response)
         });
     },

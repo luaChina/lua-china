@@ -218,8 +218,20 @@ export default {
     },
     methods: {
         updateUserInfo() {
+            this.user = { id: 0 }
             let userInfo = localStorage.get("user");
-            this.user = userInfo ? userInfo : { id: 0 };
+            if (userInfo) {
+                this.user = userInfo
+            } else {
+                apiService.get("/userinfo").then(response => {
+                    if (response.data.status === 4) {
+                        return
+                    }
+                    if (response.data.data) {
+                        this.user = response.data.data
+                    }
+                });
+            }
         },
         logout() {
             localStorage.delete("user");

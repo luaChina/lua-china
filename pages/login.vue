@@ -190,9 +190,17 @@ export default {
                     if (this.user[k] == null) delete this.user[k];
                 }
                 apiService.post("/login", this.user).then(response => {
-                    let newAuth = response.data.data;
-                    newAuth.login_at = Date.now();
-                    localStorage.set("user", newAuth);
+                    let responseBody = response.data
+                    if (responseBody.status != 0) {
+                        this.$toast({
+                            type: 'error',
+                            message: responseBody.msg,
+                        });
+                        return
+                    }
+                    let responseData = responseBody.data
+                    responseData.login_at = Date.now();
+                    localStorage.set("user", responseData);
                     this.$toast({
                         type: "success",
                         message: "登录成功"
