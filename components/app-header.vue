@@ -229,6 +229,7 @@ export default {
                     }
                     if (response.data.data) {
                         this.user = response.data.data
+                        localStorage.set("user", this.user);
                     }
                 });
             }
