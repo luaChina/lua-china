@@ -3,7 +3,7 @@
         <div class="col-md-3">
             <div class="bg-white border px-3">
                 <div class="d-flex py-3">
-                    <div>
+                    <div class="me-3">
                         <hash-avatar
                             :url="
                                 auth.id == $route.params.id
@@ -15,22 +15,16 @@
                             "
                             :size="100"
                             alt="avatar"
-                            class="rounded-circle mr-2"
+                            class="rounded-circle"
                         ></hash-avatar>
                     </div>
-                    <div>
-                        <div class="username">
-                            {{
-                                auth.id == $route.params.id
-                                    ? auth.name
-                                    : user.name
-                            }}
-                        </div>
-                        <div>
+                    <div class="justify-content-between align-self-center">
+                        <p class="username">{{auth.id == $route.params.id ? auth.name : user.name}}</p>
+                        <!-- <div>
                             第{{
                                 auth.id == $route.params.id ? auth.id : user.id
                             }}位会员
-                        </div>
+                        </div> -->
                         <nuxt-link
                             v-if="auth.id == $route.params.id"
                             :to="'/users/' + auth.id + '/edit'"
@@ -117,7 +111,7 @@
                     <div class="d-flex justify-content-between">
                         {{ comment.content }}
                     </div>
-                    <div class="ml-2 text-muted text-desc"></div>
+                    <div class="ms-2 text-muted text-desc"></div>
                 </div>
                 <div
                     v-if="Object.keys(comments).length === 0"
@@ -168,7 +162,8 @@
 
 <style>
 .username {
-    font-size: 1.2em;
+    font-size: 16px;
+    line-height: 24px;
     font-weight: bold;
 }
 .user-info {
@@ -180,7 +175,7 @@
     bottom: 0;
 }
 .comment-post-title {
-    font-size: 0.8em;
+    font-size: 15px;
 }
 .comment-time {
     font-size: 0.7em;

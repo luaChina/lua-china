@@ -47,7 +47,7 @@
                                             :user_id="post.user.id"
                                             :size="31"
                                             :alt="post.user.name"
-                                            class="rounded-circle mr-2"
+                                            class="rounded-circle me-2"
                                         ></hash-avatar>
                                         <span>{{ post.title }}</span>
                                         <i
@@ -158,7 +158,7 @@
                             justify-content-center
                         "
                     >
-                        <i class="mr-2 bi bi-megaphone-fill"></i>
+                        <i class="me-2 bi bi-megaphone-fill"></i>
                         <span>&nbsp;社区公告</span>
                     </div>
                     <div class="announcement-content p-4 text-muted">
@@ -198,7 +198,7 @@
                                         :user_id="user.id"
                                         :size="20"
                                         :alt="user.name"
-                                        class="rounded-circle mr-2"
+                                        class="rounded-circle me-2"
                                     ></hash-avatar>
                                     <router-link
                                         class="font-red text-decoration-none"

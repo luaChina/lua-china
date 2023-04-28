@@ -24,7 +24,7 @@
                     id="navbarSupportedContent"
                 >
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item mr-2">
+                        <li class="nav-item me-2">
                             <router-link
                                 class="nav-link"
                                 to="/"
@@ -34,7 +34,7 @@
                                 >文章</router-link
                             >
                         </li>
-                        <li class="nav-item mr-2">
+                        <li class="nav-item me-2">
                             <a
                                 class="nav-link"
                                 href="https://www.github.com/horan-geeker/nana"
@@ -43,7 +43,7 @@
                                 >Nana</a
                             >
                         </li>
-                        <li class="nav-item mr-2">
+                        <li class="nav-item me-2">
                             <a
                                 class="nav-link"
                                 href="https://konghq.com/"
@@ -59,7 +59,7 @@
                                 <router-link to="/login" rel="nofollow">
                                     <button
                                         type="button"
-                                        class="btn btn-outline-secondary mr-2"
+                                        class="btn btn-outline-secondary me-2"
                                     >
                                         <i class="bi bi-person-fill"></i>
                                         <span> 登录</span>

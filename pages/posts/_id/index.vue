@@ -4,7 +4,7 @@
             <div class="bg-white border p-4">
                 <div class="mb-2">
                     <h1 class="my-4 article-title">{{ post.title }}</h1>
-                    <div class="text-muted border-bottom mb-2 pb-2 d-flex">
+                    <div class="text-muted border-bottom mb-4 pb-4 d-flex">
                         <div>
                             <div class="d-flex align-items-center article-info articleTime">
                                 <span>{{displayTime}}</span>
@@ -28,7 +28,7 @@
                             class="ml-auto"
                         >
                             <router-link
-                                class="btn btn-sm btn-primary mr-2"
+                                class="btn btn-sm btn-primary me-2"
                                 :to="'/posts/' + post.id + '/edit'"
                                 rel="nofollow"
                                 >编辑</router-link
@@ -44,7 +44,7 @@
                     </client-only>
                 </div>
                 <div class="markdown-preview" v-html="compiledMarkdown"></div>
-                <div v-if="this.post.stackoverflow" class="border-top pt-2"><p class="stackoverflow">原文链接 https://stackoverflow.com/questions/{{this.post.stackoverflow.id}}</p></div>
+                <div v-if="this.post.stackoverflow" class="border-top pt-4 mt-4"><p class="stackoverflow">原文链接 https://stackoverflow.com/questions/{{this.post.stackoverflow.id}}</p></div>
             </div>
             <div class="d-flex justify-content-center mb-5 mt-3">
                 <div class="card text-dark bg-light mb-3" style="width: 100px">
@@ -85,11 +85,11 @@
                         ></hash-avatar>
                     </div>
                     <div class="bg-white border shadow w-100 comment-box">
-                        <div class="border-bottom p-2 font-weight-bold">
+                        <div class="border-bottom p-2 fw-bold">
                             {{ comment.user.name }}
                         </div>
                         <div
-                            class="p-3 comment-md text-break"
+                            class="p-3 comment-md text-break markdown-preview"
                             v-html="comment.contentMd"
                         ></div>
                         <div class="p-3 text-muted">
@@ -121,10 +121,11 @@
                 </button>
             </div>
         </div>
-        <div class="col pl-lg-0 pr-lg-0">
+        <!-- 右侧栏 -->
+        <div class="col">
             <div class="bg-white border p-4 mb-4">
-                <div class="text-center text-muted border-bottom p-2">
-                    作者: {{ post.user.name }}
+                <div class="d-flex justify-content-center align-items-center text-center border-bottom p-2">
+                    <p class="m-0">作者:</p><p class="m-0 mx-2 fw-bolder">{{ post.user.name }}</p>
                 </div>
                 <div class="d-flex justify-content-center my-3">
                     <router-link :to="'/users/' + this.post.user_id">
@@ -242,11 +243,9 @@ export default {
             var hourC =diffValue/hour;
             var minC =diffValue/minute;
 
-            if(monthC >= 4) {
+            if(monthC >= 1) {
                 console.log(date)
-                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-            } else if(monthC>=1){
-                return "" + parseInt(monthC) + "月前";
+                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
             } else if(weekC>=1){
                 return "" + parseInt(weekC) + "周前";
             } else if(dayC>=1){

@@ -12,7 +12,7 @@
                         :user_id="user.id"
                         :size="100"
                         alt="avatar"
-                        class="rounded-circle mr-2"
+                        class="rounded-circle me-2"
                     ></hash-avatar>
                     <div class="upload-text" v-if="isShowUploadText">
                         点击上传
