@@ -68,7 +68,7 @@
                                     </div>
                                     <input
                                         type="text"
-                                        class="form-control mr-2"
+                                        class="form-control me-2"
                                         :class="{
                                             'is-invalid': errors.length > 0
                                         }"
