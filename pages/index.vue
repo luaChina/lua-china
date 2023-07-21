@@ -359,9 +359,16 @@ export default {
         return axios
             .get(apiUrl + "/posts?page=" + page)
             .then((res) => {
+                if (res.data.data.data.length == undefined) {
+                    context.error({
+                        statusCode: 404,
+                        message: "未找到该网页"
+                    });
+                    return;
+                }
                 let num = Math.ceil(res.data.data.total / 20);
-                let numArr = [1];
-                for (let i = 1; i < num; i++) {
+                let numArr = [];
+                for (let i = 0; i < num; i++) {
                     numArr.push(i + 1);
                 }
                 return {
