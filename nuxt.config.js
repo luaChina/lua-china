@@ -25,6 +25,13 @@ module.exports = {
                     "Lua 中国，这里是 Lua 论坛，为开发者提供学习交流的平台，Lua 中国需要你的力量！"
             }
         ],
+        script: [
+            {
+                src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9427439045678433',
+                async: true,
+                crossorigin: 'anonymous'
+            }
+        ]
     },
 
     /*
