@@ -97,7 +97,7 @@ export default {
             formdata.append("file", avatar);
             this.isUploading = true;
             apiService
-                .post("https://file.lua-china.com/v1/cos/upload/cdn", formdata)
+                .post("https://lua-china.com/file/v1/cos/upload/cdn", formdata)
                 .then(res => {
                     this.user.avatar = res.data.data.cdn_url;
                     this.$toast({
