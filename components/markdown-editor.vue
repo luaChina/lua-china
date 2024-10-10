@@ -42,7 +42,7 @@ export default {
             this.simplemde.codemirror.setOption('lineNumbers', true);
 
             let inlineAttachmentConfig = {
-                uploadUrl: 'https://file.lua-china.com/v1/cos/upload/cdn',
+                uploadUrl: 'https://lua-china.com/api/v1/cos/upload/cdn',
                 progressText: '![图片上传中...]()',
                 errorText: '图片上传失败',
                 urlText: '![图片]({filename})',
