@@ -5,10 +5,10 @@
     "author": "AmazingMoon",
     "private": true,
     "scripts": {
-        "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
-        "build": "nuxt build",
-        "start": "cross-env NODE_ENV=production node server/index.js",
-        "generate": "nuxt generate"
+        "dev": "cross-env NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider nodemon server/index.js --watch server",
+        "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider nuxt build",
+        "start": "cross-env NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider cross-env NODE_ENV=production node server/index.js",
+        "generate": "cross-env NODE_OPTIONS=--openssl-legacy-provider nuxt generate"
     },
     "dependencies": {
         "@nuxt/ufo": "^0.5.4",
@@ -20,6 +20,7 @@
         "bootstrap-icons": "^1.6.1",
         "cross-env": "^5.2.0",
         "crypto-js": "^3.1.9-1",
+        "easymde": "^2.20.0",
         "highlight.js": "^10.4.1",
         "html-entities": "^2.3.2",
         "identicon.js": "^2.3.3",
@@ -29,13 +30,12 @@
         "marked": "^3.0.8",
         "medium-zoom": "^1.0.6",
         "nuxt": "^2.15.8",
-        "simplemde": "^1.11.2",
         "vee-validate": "^3.4.13",
         "vue-star": "0.0.4"
     },
     "devDependencies": {
-        "node-sass": "^4.11.0",
         "nodemon": "^1.18.9",
+        "sass": "^1.90.0",
         "sass-loader": "^7.1.0"
     }
 }

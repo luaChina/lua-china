@@ -25,6 +25,13 @@ module.exports = {
                     "Lua 中国，这里是 Lua 论坛，为开发者提供学习交流的平台，Lua 中国需要你的力量！"
             }
         ],
+        link: [
+            {
+                rel: 'stylesheet',
+                href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css',
+                crossorigin: 'anonymous'
+            }
+        ],
         script: [
             {
                 src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9427439045678433',
@@ -45,7 +52,9 @@ module.exports = {
     /*
      ** Global CSS
      */
-    css: ["@/assets/sass/app.scss"],
+    css: [
+        "@/assets/sass/app.scss",
+    ],
 
     /*
      ** Plugins to load before mounting the App

@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import SimpleMDE from 'simplemde'
-import 'simplemde/dist/simplemde.min.css'
+import EasyMDE from 'easymde';
+import 'easymde/dist/easymde.min.css'
 require('codemirror/theme/monokai.css'); // codemirror
 require('inline-attachment/src/inline-attachment');
 require('inline-attachment/src/codemirror-4.inline-attachment');
@@ -30,8 +30,9 @@ export default {
                 delay: 2000,
                 unique_id: 'article'
             };
-            this.simplemde = new SimpleMDE({
+            this.simplemde = new EasyMDE({
                 element: document.getElementById('markdownSection'),
+                autoDownloadFontAwesome: false, // 阻止加载旧版本
                 spellChecker: false,
                 autosave: autoSave,
                 renderingConfig: {

@@ -1,6 +1,6 @@
 # lua-china
 
-> Nuxt.js project 基于 node 14 版本
+> Nuxt.js project 基于 node 20 版本
 
 ## Build Setup
 
