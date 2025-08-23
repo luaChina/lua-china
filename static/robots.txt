@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lua-china.com/sitemap.txt
