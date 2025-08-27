@@ -32,13 +32,6 @@ module.exports = {
                 crossorigin: 'anonymous'
             }
         ],
-        script: [
-            {
-                src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9427439045678433',
-                async: true,
-                crossorigin: 'anonymous'
-            }
-        ]
     },
 
     /*
