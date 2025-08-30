@@ -44,7 +44,7 @@
                     </client-only>
                 </div>
                 <div class="markdown-preview" v-html="compiledMarkdown"></div>
-                <div v-if="this.post.stackoverflow" class="border-top pt-4 mt-4"><p class="stackoverflow">原文链接 https://stackoverflow.com/questions/{{this.post.stackoverflow.id}}</p></div>
+                <!-- <div v-if="this.post.stackoverflow" class="border-top pt-4 mt-4"><p class="stackoverflow">原文链接 https://stackoverflow.com/questions/{{this.post.stackoverflow.id}}</p></div> -->
             </div>
             <div class="d-flex justify-content-center mb-5 mt-3">
                 <div class="card text-dark bg-light mb-3" style="width: 100px">
