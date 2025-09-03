@@ -25,9 +25,11 @@
                     <a class="text-white font-italic" href="https://github.com/horan-geeker" target="_blank" rel="nofollow"> Horan</a>
                     and
                     <a class="text-white font-italic" href="https://github.com/AmazingMoon" target="_blank" rel="nofollow"> Amazing</a>
+                    <div><a class="text-white font-italic text-decoration-none" href="https://beian.miit.gov.cn" target="_blank">陕ICP备16002741号</a></div>
                 </div>
             </div>
         </div>
+        <div class="row"><div class="col"></div></div>
     </div>
 </template>
 
@@ -65,7 +67,7 @@
     .footer-copyright {
         font-size: 12px;
         opacity: 0.6;
-        line-height: 58px;
+        line-height: 36px;
     }
 
     .wechat-qrcode {
