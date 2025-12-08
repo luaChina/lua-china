@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-screen-2xl mx-auto px-4 py-8">
+    <div class="max-w-screen-2xl mx-auto px-2 py-4">
         <h1 class="hidden">lua 中国社区，lua 论坛</h1>
         <div class="flex flex-wrap -mx-4">
             <!-- Main Content -->
@@ -28,7 +28,7 @@
                         <div
                             v-for="(post, index) in posts"
                             :key="index"
-                            class="p-4 hover:bg-gray-50 transition duration-150 ease-in-out group"
+                            class="py-3 px-4 hover:bg-gray-50 transition duration-150 ease-in-out group"
                         >
                             <router-link
                                 :to="'/posts/' + post.id"
