@@ -93,9 +93,8 @@
                                 <div class="border-t border-gray-100 my-1"></div>
                                 <a
                                     href="#"
-                                    class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center text-decoration-none"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#logoutModal"
+                                    class="block px-4 py-2 text-sm text-red-600 hover:bg-red-600 hover:text-white rounded flex items-center text-decoration-none transition"
+                                    @click.prevent="showLogoutModal = true"
                                     rel="nofollow"
                                 >
                                     <i class="bi bi-box-arrow-right mr-2"></i>
@@ -104,28 +103,23 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Modal -->
-                    <div
-                        class="modal fade"
-                        id="logoutModal"
-                        tabindex="-1"
-                        aria-labelledby="exampleModalLabel"
-                        aria-hidden="true"
-                        style="z-index: 9999;"
-                    >
-                        <div class="modal-dialog modal-sm text-center">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">温馨提示</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    确认退出登录吗？
-                                </div>
-                                <div class="modal-footer justify-center">
-                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
-                                    <button type="button" data-bs-dismiss="modal" class="btn btn-danger btn-sm" @click="logout()">确定</button>
-                                </div>
+                    <!-- Vue Modal -->
+                    <div v-if="showLogoutModal" class="fixed inset-0 flex items-center justify-center" style="z-index: 9999;">
+                        <div class="fixed inset-0 bg-black bg-opacity-50" @click="showLogoutModal = false"></div>
+                        <div class="bg-white rounded-lg shadow-xl p-6 w-80 relative z-10">
+                            <h5 class="text-lg font-medium text-gray-900 mb-4">温馨提示</h5>
+                            <p class="text-gray-600 mb-6">确认退出登录吗？</p>
+                            <div class="flex justify-end space-x-3">
+                                <button 
+                                    type="button" 
+                                    class="px-4 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-100 transition"
+                                    @click="showLogoutModal = false"
+                                >取消</button>
+                                <button 
+                                    type="button" 
+                                    class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+                                    @click="confirmLogout"
+                                >确定</button>
                             </div>
                         </div>
                     </div>
@@ -147,7 +141,8 @@ export default {
     },
     data() {
         return {
-            user: {}
+            user: {},
+            showLogoutModal: false
         };
     },
     watch: {
@@ -191,6 +186,10 @@ export default {
             apiService.post("/logout").then(response => {
                 this.$router.push({ path: "/login" });
             });
+        },
+        confirmLogout() {
+            this.showLogoutModal = false;
+            this.logout();
         }
     }
 };

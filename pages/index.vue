@@ -3,7 +3,7 @@
         <h1 class="hidden">lua 中国社区，lua 论坛</h1>
         <div class="flex flex-wrap -mx-4">
             <!-- Main Content -->
-            <div class="w-full lg:w-4/5 px-4 mb-8">
+            <div class="w-full lg:w-3/4 px-4 mb-8">
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
                     <div class="border-b border-gray-200 bg-gray-50 px-6 py-4">
                         <ul class="flex space-x-6">
@@ -137,7 +137,7 @@
             </div>
 
             <!-- Sidebar -->
-            <div class="w-full lg:w-1/5 px-4">
+            <div class="w-full lg:w-1/4 px-4">
                 <!-- Announcement -->
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
                     <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center text-gray-700 font-medium">
@@ -193,7 +193,7 @@
                             <span class="text-gray-600 text-sm block mb-2">站长微信：</span>
                             <img
                                 class="w-full rounded shadow-sm"
-                                src="~/assets/images/wechat-qrcode-100x100.jpeg"
+                                src="https://lua-china-1256147061.cos.ap-chengdu.myqcloud.com/public/wechat-qrcode.png"
                                 alt="adv"
                             />
                             <p class="text-xs text-gray-500 mt-2">
@@ -204,7 +204,7 @@
                             <span class="text-gray-600 text-sm block mb-2">qq群：</span>
                             <img
                                 class="w-full rounded shadow-sm"
-                                src="~/assets/images/qq-group-qrcode-100x100.jpeg"
+                                src="https://lua-china-1256147061.cos.ap-chengdu.myqcloud.com/public/qq-qrcode.png"
                                 alt="adv"
                             />
                         </div>
