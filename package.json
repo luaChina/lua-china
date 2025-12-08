@@ -34,8 +34,9 @@
         "vue-star": "0.0.4"
     },
     "devDependencies": {
+        "@nuxtjs/tailwindcss": "^4.2.1",
         "nodemon": "^1.18.9",
-        "sass": "^1.90.0",
-        "sass-loader": "^7.1.0"
+        "sass": "^1.94.2",
+        "sass-loader": "^10.5.2"
     }
 }

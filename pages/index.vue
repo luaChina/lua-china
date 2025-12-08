@@ -1,258 +1,213 @@
 <template>
-    <div>
-        <h1 style="display: none">lua 中国社区，lua 论坛</h1>
-        <div class="row">
-            <div class="col-lg-9 col-12 mb-4 px-lg-3">
-                <div class="card">
-                    <div class="card-header">
-                        <ul class="nav nav-tabs card-header-tabs">
-                            <li class="nav-item">
+    <div class="max-w-screen-2xl mx-auto px-4 py-8">
+        <h1 class="hidden">lua 中国社区，lua 论坛</h1>
+        <div class="flex flex-wrap -mx-4">
+            <!-- Main Content -->
+            <div class="w-full lg:w-4/5 px-4 mb-8">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="border-b border-gray-200 bg-gray-50 px-6 py-4">
+                        <ul class="flex space-x-6">
+                            <li>
                                 <a
                                     href="#"
-                                    class="nav-link text-muted active"
-                                    data-toggle="tab"
-                                    @click="getPosts(1)"
+                                    class="text-red-600 font-medium border-b-2 border-red-600 pb-1"
+                                    @click.prevent="getPosts(1)"
                                     id="nav-news"
-                                    aria-selected="true"
                                     >最新</a
                                 >
                             </li>
-                            <!-- <li class="nav-item">
-                                <a href="#" class="nav-link text-muted" data-toggle="tab" @click="getPosts('hot')" id="nav-hot" aria-selected="false">精华</a>
+                            <!-- <li>
+                                <a href="#" class="text-gray-500 hover:text-gray-700" @click.prevent="getPosts('hot')">精华</a>
                             </li>
-                             <li class="nav-item">
-                                <a href="#" class="nav-link text-muted" data-toggle="tab" @click="getPosts('discuss')" id="nav-discuss" aria-selected="false">回复最多</a>
+                            <li>
+                                <a href="#" class="text-gray-500 hover:text-gray-700" @click.prevent="getPosts('discuss')">回复最多</a>
                             </li> -->
                         </ul>
                     </div>
-                    <div class="tab-content" id="nav-tabContent">
-                        <ul class="list-group">
-                            <li
-                                v-for="(post, index) in posts"
-                                :key="index"
-                                class="
-                                    list-group-item
-                                    py-3
-                                    list-group-item-action
-                                    border-left-0 border-right-0
-                                "
+                    <div class="divide-y divide-gray-100">
+                        <div
+                            v-for="(post, index) in posts"
+                            :key="index"
+                            class="p-4 hover:bg-gray-50 transition duration-150 ease-in-out group"
+                        >
+                            <router-link
+                                :to="'/posts/' + post.id"
+                                class="flex items-center text-gray-800 group-hover:text-red-600 no-underline"
                             >
-                                <router-link
-                                    :to="'/posts/' + post.id"
-                                    class="text-body list-content"
-                                >
-                                    <div>
-                                        <hash-avatar
-                                            :url="post.user.avatar"
-                                            :user_id="post.user.id"
-                                            :size="31"
-                                            :alt="post.user.name"
-                                            class="rounded-circle me-2"
-                                        ></hash-avatar>
-                                        <span>{{ post.title }}</span>
+                                <div class="flex-shrink-0 mr-4">
+                                    <hash-avatar
+                                        :url="post.user.avatar"
+                                        :user_id="post.user.id"
+                                        :size="40"
+                                        :alt="post.user.name"
+                                        class="rounded-full"
+                                    ></hash-avatar>
+                                </div>
+                                <div class="flex-grow">
+                                    <div class="flex items-center">
+                                        <span class="text-lg font-medium">{{ post.title }}</span>
                                         <i
-                                            class="bi bi-bookmark-star-fill"
-                                            style="color: #ffec3d"
+                                            class="bi bi-bookmark-star-fill ml-2 text-yellow-400"
                                             v-if="post.excellent === 1"
                                         ></i>
                                     </div>
-                                    <!-- <div style="font-size: 14px;color: #8c8c8c;">阅读数:{{post.read_count}}</div> -->
-                                </router-link>
-                            </li>
-                        </ul>
+                                    <!-- <div class="text-sm text-gray-400 mt-1">阅读数: {{post.read_count}}</div> -->
+                                </div>
+                            </router-link>
+                        </div>
                     </div>
                 </div>
-                <ul class="pagination justify-content-center">
-                    <li :class="prevAble ? 'page-item' : 'page-item disabled'">
-                        <a
-                            class="page-link"
-                            aria-label="Previous"
-                            :href="getPageUrl(pageActive - 1)"
-                        >
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <template v-if="pageNum.length <= 8">
-                        <li
-                            :key="'pa' + index"
-                            :class="
-                                pageActive === item
-                                    ? 'page-item active'
-                                    : 'page-item'
-                            "
-                            v-for="(item, index) in pageNum"
-                        >
-                            <a
-                                class="page-link"
-                                :href="getPageUrl(item)"
-                                >{{ item }}</a
-                            >
-                        </li>
-                    </template>
-                    <template v-else>
-                        <li
-                            :key="'pa' + index"
-                            :class="
-                                pageActive == item
-                                    ? 'page-item active'
-                                    : 'page-item'
-                            "
-                            v-for="(item, index) in pageNum.slice(0, 5)"
-                        >
-                            <a
-                                class="page-link"
-                                :href="getPageUrl(item)"
-                                >{{ item }}</a
-                            >
-                        </li>
-                        <li class="d-flex align-items-end mx-1">...</li>
-                        <li
-                            class="page-item active"
-                            v-if="
-                                pageActive > 5 &&
-                                pageActive <= pageNum.length - 1
-                            "
-                        >
-                            <a
-                                class="page-link"
-                                :href="getPageUrl(pageActive)"
-                                >{{ pageActive }}</a
-                            >
-                        </li>
-                        <li
-                            :key="'pa' + pageNum.length - 1"
-                            :class="
-                                pageActive == pageNum[pageNum.length - 1]
-                                    ? 'page-item active'
-                                    : 'page-item'
-                            "
-                        >
-                            <a
-                                class="page-link"
-                                :href="getPageUrl(pageNum[pageNum.length - 1])"
-                                >{{ pageNum[pageNum.length - 1] }}</a
-                            >
-                        </li>
-                    </template>
 
-                    <li :class="nextAble ? 'page-item' : 'page-item disabled'">
+                <!-- Pagination -->
+                <div class="mt-8 flex justify-center">
+                    <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
                         <a
-                            class="page-link"
-                            aria-label="Next"
-                            :href="getPageUrl(parseInt(pageActive) + 1)"
+                            :href="getPageUrl(pageActive - 1)"
+                            class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                            :class="!prevAble ? 'opacity-50 cursor-not-allowed' : ''"
                         >
-                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Previous</span>
+                            <i class="bi bi-chevron-left"></i>
                         </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col">
-                <div class="border bg-white mb-4">
-                    <div
-                        class="
-                            text-muted
-                            border-bottom
-                            right-card-title
-                            d-flex
-                            align-items-center
-                            justify-content-center
-                        "
+                        
+                        <template v-if="pageNum.length <= 8">
+                            <a
+                                v-for="(item, index) in pageNum"
+                                :key="'pa' + index"
+                                :href="getPageUrl(item)"
+                                class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium hover:bg-gray-50"
+                                :class="pageActive === item ? 'z-10 bg-red-50 border-red-500 text-red-600' : 'text-gray-500'"
+                            >
+                                {{ item }}
+                            </a>
+                        </template>
+                        <template v-else>
+                            <a
+                                v-for="(item, index) in pageNum.slice(0, 5)"
+                                :key="'pa' + index"
+                                :href="getPageUrl(item)"
+                                class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium hover:bg-gray-50"
+                                :class="pageActive === item ? 'z-10 bg-red-50 border-red-500 text-red-600' : 'text-gray-500'"
+                            >
+                                {{ item }}
+                            </a>
+                            <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                                ...
+                            </span>
+                            <a
+                                v-if="pageActive > 5 && pageActive <= pageNum.length - 1"
+                                :href="getPageUrl(pageActive)"
+                                class="relative inline-flex items-center px-4 py-2 border border-red-500 bg-red-50 text-sm font-medium text-red-600 z-10"
+                            >
+                                {{ pageActive }}
+                            </a>
+                            <a
+                                :href="getPageUrl(pageNum[pageNum.length - 1])"
+                                class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium hover:bg-gray-50"
+                                :class="pageActive === pageNum[pageNum.length - 1] ? 'z-10 bg-red-50 border-red-500 text-red-600' : 'text-gray-500'"
+                            >
+                                {{ pageNum[pageNum.length - 1] }}
+                            </a>
+                        </template>
+
+                        <a
+                            :href="getPageUrl(parseInt(pageActive) + 1)"
+                            class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                            :class="!nextAble ? 'opacity-50 cursor-not-allowed' : ''"
+                        >
+                            <span class="sr-only">Next</span>
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </nav>
+                </div>
+
+                <!-- Technical Support -->
+                <div class="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-lg font-medium text-gray-700 mb-4">技术支撑</h3>
+                    <a
+                        href="https://github.com/luaChina/lua-china"
+                        target="_blank"
+                        rel="nofollow"
+                        class="inline-flex items-center text-gray-700 hover:text-gray-900 transition"
                     >
-                        <i class="me-2 bi bi-megaphone-fill"></i>
-                        <span>&nbsp;社区公告</span>
+                        <i class="bi bi-github text-2xl mr-2"></i>
+                        <span class="font-medium">社区源码</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="w-full lg:w-1/5 px-4">
+                <!-- Announcement -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+                    <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center text-gray-700 font-medium">
+                        <i class="bi bi-megaphone-fill mr-2 text-red-500"></i>
+                        <span>社区公告</span>
                     </div>
-                    <div class="announcement-content p-4 text-muted">
+                    <div class="p-4 text-gray-600 text-sm leading-relaxed">
                         欢迎Openresty、游戏逆向爱好者
                     </div>
                 </div>
-                <div class="border bg-white active-user mb-4">
-                    <div
-                        class="
-                            text-muted
-                            border-bottom
-                            right-card-title
-                            d-flex
-                            align-items-center
-                            justify-content-center
-                        "
-                    >
-                        <i class="bi bi-sort-up"></i>
-                        <span>&nbsp;本周活跃用户</span>
+
+                <!-- Active Users -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+                    <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center text-gray-700 font-medium">
+                        <i class="bi bi-sort-up mr-2 text-red-500"></i>
+                        <span>本周活跃用户</span>
                     </div>
-                    <div class="p-2 text-muted">
-                        <ul class="list-group">
+                    <div class="p-2">
+                        <ul class="space-y-2">
                             <li
-                                class="
-                                    list-group-item
-                                    border-0
-                                    d-flex
-                                    align-items-center
-                                    justify-content-between
-                                "
                                 v-for="(user, index) in topUsers"
                                 :key="index"
+                                class="flex items-center p-2 hover:bg-gray-50 rounded transition"
                             >
-                                <div>
-                                    <hash-avatar
-                                        :url="user.avatar"
-                                        :user_id="user.id"
-                                        :size="20"
-                                        :alt="user.name"
-                                        class="rounded-circle me-2"
-                                    ></hash-avatar>
-                                    <router-link
-                                        class="font-red text-decoration-none"
-                                        :to="'/users/' + user.id"
-                                        >{{ user.name }}</router-link
-                                    >
-                                </div>
-                                <span class="badge rounded-pill bg-danger">{{
-                                    index + 1
-                                }}</span>
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded text-xs font-medium bg-red-100 text-red-800 mr-2 flex-shrink-0">
+                                    {{ index + 1 }}
+                                </span>
+                                <hash-avatar
+                                    :url="user.avatar"
+                                    :user_id="user.id"
+                                    :size="24"
+                                    :alt="user.name"
+                                    class="rounded-full mr-2 flex-shrink-0"
+                                ></hash-avatar>
+                                <router-link
+                                    class="text-gray-700 hover:text-red-600 text-sm font-medium no-underline truncate"
+                                    :to="'/users/' + user.id"
+                                    >{{ user.name }}</router-link
+                                >
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="bg-white border">
-                    <div
-                        class="
-                            text-muted
-                            border-bottom
-                            text-center
-                            right-card-title
-                        "
-                    >
-                        <i class="bi bi-file-earmark-code"></i>
-                        <span>&nbsp;社区生态</span>
+
+                <!-- Ecosystem -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                    <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center text-gray-700 font-medium">
+                        <i class="bi bi-file-earmark-code mr-2 text-red-500"></i>
+                        <span>社区生态</span>
                     </div>
-                    <div class="p-4">
-                        <span class="contact-text">社区源码：</span
-                        ><a
-                            href="https://github.com/luaChina/lua-china"
-                            target="_blank"
-                            rel="nofollow"
-                        >
-                            <i class="bi bi-github"></i>
-                        </a>
-                    </div>
-                    <div class="p-4">
-                        <span class="contact-text">站长微信：</span>
-                        <img
-                            class="img-fluid"
-                            src="~/assets/images/wechat-qrcode-100x100.jpeg"
-                            alt="adv"
-                        />
-                    </div>
-                    <cite class="ps-4 pe-4 announcement-content text-muted">
-                        扫描上方二维码，站长拉你进微信群，备注: lua
-                    </cite>
-                    <div class="p-4">
-                        <span class="contact-text">qq群：</span>
-                        <img
-                            class="img-fluid"
-                            src="~/assets/images/qq-group-qrcode-100x100.jpeg"
-                            alt="adv"
-                        />
+                    <div class="p-4 space-y-4">
+                        <div>
+                            <span class="text-gray-600 text-sm block mb-2">站长微信：</span>
+                            <img
+                                class="w-full rounded shadow-sm"
+                                src="~/assets/images/wechat-qrcode-100x100.jpeg"
+                                alt="adv"
+                            />
+                            <p class="text-xs text-gray-500 mt-2">
+                                扫描上方二维码，站长拉你进微信群，备注: lua
+                            </p>
+                        </div>
+                        <div>
+                            <span class="text-gray-600 text-sm block mb-2">qq群：</span>
+                            <img
+                                class="w-full rounded shadow-sm"
+                                src="~/assets/images/qq-group-qrcode-100x100.jpeg"
+                                alt="adv"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -260,59 +215,7 @@
     </div>
 </template>
 
-<style lang="scss">
-.contact-text {
-    display: inline-block;
-    min-width: 80px;
-}
-.list-group-item:first-child {
-    border-top: 0;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
 
-.list-group-item:last-child {
-    border-bottom: 0;
-}
-
-.right-card-title {
-    background-color: #eee;
-    line-height: 30px;
-
-    svg {
-        height: 18px;
-        width: 18px;
-        margin-right: 4px;
-    }
-}
-
-.announcement-content {
-    display: block;
-}
-
-.list-content {
-    text-decoration: none !important;
-}
-
-.pagination {
-    margin-top: 15px;
-}
-
-.page-item.active .page-link {
-    background-color: #dc3545;
-    border-color: #dc3545;
-}
-
-.page-link,
-.page-link:hover,
-.page-link:focus {
-    color: #dc3545;
-}
-
-.page-link:focus {
-    box-shadow: none;
-}
-</style>
 
 <script>
 import apiService from "~/services/apiService";

@@ -32,6 +32,12 @@ module.exports = {
                 crossorigin: 'anonymous'
             }
         ],
+        script: [
+            {
+                src: "https://hm.baidu.com/hm.js?2a5e5c294d65229d5d15f0fd23477870",
+                async: true
+            }
+        ]
     },
 
     /*
@@ -62,14 +68,24 @@ module.exports = {
      */
     modules: [],
 
+    buildModules: [
+        '@nuxtjs/tailwindcss'
+    ],
+
     /*
      ** Build configuration
      */
     build: {
+        postcss: {
+            plugins: {
+                'postcss-custom-properties': false
+            }
+        },
         /*
          ** You can extend webpack config here
          */
-        extend(config, ctx) {},
+        extend(config, ctx) { },
         extractCSS: true
     }
 };
+
