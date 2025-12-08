@@ -1,11 +1,11 @@
 <template>
-    <div class="max-w-screen-2xl mx-auto px-2 py-4">
+    <div class="max-w-screen-2xl mx-auto px-0 sm:px-2 py-4">
         <h1 class="hidden">lua 中国社区，lua 论坛</h1>
-        <div class="flex flex-wrap -mx-4">
+        <div class="flex flex-wrap sm:-mx-4">
             <!-- Main Content -->
-            <div class="w-full lg:w-3/4 px-4 mb-8">
+            <div class="w-full lg:w-3/4 px-0 sm:px-4 mb-8">
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-                    <div class="border-b border-gray-200 bg-gray-50 px-6 py-4">
+                    <div class="border-b border-gray-200 bg-gray-50 py-3">
                         <ul class="flex space-x-6">
                             <li>
                                 <a
