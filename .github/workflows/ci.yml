@@ -30,6 +30,9 @@ jobs:
 
     - name: Build Nuxt app
       run: npm run build
+    
+    - name: Verify problematic file exists
+      run: find .nuxt/dist/client -name "*.js"
 
     - name: Deploy static assets to Tencent Cloud COS
       uses: TencentCloud/cos-action@v1
