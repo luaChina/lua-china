@@ -73,6 +73,13 @@ module.exports = {
     ],
 
     /*
+     ** Server middleware
+     */
+    serverMiddleware: [
+        '~/server/middleware/redirect-www.js'
+    ],
+
+    /*
      ** Build configuration
      */
     build: {
