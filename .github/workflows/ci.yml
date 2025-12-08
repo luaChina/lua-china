@@ -12,13 +12,35 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build docker image
+    name: Build and Deploy
     steps:
     - name: Checkout
       uses: actions/checkout@master
 
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
+
     - name: Change env.lua
       run: cp env.example.json env.json
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build Nuxt app
+      run: npm run build
+
+    - name: Deploy static assets to Tencent Cloud COS
+      uses: TencentCloud/cos-action@v1
+      with:
+        secret_id: ${{ secrets.TENCENT_CLOUD_SECRET_ID }}
+        secret_key: ${{ secrets.TENCENT_CLOUD_SECRET_KEY }}
+        cos_bucket: lua-china-1256147061
+        cos_region: ap-chengdu
+        local_path: .nuxt/dist/client
+        remote_path: /_nuxt
+        clean: false
 
     - name: Export Date Env
       id: CURRENT_DATE
