@@ -223,8 +223,23 @@ export default {
         }
     },
     head() {
+        // Strip HTML tags and get plain text summary
+        const stripHtml = (html) => {
+            return html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+        };
+        const content = this.post.content || '';
+        const plainText = stripHtml(content);
+        const description = plainText.substring(0, 160) + (plainText.length > 160 ? '...' : '');
+        
         return {
-            title: this.post.title + " | Lua China - Lua 中国开发者社区"
+            title: this.post.title + " | Lua China - Lua 中国开发者社区",
+            meta: [
+                {
+                    hid: 'description',
+                    name: 'description',
+                    content: description || this.post.title
+                }
+            ]
         };
     },
     computed: {

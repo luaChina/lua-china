@@ -7,7 +7,9 @@
                     type="text"
                     class="form-control"
                     required
+                    maxlength="60"
                     v-model.trim="post.title"
+                    placeholder="请输入标题，最多60个字"
                 />
             </div>
             <div class="form-row form-group">
