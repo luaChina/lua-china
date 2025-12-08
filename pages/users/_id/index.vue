@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <div
-                    v-if="Object.keys(posts).length === 0"
+                    v-if="!posts || posts.length === 0"
                     class="px-2 py-2 border-bottom border-light text-center text-muted text-break"
                 >
                     <i class="bi bi-emoji-frown"></i>
@@ -114,7 +114,7 @@
                     <div class="ms-2 text-muted text-desc"></div>
                 </div>
                 <div
-                    v-if="Object.keys(comments).length === 0"
+                    v-if="!comments || comments.length === 0"
                     class="px-2 py-2 border-bottom border-light text-center text-muted text-break"
                 >
                     <i class="bi bi-emoji-frown"></i>
@@ -149,7 +149,7 @@
                         </div>
                     </div>
                     <div
-                        v-if="Object.keys(drafts).length === 0"
+                        v-if="!drafts || drafts.length === 0"
                         class="px-2 py-2 border-bottom border-light text-center text-muted text-break"
                     >
                         <cite>暂无</cite>

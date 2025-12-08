@@ -64,7 +64,7 @@ export default {
     },
     async asyncData({ params, error }) {
         return await apiService
-            .get(config.apiInternalUrl + "/users/" + params.id)
+            .get(config.apiUrl + "/users/" + params.id)
             .then(res => {
                 if (res.data.status === 0x010009) {
                     error({
