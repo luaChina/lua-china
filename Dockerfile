@@ -1,10 +1,8 @@
-FROM node:20.19
+FROM node:20.19-slim
 
 COPY . /app
 
 WORKDIR /app
-
-RUN npm install && npm run build --prod
 
 EXPOSE 80
 
