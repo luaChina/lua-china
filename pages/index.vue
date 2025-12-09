@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="flex-grow">
                                     <div class="flex items-center">
-                                        <span class="text-lg font-medium">{{ post.title }}</span>
+                                        <span class="text-sm sm:text-lg font-medium">{{ post.title }}</span>
                                         <i
                                             class="bi bi-bookmark-star-fill ml-2 text-yellow-400"
                                             v-if="post.excellent === 1"
@@ -59,23 +59,30 @@
                 </div>
 
                 <!-- Pagination -->
-                <div class="mt-8 flex justify-center">
-                    <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                <div class="mt-8 flex justify-center px-2">
+                    <nav class="relative z-0 inline-flex flex-wrap justify-center rounded-md shadow-sm gap-1 sm:gap-0 sm:-space-x-px" aria-label="Pagination">
+                        <!-- Previous Button -->
                         <a
+                            v-if="prevAble"
                             :href="getPageUrl(pageActive - 1)"
-                            class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-                            :class="!prevAble ? 'opacity-50 cursor-not-allowed' : ''"
+                            class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-xs sm:text-sm font-medium text-gray-500 hover:bg-gray-50 no-underline"
                         >
                             <span class="sr-only">Previous</span>
                             <i class="bi bi-chevron-left"></i>
                         </a>
+                        <span
+                            v-else
+                            class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-gray-100 text-xs sm:text-sm font-medium text-gray-300 cursor-not-allowed"
+                        >
+                            <i class="bi bi-chevron-left"></i>
+                        </span>
                         
                         <template v-if="pageNum.length <= 8">
                             <a
                                 v-for="(item, index) in pageNum"
                                 :key="'pa' + index"
                                 :href="getPageUrl(item)"
-                                class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium hover:bg-gray-50"
+                                class="relative inline-flex items-center px-3 sm:px-4 py-2 border border-gray-300 bg-white text-xs sm:text-sm font-medium hover:bg-gray-50 no-underline"
                                 :class="pageActive === item ? 'z-10 bg-red-50 border-red-500 text-red-600' : 'text-gray-500'"
                             >
                                 {{ item }}
@@ -86,38 +93,45 @@
                                 v-for="(item, index) in pageNum.slice(0, 5)"
                                 :key="'pa' + index"
                                 :href="getPageUrl(item)"
-                                class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium hover:bg-gray-50"
+                                class="relative inline-flex items-center px-3 sm:px-4 py-2 border border-gray-300 bg-white text-xs sm:text-sm font-medium hover:bg-gray-50 no-underline"
                                 :class="pageActive === item ? 'z-10 bg-red-50 border-red-500 text-red-600' : 'text-gray-500'"
                             >
                                 {{ item }}
                             </a>
-                            <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                            <span class="relative inline-flex items-center px-3 sm:px-4 py-2 border border-gray-300 bg-white text-xs sm:text-sm font-medium text-gray-700">
                                 ...
                             </span>
                             <a
                                 v-if="pageActive > 5 && pageActive <= pageNum.length - 1"
                                 :href="getPageUrl(pageActive)"
-                                class="relative inline-flex items-center px-4 py-2 border border-red-500 bg-red-50 text-sm font-medium text-red-600 z-10"
+                                class="relative inline-flex items-center px-3 sm:px-4 py-2 border border-red-500 bg-red-50 text-xs sm:text-sm font-medium text-red-600 z-10 no-underline"
                             >
                                 {{ pageActive }}
                             </a>
                             <a
                                 :href="getPageUrl(pageNum[pageNum.length - 1])"
-                                class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium hover:bg-gray-50"
+                                class="relative inline-flex items-center px-3 sm:px-4 py-2 border border-gray-300 bg-white text-xs sm:text-sm font-medium hover:bg-gray-50 no-underline"
                                 :class="pageActive === pageNum[pageNum.length - 1] ? 'z-10 bg-red-50 border-red-500 text-red-600' : 'text-gray-500'"
                             >
                                 {{ pageNum[pageNum.length - 1] }}
                             </a>
                         </template>
 
+                        <!-- Next Button -->
                         <a
+                            v-if="nextAble"
                             :href="getPageUrl(parseInt(pageActive) + 1)"
-                            class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-                            :class="!nextAble ? 'opacity-50 cursor-not-allowed' : ''"
+                            class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-xs sm:text-sm font-medium text-gray-500 hover:bg-gray-50 no-underline"
                         >
                             <span class="sr-only">Next</span>
                             <i class="bi bi-chevron-right"></i>
                         </a>
+                        <span
+                            v-else
+                            class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-gray-100 text-xs sm:text-sm font-medium text-gray-300 cursor-not-allowed"
+                        >
+                            <i class="bi bi-chevron-right"></i>
+                        </span>
                     </nav>
                 </div>
 
