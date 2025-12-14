@@ -78,7 +78,7 @@ module.exports = {
      ** Build configuration
      */
     build: {
-        publicPath: 'https://lua-china-1256147061.cos.ap-chengdu.myqcloud.com/_nuxt/',
+        publicPath: 'https://lua-china-1256147061.cos.accelerate.tencentcos.cn/_nuxt/',
         postcss: {
             plugins: {
                 'postcss-custom-properties': false

@@ -147,7 +147,7 @@
                             <p class="mb-2">欢迎提 PR 增加社区能力</p>
                             <div class="wechat-qrcode-wrapper d-inline-block">
                                 <span class="text-secondary pointer hover:text-white transition">任何意见和反馈都是我们前进的基石</span>
-                                <img class="wechat-qrcode rounded shadow-lg" src="https://lua-china-1256147061.cos.ap-chengdu.myqcloud.com/public/wechat-qrcode.png" alt="WeChat QR" width="120" />
+                                <img class="wechat-qrcode rounded shadow-lg" src="https://lua-china-1256147061.cos.accelerate.tencentcos.cn/public/wechat-qrcode.png" alt="WeChat QR" width="120" />
                             </div>
                             <p class="mb2 mt-2">社区使用指南</p>
                             <p class="mb2">文档撰写指南</p>

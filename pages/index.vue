@@ -196,7 +196,7 @@
                             <span class="text-gray-600 text-sm block mb-2">有任何需要请站长微信：</span>
                             <img
                                 class="w-full rounded shadow-sm"
-                                src="https://lua-china-1256147061.cos.ap-chengdu.myqcloud.com/public/wechat-qrcode.png"
+                                src="https://lua-china-1256147061.cos.accelerate.tencentcos.cn/public/wechat-qrcode.png"
                                 alt="adv"
                                 loading="lazy"
                             />
@@ -208,7 +208,7 @@
                             <span class="text-gray-600 text-sm block mb-2">qq群：</span>
                             <img
                                 class="w-full rounded shadow-sm"
-                                src="https://lua-china-1256147061.cos.ap-chengdu.myqcloud.com/public/qq-qrcode.png"
+                                src="https://lua-china-1256147061.cos.accelerate.tencentcos.cn/public/qq-qrcode.png"
                                 alt="adv"
                                 loading="lazy"
                             />
