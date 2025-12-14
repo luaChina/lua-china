@@ -10,4 +10,4 @@ Vue.use(notification);
 
 window._ = require("lodash");
 window.bs = require("bootstrap");
-require("bootstrap-icons/font/bootstrap-icons.css");
+// require("bootstrap-icons/font/bootstrap-icons.css");

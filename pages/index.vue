@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="flex-grow">
                                     <div class="flex items-center">
-                                        <span class="text-sm sm:text-lg font-medium">{{ post.title }}</span>
+                                        <h2 class="text-sm sm:text-lg font-medium m-0">{{ post.title }}</h2>
                                         <i
                                             class="bi bi-bookmark-star-fill ml-2 text-yellow-400"
                                             v-if="post.excellent === 1"
@@ -145,7 +145,7 @@
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
                     <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center text-gray-700 font-medium">
                         <i class="bi bi-megaphone-fill mr-2 text-red-500"></i>
-                        <span>社区公告</span>
+                        <h3 class="m-0 text-base">社区公告</h3>
                     </div>
                     <div class="p-4 text-gray-600 text-sm leading-relaxed">
                         欢迎Openresty、游戏逆向爱好者
@@ -156,7 +156,7 @@
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
                     <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center text-gray-700 font-medium">
                         <i class="bi bi-sort-up mr-2 text-red-500"></i>
-                        <span>本周活跃用户</span>
+                        <h3 class="m-0 text-base">本周活跃用户</h3>
                     </div>
                     <div class="p-2">
                         <ul class="space-y-2">
@@ -189,7 +189,7 @@
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200">
                     <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center text-gray-700 font-medium">
                         <i class="bi bi-file-earmark-code mr-2 text-red-500"></i>
-                        <span>社区生态</span>
+                        <h3 class="m-0 text-base">社区生态</h3>
                     </div>
                     <div class="p-4 space-y-4">
                         <div>
@@ -198,6 +198,8 @@
                                 class="w-full rounded shadow-sm"
                                 src="https://lua-china-1256147061.cos.accelerate.tencentcos.cn/public/wechat-qrcode.png"
                                 alt="adv"
+                                width="300"
+                                height="300"
                                 loading="lazy"
                             />
                             <p class="text-xs text-gray-500 mt-2">
@@ -210,6 +212,8 @@
                                 class="w-full rounded shadow-sm"
                                 src="https://lua-china-1256147061.cos.accelerate.tencentcos.cn/public/qq-qrcode.png"
                                 alt="adv"
+                                width="300"
+                                height="300"
                                 loading="lazy"
                             />
                         </div>

@@ -1,9 +1,9 @@
 <template>
     <div class="bg-light d-flex flex-column main" id="app">
         <app-header></app-header>
-        <div class="container pt-3 main-content">
+        <main class="container pt-3 main-content" role="main">
             <nuxt />
-        </div>
+        </main>
         <app-foot></app-foot>
     </div>
 </template>

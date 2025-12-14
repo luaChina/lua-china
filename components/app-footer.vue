@@ -56,7 +56,7 @@
                                         ></hash-avatar>
                                         <span class="truncate max-w-[80px]">{{ post.user.name }}</span>
                                     </div>
-                                    <div class="text-gray-400 text-xs flex items-center">
+                                    <div class="text-gray-500 text-xs flex items-center">
                                         <i class="bi bi-eye mr-1"></i>
                                         <span>{{ post.read_count }}</span>
                                     </div>
@@ -134,7 +134,7 @@
                 <div class="row text-center pt-2">
                     <div class="col">
                         <p class="text-light font-bold mb-3">关于 Lua 社区</p>
-                        <p class="text-gray-400 text-xs mb-3">Lua 社区为开发者提供学习交流的平台，内容板块为 Lua 开发，Openresty 开发，逆向分析开发，游戏逆向等</p>
+                        <p class="text-gray-500 text-xs mb-3">Lua 社区为开发者提供学习交流的平台，内容板块为 Lua 开发，Openresty 开发，逆向分析开发，游戏逆向等</p>
                         <ul class="text-secondary p-0 list-unstyled">
                             <li><a class="text-secondary text-decoration-none hover:text-white transition" href="https://github.com/horan-geeker/nana" target="_blank" rel="nofollow">Nana 框架 (开源 Lua Web 框架)</a></li>
                             <li><a class="text-secondary text-decoration-none hover:text-white transition" href="https://github.com/luaChina/lua-china" target="_blank" rel="nofollow">社区前端 (Vue + Nuxt.js)</a></li>
@@ -147,7 +147,7 @@
                             <p class="mb-2">欢迎提 PR 增加社区能力</p>
                             <div class="wechat-qrcode-wrapper d-inline-block">
                                 <span class="text-secondary pointer hover:text-white transition">任何意见和反馈都是我们前进的基石</span>
-                                <img class="wechat-qrcode rounded shadow-lg" src="https://lua-china-1256147061.cos.accelerate.tencentcos.cn/public/wechat-qrcode.png" alt="WeChat QR" width="120" />
+                                <img class="wechat-qrcode rounded shadow-lg" src="https://lua-china-1256147061.cos.accelerate.tencentcos.cn/public/wechat-qrcode.png" alt="WeChat QR" width="120" height="120" />
                             </div>
                             <p class="mb2 mt-2">社区使用指南</p>
                             <p class="mb2">文档撰写指南</p>
@@ -173,9 +173,9 @@
                     <div class="col">
                         <div class="footer-copyright text-center text-gray-500 text-xs">Designed by
                             <i class="bi bi-layout-wtf"></i>
-                            <a class="text-gray-400 font-italic hover:text-white transition" href="https://github.com/horan-geeker" target="_blank" rel="nofollow"> Horan</a>
+                            <a class="text-gray-500 font-italic hover:text-white transition" href="https://github.com/horan-geeker" target="_blank" rel="nofollow"> Horan</a>
                             and
-                            <a class="text-gray-400 font-italic hover:text-white transition" href="https://github.com/AmazingMoon" target="_blank" rel="nofollow"> Amazing</a>
+                            <a class="text-gray-500 font-italic hover:text-white transition" href="https://github.com/AmazingMoon" target="_blank" rel="nofollow"> Amazing</a>
                             <div class="mt-1"><a class="text-gray-500 font-italic text-decoration-none hover:text-white transition" href="https://beian.miit.gov.cn" target="_blank">陕ICP备16002741号</a></div>
                         </div>
                     </div>
