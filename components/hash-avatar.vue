@@ -1,5 +1,5 @@
 <template>
-    <img :src="avatar_url" :alt="name" :width="size" :height="size">
+    <img :src="avatar_url" :alt="name" :width="size" :height="size" loading="lazy">
 </template>
 
 <script>

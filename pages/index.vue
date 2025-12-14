@@ -198,6 +198,7 @@
                                 class="w-full rounded shadow-sm"
                                 src="https://lua-china-1256147061.cos.ap-chengdu.myqcloud.com/public/wechat-qrcode.png"
                                 alt="adv"
+                                loading="lazy"
                             />
                             <p class="text-xs text-gray-500 mt-2">
                                 由于微信群二维码会自动过期，加群可以扫描上方二维码，站长拉你进微信群，备注: lua
@@ -209,6 +210,7 @@
                                 class="w-full rounded shadow-sm"
                                 src="https://lua-china-1256147061.cos.ap-chengdu.myqcloud.com/public/qq-qrcode.png"
                                 alt="adv"
+                                loading="lazy"
                             />
                         </div>
                     </div>

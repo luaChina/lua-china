@@ -88,7 +88,25 @@ module.exports = {
          ** You can extend webpack config here
          */
         extend(config, ctx) { },
-        extractCSS: true
+        extractCSS: true,
+        optimization: {
+            splitChunks: {
+                chunks: 'all',
+                automaticNameDelimiter: '.',
+                name: undefined,
+                cacheGroups: {
+                    vendors: {
+                        test: /[\\/]node_modules[\\/]/,
+                        priority: -10
+                    },
+                    default: {
+                        minChunks: 2,
+                        priority: -20,
+                        reuseExistingChunk: true
+                    }
+                }
+            }
+        }
     }
 };
 
