@@ -5,7 +5,7 @@ module.exports = {
      ** Headers of the page
      */
     head: {
-        title: "Lua China - Lua 中国开发者社区",
+        title: "Lua 社区",
         meta: [
             { charset: "utf-8" },
             {
@@ -17,7 +17,7 @@ module.exports = {
                 hid: "description",
                 name: "description",
                 content:
-                    "Lua 中国，Lua 论坛，为开发者提供学习交流的平台，Lua 开发，Openresty社区，Openresty框架，逆向分析社区，逆向分析工具，逆向工程，游戏逆向,OpenResty community,Reverse engineering,Game reverse engineering"
+                    "Lua 论坛，Lua Forum为开发者提供学习交流的平台，Lua 开发，Openresty社区，Openresty框架，逆向分析社区，逆向分析工具，逆向工程，游戏逆向,OpenResty community,Reverse engineering,Game reverse engineering"
             }
         ],
         link: [

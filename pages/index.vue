@@ -136,18 +136,7 @@
                 </div>
 
                 <!-- Technical Support -->
-                <div class="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                    <h3 class="text-lg font-medium text-gray-700 mb-4">技术支撑</h3>
-                    <a
-                        href="https://github.com/luaChina/lua-china"
-                        target="_blank"
-                        rel="nofollow"
-                        class="inline-flex items-center text-gray-700 hover:text-gray-900 transition"
-                    >
-                        <i class="bi bi-github text-2xl mr-2"></i>
-                        <span class="font-medium">社区源码</span>
-                    </a>
-                </div>
+
             </div>
 
             <!-- Sidebar -->
@@ -204,14 +193,14 @@
                     </div>
                     <div class="p-4 space-y-4">
                         <div>
-                            <span class="text-gray-600 text-sm block mb-2">站长微信：</span>
+                            <span class="text-gray-600 text-sm block mb-2">有任何需要请站长微信：</span>
                             <img
                                 class="w-full rounded shadow-sm"
                                 src="https://lua-china-1256147061.cos.ap-chengdu.myqcloud.com/public/wechat-qrcode.png"
                                 alt="adv"
                             />
                             <p class="text-xs text-gray-500 mt-2">
-                                扫描上方二维码，站长拉你进微信群，备注: lua
+                                由于微信群二维码会自动过期，加群可以扫描上方二维码，站长拉你进微信群，备注: lua
                             </p>
                         </div>
                         <div>
@@ -274,7 +263,7 @@ export default {
             apiUrl = config.apiUrl;
         }
         return axios
-            .get(apiUrl + "/posts?page=" + page)
+            .get(apiUrl + "/posts?pagesize=40&page=" + page)
             .then((res) => {
                 if (res.data.data.data.length == undefined) {
                     context.error({

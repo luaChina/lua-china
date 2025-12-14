@@ -17,19 +17,21 @@
                     active-class="text-red-600 font-bold"
                     exact
                     rel="nofollow"
-                >文章</router-link>
-                <a
-                    href="https://www.github.com/horan-geeker/nana"
-                    target="_blank"
-                    rel="nofollow"
+                >Lua 开发</router-link>
+                <router-link
+                    to="/"
                     class="text-gray-600 hover:text-red-600 font-medium transition text-decoration-none"
-                >Nana</a>
-                <a
-                    href="https://konghq.com/"
-                    target="_blank"
+                    active-class="text-red-600 font-bold"
+                    exact
                     rel="nofollow"
+                >Openresty 开发</router-link>
+                <router-link
+                    to="/"
                     class="text-gray-600 hover:text-red-600 font-medium transition text-decoration-none"
-                >Kong</a>
+                    active-class="text-red-600 font-bold"
+                    exact
+                    rel="nofollow"
+                >逆向分析开发</router-link>
             </div>
 
             <!-- Auth Buttons -->
