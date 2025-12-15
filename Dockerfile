@@ -5,6 +5,7 @@ WORKDIR /app
 # Copy package files first for better caching
 COPY package*.json ./
 COPY env.json ./
+COPY static ./static
 
 # Install production dependencies only
 RUN npm install --production --omit=dev
