@@ -8,7 +8,6 @@ layouts
 middleware
 pages
 plugins
-static
 store
 
 # Dev files
