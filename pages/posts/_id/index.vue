@@ -292,8 +292,13 @@ export default {
             });
         }
     },
-    async asyncData({ params, error }) {
+    async asyncData({ params, error, req }) {
         let apiUrl = config.apiInternalUrl;
+        let headers = {};
+        if (process.server && req && req.headers && req.headers.cookie) {
+            headers.Cookie = req.headers.cookie;
+        }
+
         if (process.client) {
             apiUrl = config.apiUrl;
         }
@@ -306,12 +311,12 @@ export default {
             .catch(err => {
                 return error({
                     statusCode: 500,
-                    message: "服务器挂了！赶快联系站长，13571899655@163.com"
+                    message: "服务器挂了！赶快联系站长，hejunweimake@gmail.com"
                 });
             });
         //当前文章
         let post = await apiService
-            .get(apiUrl + "/posts/" + params.id)
+            .get(apiUrl + "/posts/" + params.id, { headers })
             .then(res => {
                 if (res.data.status !== 0) {
                     return error({
@@ -324,7 +329,7 @@ export default {
             .catch(err => {
                 return error({
                     statusCode: 500,
-                    message: "服务器挂了！赶快联系站长，13571899655@163.com"
+                    message: "服务器挂了！赶快联系站长，hejunweimake@gmail.com"
                 });
             });
         if (!Array.isArray(post.comments)) {

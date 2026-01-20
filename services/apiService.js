@@ -31,8 +31,8 @@ export default {
     put(uri, data) {
         return service.put(uri, data)
     },
-    get(uri) {
-        return service.get(uri)
+    get(uri, config) {
+        return service.get(uri, config)
     },
     delete(uri) {
         return service.delete(uri)
