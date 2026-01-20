@@ -86,7 +86,7 @@ export default {
                     message: "发布成功"
                 });
                 // 触发子组件 destroy 消除定时器
-                this.$router.push("/");
+                this.$router.push("/posts/" + response.data.data.id);
                 // 定时器消除后删除 localstorage
                 localStorage.delete("smde_article");
             });

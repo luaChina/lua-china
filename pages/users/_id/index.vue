@@ -67,7 +67,14 @@
                             class="text-muted text-decoration-none"
                             target="_blank"
                             :href="'/posts/' + post.id"
-                            ><div>{{ post.title }}</div></a
+                            ><div>
+                                {{ post.title }}
+                                <span
+                                    v-if="post.status === 0"
+                                    class="badge bg-warning text-dark ms-2"
+                                    >审核中</span
+                                >
+                            </div></a
                         >
                     </div>
                     <div
