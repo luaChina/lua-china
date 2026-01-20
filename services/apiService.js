@@ -14,25 +14,27 @@ service.interceptors.response.use(
         });
     },
     err => {
-        Vue.toast({
-            type: 'error',
-            message: err
-        });
+        if (process.client) {
+            Vue.toast({
+                type: 'error',
+                message: err
+            });
+        }
         return Promise.reject(err)
     }
 );
 
 export default {
-    post (uri, data) {
+    post(uri, data) {
         return service.post(uri, data)
     },
-    put (uri, data) {
+    put(uri, data) {
         return service.put(uri, data)
     },
-    get (uri) {
+    get(uri) {
         return service.get(uri)
     },
-    delete (uri) {
+    delete(uri) {
         return service.delete(uri)
     }
 }
