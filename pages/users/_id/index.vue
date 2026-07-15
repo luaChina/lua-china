@@ -220,8 +220,12 @@ export default {
         }
     },
     asyncData({ params, error }) {
+        let apiUrl = config.apiInternalUrl;
+        if (process.client) {
+            apiUrl = config.apiUrl;
+        }
         return axios
-            .get(config.apiUrl + "/users/" + params.id)
+            .get(apiUrl + "/users/" + params.id, { timeout: 8000 })
             .then(res => {
                 if (res.data.status === 0x010009) {
                     error({

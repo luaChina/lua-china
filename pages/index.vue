@@ -269,7 +269,7 @@ export default {
             apiUrl = config.apiUrl;
         }
         return axios
-            .get(apiUrl + "/posts?pagesize=40&page=" + page)
+            .get(apiUrl + "/posts?pagesize=40&page=" + page, { timeout: 8000 })
             .then((res) => {
                 if (res.data.data.data.length == undefined) {
                     context.error({
